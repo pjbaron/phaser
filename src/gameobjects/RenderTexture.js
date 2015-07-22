@@ -4,6 +4,10 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: this seems to be directly equivalent to something I've been calling RTT (render-to-texture) in the new renderer
+// PJBNOTE: unless it adds some new features, the entire class should be deprecated.  Otherwise it may need to extend pbImage and redirect the draw methods
+// PJBNOTE: to the special purpose rtt functions in pbWebGl.js
+
 /**
 * A RenderTexture is a special texture that allows any displayObject to be rendered to it. It allows you to take many complex objects and
 * render them down into a single quad (on WebGL) which can then be used to texture other display objects with. A way of generating textures at run-time.
@@ -43,9 +47,11 @@ Phaser.RenderTexture = function (game, width, height, key, scaleMode, resolution
     /**
     * @property {PIXI.Matrix} matrix - The matrix that is applied when display objects are rendered to this RenderTexture.
     */
-    this.matrix = new PIXI.Matrix();
+// PJBNOTE: see if PIXI.Matrix is 2d or 3d (3 or 4 column homogenous) and use the appropriate version of pbMatrix... check all parameters and method calls
+//    this.matrix = new PIXI.Matrix();
 
-    PIXI.RenderTexture.call(this, width, height, this.game.renderer, scaleMode, resolution);
+// PJBNOTE: if this class survives the transition (see notes in file header comments) this needs an equivalent
+//    PIXI.RenderTexture.call(this, width, height, this.game.renderer, scaleMode, resolution);
 
     this.render = Phaser.RenderTexture.prototype.render;
 
@@ -68,14 +74,15 @@ Phaser.RenderTexture.prototype.renderXY = function (displayObject, x, y, clear) 
     this.matrix.tx = x;
     this.matrix.ty = y;
 
-    if (this.renderer.type === PIXI.WEBGL_RENDERER)
+// PJBNOTE: deprecated class?  even if not, the new renderer redirects such drawing calls through an intermediary layer automatically
+    // if (this.renderer.type === PIXI.WEBGL_RENDERER)
     {
         this.renderWebGL(displayObject, this.matrix, clear);
     }
-    else
-    {
-        this.renderCanvas(displayObject, this.matrix, clear);
-    }
+    // else
+    // {
+    //     this.renderCanvas(displayObject, this.matrix, clear);
+    // }
 
 };
 
@@ -92,13 +99,14 @@ Phaser.RenderTexture.prototype.render = function (displayObject, position, clear
     this.matrix.tx = position.x;
     this.matrix.ty = position.y;
 
-    if (this.renderer.type === PIXI.WEBGL_RENDERER)
+// PJBNOTE: deprecated class?  even if not, the new renderer redirects such drawing calls through an intermediary layer automatically
+    // if (this.renderer.type === PIXI.WEBGL_RENDERER)
     {
         this.renderWebGL(displayObject, this.matrix, clear);
     }
-    else
-    {
-        this.renderCanvas(displayObject, this.matrix, clear);
-    }
+    // else
+    // {
+    //     this.renderCanvas(displayObject, this.matrix, clear);
+    // }
 
 };

@@ -4,6 +4,10 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: I think this can be replaced by using texture offsets in pbSurface (see pbInvaders demo which used this for it's starfield for a while)
+// PJBNOTE: Further for webGl purposes, setting the pbSurface.isTiled flag will enable gl.WRAP in both directions
+// PJBNOTE: I suspect this whole class can be deprecated unless it does something more than described in the comments below
+
 /**
 * A Rope is a Sprite that has a repeating texture. The texture can be scrolled and scaled and will automatically wrap on the edges as it does so.
 * Please note that Ropes, as with normal Sprites, have no input handler or physics bodies by default. Both need enabling.
@@ -85,7 +89,8 @@ Phaser.Rope = function (game, x, y, key, frame, points) {
     */
     this._scroll = new Phaser.Point();
 
-    PIXI.Rope.call(this, key, this.points);
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+    // PIXI.Rope.call(this, key, this.points);
 
     this.position.set(x,y);
 
@@ -155,7 +160,8 @@ Phaser.Rope = function (game, x, y, key, frame, points) {
 
 };
 
-Phaser.Rope.prototype = Object.create(PIXI.Rope.prototype);
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+//Phaser.Rope.prototype = Object.create(PIXI.Rope.prototype);
 Phaser.Rope.prototype.constructor = Phaser.Rope;
 
 /**
@@ -323,26 +329,30 @@ Phaser.Rope.prototype.loadTexture = function (key, frame) {
     {
         this.setTexture(key.texture);
     }
-    else if (key instanceof PIXI.Texture)
-    {
-        this.setTexture(key);
-    }
+ // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+    // else if (key instanceof PIXI.Texture)
+    // {
+    //     this.setTexture(key);
+    // }
     else
     {
         if (key === null || typeof key === 'undefined')
         {
             this.key = '__default';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+            // this.setTexture(PIXI.TextureCache[this.key]);
         }
         else if (typeof key === 'string' && !this.game.cache.checkImageKey(key))
         {
             console.warn("Texture with key '" + key + "' not found.");
             this.key = '__missing';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+            // this.setTexture(PIXI.TextureCache[this.key]);
         }
         else
         {
-            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here            
+            // this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
             this.animations.loadFrameData(this.game.cache.getFrameData(key), frame);
         }
     }

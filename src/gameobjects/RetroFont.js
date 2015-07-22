@@ -4,6 +4,8 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: directly equivalent to pbText (as at 21st July 2015)... deprecate or extend that class
+
 /**
 * A Retro Font is similar to a BitmapFont, in that it uses a texture to render the text. However unlike a BitmapFont every character in a RetroFont
 * is the same size. This makes it similar to a sprite sheet. You typically find font sheets like this from old 8/16-bit games and demos.
@@ -142,12 +144,13 @@ Phaser.RetroFont = function (game, key, characterWidth, characterHeight, chars, 
 
         this.grabData[chars.charCodeAt(c)] = frame.index;
 
-        PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
-            x: currentX,
-            y: currentY,
-            width: this.characterWidth,
-            height: this.characterHeight
-        });
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+        // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
+        //     x: currentX,
+        //     y: currentY,
+        //     width: this.characterWidth,
+        //     height: this.characterHeight
+        // });
 
         r++;
 
@@ -549,8 +552,9 @@ Phaser.RetroFont.prototype.updateOffset = function (x, y) {
     {
         frames[i].x += diffX;
         frames[i].y += diffY;
-        PIXI.TextureCache[frames[i].uuid].frame.x = frames[i].x;
-        PIXI.TextureCache[frames[i].uuid].frame.y = frames[i].y;
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+        // PIXI.TextureCache[frames[i].uuid].frame.x = frames[i].x;
+        // PIXI.TextureCache[frames[i].uuid].frame.y = frames[i].y;
     }
 
     this.buildRetroFontText();
