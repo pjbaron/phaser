@@ -96,6 +96,7 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     */
     this.preserveDrawingBuffer = false;
 
+// PJBNOTE: reference to PIXI renderer here can probably be replaced with a new renderer reference but all accessors will need to be traced to ensure the parameters & methods are valid
     /**
     * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer - The Pixi Renderer.
     */
@@ -586,7 +587,9 @@ Phaser.Game.prototype = {
         if (this.device.chrome)
         {
             var args = [
-                '%c %c %c Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + '  %c %c ' + ' http://phaser.io  %c %c \u2665%c\u2665%c\u2665 ',
+// PJBNOTE: removed version number for PIXI, new renderer should have a version string
+//                '%c %c %c Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + '  %c %c ' + ' http://phaser.io  %c %c \u2665%c\u2665%c\u2665 ',
+                '%c %c %c Phaser v' + v + ' | ' + r + ' | ' + a + '  %c %c ' + ' http://phaser.io  %c %c \u2665%c\u2665%c\u2665 ',
                 'background: #7a66a3',
                 'background: #625186',
                 'color: #ffffff; background: #43375b;',
@@ -611,7 +614,9 @@ Phaser.Game.prototype = {
         }
         else if (window['console'])
         {
-            console.log('Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + ' | http://phaser.io');
+// PJBNOTE: add version for new renderer            
+//            console.log('Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + ' | http://phaser.io');
+            console.log('Phaser v' + v + ' | ' + r + ' | ' + a + ' | http://phaser.io');
         }
 
     },
@@ -655,6 +660,8 @@ Phaser.Game.prototype = {
             }
         }
 
+// PJBNOTE: the new renderer has directly equivalent code built into it... need to choose which one to use and remove the other version
+// PJBNOTE: the new renderer can support more modes than Canvas/WebGL but doesn't currently (21st July 2015) adjust the other parameters used here (transparent, resolution, etc)
         if (this.renderType === Phaser.HEADLESS || this.renderType === Phaser.CANVAS || (this.renderType === Phaser.AUTO && this.device.webGL === false))
         {
             if (this.device.canvas)
@@ -664,6 +671,7 @@ Phaser.Game.prototype = {
                     this.renderType = Phaser.CANVAS;
                 }
 
+// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
                 this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
                 this.context = this.renderer.context;
             }
@@ -674,6 +682,7 @@ Phaser.Game.prototype = {
         }
         else
         {
+// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
             //  They requested WebGL and their browser supports it
             this.renderType = Phaser.WEBGL;
 
@@ -902,7 +911,8 @@ Phaser.Game.prototype = {
 
         if (this.renderType === Phaser.WEBGL)
         {
-            PIXI.glContexts[this.renderer.glContextId] = null;
+// PJBNOTE: I'm not sure what this is for.  I doubt the new renderer supports it yet.
+//            PIXI.glContexts[this.renderer.glContextId] = null;
 
             this.renderer.projection = null;
             this.renderer.offset = null;

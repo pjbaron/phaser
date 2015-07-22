@@ -4,6 +4,8 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: superceeded by "layers" which are not only built into the new renderer, but are essential to it's operation.  We probably need to make substantial changes to Group to fit it to layers.
+
 /**
 * A Group is a container for display objects that allows for fast pooling and object recycling.
 * Groups can be nested within other Groups and have their own local transforms.
@@ -39,7 +41,8 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
     */
     this.name = name || 'group';
 
-    PIXI.DisplayObjectContainer.call(this);
+// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+//    PIXI.DisplayObjectContainer.call(this);
 
     if (addToStage)
     {
@@ -153,7 +156,8 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 };
 
-Phaser.Group.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+//Phaser.Group.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
 Phaser.Group.prototype.constructor = Phaser.Group;
 
 /**
@@ -1847,6 +1851,7 @@ Object.defineProperty(Phaser.Group.prototype, "fixedToCamera", {
 });
 
 //  Documentation stubs
+
 
 /**
 * The x coordinate of the Group container. You can adjust the Group container itself by modifying its coordinates.
