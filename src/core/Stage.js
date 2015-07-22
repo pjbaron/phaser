@@ -4,6 +4,9 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: sounds like this is equivalent to rootLayer in the new renderer with a few extra features (loss of focus etc)
+// PJBNOTE: decisions to be made whether we want a single Stage which is separate (or derived) from the new layer system... it may prevent tricks like having multiple canvas objects acting as separate stages.
+// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
 /**
 * The Stage controls root level display objects upon which everything is displayed.
 * It also handles browser visibility handling and the pausing due to loss of focus.
@@ -71,7 +74,8 @@ Phaser.Stage = function (game) {
 
 };
 
-Phaser.Stage.prototype = Object.create(PIXI.Stage.prototype);
+// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+//Phaser.Stage.prototype = Object.create(PIXI.Stage.prototype);
 Phaser.Stage.prototype.constructor = Phaser.Stage;
 
 /**
@@ -358,7 +362,9 @@ Object.defineProperty(Phaser.Stage.prototype, "smoothed", {
 
     get: function () {
 
-        return !PIXI.scaleModes.LINEAR;
+// PJBNOTE: change this after deciding the future of this class as detailed above
+        //return PIXI.scaleModes.DEFAULT === PIXI.scaleModes.LINEAR;
+        return true;
 
     },
 
@@ -366,11 +372,13 @@ Object.defineProperty(Phaser.Stage.prototype, "smoothed", {
 
         if (value)
         {
-            PIXI.scaleModes.LINEAR = 0;
+// PJBNOTE: change this after deciding the future of this class as detailed above
+            //PIXI.scaleModes.DEFAULT = PIXI.scaleModes.LINEAR;
         }
         else
         {
-            PIXI.scaleModes.LINEAR = 1;
+// PJBNOTE: change this after deciding the future of this class as detailed above
+            //PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
         }
     }
 

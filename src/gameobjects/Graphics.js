@@ -79,7 +79,9 @@ Phaser.Graphics = function (game, x, y) {
 
 };
 
-Phaser.Graphics.prototype = Object.create(PIXI.Graphics.prototype);
+// PJBNOTE: basic drawing functions.  Should this be in the renderer itself?
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+//Phaser.Graphics.prototype = Object.create(PIXI.Graphics.prototype);
 Phaser.Graphics.prototype.constructor = Phaser.Graphics;
 
 /**

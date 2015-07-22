@@ -9,6 +9,7 @@
 * It can still rotate, scale, crop and receive input events. This makes it perfect for logos, backgrounds, simple buttons and other non-Sprite graphics.
 *
 * @class Phaser.Image
+// PJBNOTE: I expect this will change to wrap the new renderer pbSprite, but maybe it's closer to the pbImage or pbTransformObject?
 * @extends PIXI.Sprite
 * @constructor
 * @param {Phaser.Game} game - A reference to the currently running game.
@@ -67,7 +68,9 @@ Phaser.Image = function (game, x, y, key, frame) {
     */
     this.key = key;
 
-    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
+// PJBNOTE: call appropriate c'tor for the equivalent new renderer feature
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+//    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
 
     this.transformCallback = this.checkTransform;
     this.transformCallbackContext = this;
@@ -155,7 +158,8 @@ Phaser.Image = function (game, x, y, key, frame) {
 
 };
 
-Phaser.Image.prototype = Object.create(PIXI.Sprite.prototype);
+// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+//Phaser.Image.prototype = Object.create(PIXI.Sprite.prototype);
 Phaser.Image.prototype.constructor = Phaser.Image;
 
 /**
@@ -272,26 +276,30 @@ Phaser.Image.prototype.loadTexture = function (key, frame) {
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA), frame);
         }
     }
-    else if (key instanceof PIXI.Texture)
-    {
-        this.setTexture(key);
-    }
+// PJBNOTE: a pbSurface probably...
+    // else if (key instanceof PIXI.Texture)
+    // {
+    //     this.setTexture(key);
+    // }
     else
     {
         if (key === null || typeof key === 'undefined')
         {
             this.key = '__default';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: what's the difference between undefined and missing?  I believe they're both simple default textures to indicate a graphics failure?
+            // this.setTexture(PIXI.TextureCache[this.key]);
         }
         else if (typeof key === 'string' && !this.game.cache.checkImageKey(key))
         {
             console.warn("Texture with key '" + key + "' not found.");
             this.key = '__missing';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: what's the difference between undefined and missing?  I believe they're both simple default textures to indicate a graphics failure?
+            // this.setTexture(PIXI.TextureCache[this.key]);
         }
         else
         {
-            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+// PJBNOTE: I have no idea what 'key' is holding at this point...
+            // this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
 
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key), frame);
         }
@@ -867,7 +875,8 @@ Object.defineProperty(Phaser.Image.prototype, "frame", {
 
             if (frameData && value < frameData.total && frameData.getFrame(value))
             {
-                this.setTexture(PIXI.TextureCache[frameData.getFrame(value).uuid]);
+// PJBNOTE: appears to be animating but without using an AnimationManager or the Animation class... which is still possible by changing cellFrame on the pbSurface
+//                this.setTexture(PIXI.TextureCache[frameData.getFrame(value).uuid]);
                 this._frame = value;
             }
         }
@@ -896,7 +905,9 @@ Object.defineProperty(Phaser.Image.prototype, "frameName", {
 
             if (frameData && frameData.getFrameByName(value))
             {
-                this.setTexture(PIXI.TextureCache[frameData.getFrameByName(value).uuid]);
+// PJBNOTE: appears to be animating via a label, but without using an AnimationManager or the Animation class... new renderer does not support names
+// PJBNOTE: and it looks like PIXI doesn't either and is using a uuid (I thought that was deprecated?) to reference the texture
+//                this.setTexture(PIXI.TextureCache[frameData.getFrameByName(value).uuid]);
                 this._frameName = value;
             }
         }

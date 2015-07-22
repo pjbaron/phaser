@@ -1016,7 +1016,8 @@ Phaser.BitmapData.prototype = {
                 if (source.cachedTint !== source.tint)
                 {
                     source.cachedTint = source.tint;
-                    source.tintedTexture = PIXI.CanvasTinter.getTintedTexture(source, source.tint);
+// PJBNOTE: new renderer does not yet support tinted canvas
+//                    source.tintedTexture = PIXI.CanvasTinter.getTintedTexture(source, source.tint);
                 }
 
                 this._image = source.tintedTexture;

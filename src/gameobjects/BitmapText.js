@@ -13,6 +13,7 @@
 *
 * @class Phaser.BitmapText
 * @constructor
+// PJBNOTE: change this to extend pbText and check all parameters and methods accessed from the super class
 * @extends PIXI.BitmapText
 * @param {Phaser.Game} game - A reference to the currently running game.
 * @param {number} x - X position of the new bitmapText object.
@@ -107,7 +108,8 @@ Phaser.BitmapText = function (game, x, y, font, text, size) {
     */
     this.cameraOffset = new Phaser.Point();
 
-    PIXI.BitmapText.call(this, text);
+// PJBNOTE: call super constructor
+//    PIXI.BitmapText.call(this, text);
 
     this.position.set(x, y);
 
