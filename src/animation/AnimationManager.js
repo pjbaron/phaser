@@ -415,7 +415,8 @@ Phaser.AnimationManager.prototype = {
     */
     refreshFrame: function () {
 
-        this.sprite.setTexture(PIXI.TextureCache[this.currentFrame.uuid]);
+// PJBNOTE: I'm not sure what this is supposed to do... under what circumstances would it be used?
+//        this.sprite.setTexture(PIXI.TextureCache[this.currentFrame.uuid]);
 
         if (this.sprite.__tilePattern)
         {

@@ -44,6 +44,7 @@ Phaser.Filter = function (game, uniforms, fragmentSrc) {
     * @property {boolean} dirty - Internal PIXI var.
     * @default
     */
+// PJBNOTE: this approach to Filters is obsolete, the new renderer provides full user-defined filter support.  May be desirable to wrap it with this class for backwards compatibility.
     this.dirty = true;
 
     /**

@@ -76,12 +76,13 @@ Phaser.AnimationParser = {
             //  uuid needed?
             data.addFrame(new Phaser.Frame(i, x, y, frameWidth, frameHeight, '', uuid));
 
-            PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
-                x: x,
-                y: y,
-                width: frameWidth,
-                height: frameHeight
-            });
+// PJBNOTE: need to change this to the new renderer approach... are these spritesheets obsolete?
+            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
+            //     x: x,
+            //     y: y,
+            //     width: frameWidth,
+            //     height: frameHeight
+            // });
 
             x += frameWidth + spacing;
 
@@ -136,12 +137,13 @@ Phaser.AnimationParser = {
                 uuid
             ));
 
-            PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-                x: frames[i].frame.x,
-                y: frames[i].frame.y,
-                width: frames[i].frame.w,
-                height: frames[i].frame.h
-            });
+// PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
+            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+            //     x: frames[i].frame.x,
+            //     y: frames[i].frame.y,
+            //     width: frames[i].frame.w,
+            //     height: frames[i].frame.h
+            // });
 
             if (frames[i].trimmed)
             {
@@ -202,12 +204,13 @@ Phaser.AnimationParser = {
                 uuid
             ));
 
-            PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-                x: frames[key].frame.x,
-                y: frames[key].frame.y,
-                width: frames[key].frame.w,
-                height: frames[key].frame.h
-            });
+// PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
+            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+            //     x: frames[key].frame.x,
+            //     y: frames[key].frame.y,
+            //     width: frames[key].frame.w,
+            //     height: frames[key].frame.h
+            // });
 
             if (frames[key].trimmed)
             {
@@ -289,12 +292,13 @@ Phaser.AnimationParser = {
 
             newFrame = data.addFrame(new Phaser.Frame(i, x, y, width, height, name, uuid));
 
-            PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-                x: x,
-                y: y,
-                width: width,
-                height: height
-            });
+// PJBNOTE: need to change this to the new renderer approach... should we add XML support to the renderer or continue to support it through this function?
+            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+            //     x: x,
+            //     y: y,
+            //     width: width,
+            //     height: height
+            // });
                         //  Trimmed?
             if (frameX !== null || frameY !== null)
             {

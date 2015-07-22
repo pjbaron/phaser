@@ -103,6 +103,7 @@ Phaser.Camera = function (game, id, x, y, width, height) {
     /**
     * @property {PIXI.DisplayObject} displayObject - The display object to which all game objects are added. Set by World.boot
     */
+// PJBNOTE: this is probably equivalent to the new renderer rootLayer, however I believe this whole camera approach is obsolete due to new layers.
     this.displayObject = null;
 
     /**

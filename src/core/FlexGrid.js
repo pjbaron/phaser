@@ -107,6 +107,7 @@ Phaser.FlexGrid.prototype = {
      * @method createCustomLayer
      * @param {number} width - Width of this layer in pixels.
      * @param {number} height - Height of this layer in pixels.
+// PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
      * @param {array} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
@@ -195,6 +196,7 @@ Phaser.FlexGrid.prototype = {
      * A fixed layer is centered on the game and is the size of the required dimensions and is never scaled.
      *
      * @method createFixedLayer
+// PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
      * @param {array} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
