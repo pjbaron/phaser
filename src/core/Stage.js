@@ -23,7 +23,8 @@ Phaser.Stage = function (game) {
     */
     this.game = game;
 
-    PIXI.Stage.call(this, 0x000000);
+// PJBNOTE: not sure if we need this at all, the new renderer rootLayer does not currently (24/7/2015) require initialisation or construction externally
+//    PIXI.Stage.call(this, 0x000000);
 
     /**
     * @property {string} name - The name of this object.

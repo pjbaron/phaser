@@ -4,6 +4,9 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: this may be obsolete, the new renderer handles tile layers directly... depends on how many new features this class offers and whether
+// PJBNOTE: it's worth carrying them over into the new renderer or simpler to keep them here
+
 /**
 * A TilemapLayer is a Phaser.Image/Sprite that renders a specific TileLayer of a Tilemap.
 *
@@ -75,14 +78,16 @@ Phaser.TilemapLayer = function (game, tilemap, index, width, height) {
     * @property {PIXI.BaseTexture} baseTexture
     * @protected
     */
-    this.baseTexture = new PIXI.BaseTexture(this.canvas);
+// PJBNOTE: use a pbSurface
+//    this.baseTexture = new PIXI.BaseTexture(this.canvas);
 
     /**
     * Required Pixi var.
     * @property {PIXI.Texture} texture
     * @protected
     */
-    this.texture = new PIXI.Texture(this.baseTexture);
+// PJBNOTE: use a pbSurface
+//    this.texture = new PIXI.Texture(this.baseTexture);
 
     /**
     * Dimensions of the renderable area.
