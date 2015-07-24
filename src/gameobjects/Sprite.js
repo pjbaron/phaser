@@ -4,6 +4,9 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: need to look at this object very carefully, should be possible to merge with pbSprite and eliminate one or the other entirely
+// PJBNOTE: pbSprite uses pbTransformObject to store a transform, pbImage for currentCell, and pbSurface (indirectly through image) for the texture
+
 /**
 * Sprites are the lifeblood of your game, used for nearly everything visual.
 *
@@ -64,7 +67,8 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     */
     this.key = key;
 
-    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
+// PJBNOTE: call pbSprite super (or merge as discussed at top of this file)
+//    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
 
     this.transformCallback = this.checkTransform;
     this.transformCallbackContext = this;
@@ -204,7 +208,8 @@ Phaser.Sprite = function (game, x, y, key, frame) {
 
 };
 
-Phaser.Sprite.prototype = Object.create(PIXI.Sprite.prototype);
+// PJBNOTE: CRITICAL CHANGE - sort this out before we can run anything
+//Phaser.Sprite.prototype = Object.create(PIXI.Sprite.prototype);
 Phaser.Sprite.prototype.constructor = Phaser.Sprite;
 
 /**
@@ -398,26 +403,30 @@ Phaser.Sprite.prototype.loadTexture = function (key, frame, stopAnimation) {
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA), frame);
         }
     }
-    else if (key instanceof PIXI.Texture)
-    {
-        this.setTexture(key);
-    }
+// PJBNOTE: use pbSprite.image.surface type references
+    // else if (key instanceof PIXI.Texture)
+    // {
+    //     this.setTexture(key);
+    // }
     else
     {
         if (key === null || typeof key === 'undefined')
         {
             this.key = '__default';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: use pbSprite.image.surface type references
+//            this.setTexture(PIXI.TextureCache[this.key]);
         }
         else if (typeof key === 'string' && !this.game.cache.checkImageKey(key))
         {
             console.warn("Texture with key '" + key + "' not found.");
             this.key = '__missing';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: use pbSprite.image.surface type references
+//            this.setTexture(PIXI.TextureCache[this.key]);
         }
         else
         {
-            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+// PJBNOTE: use pbSprite.image.surface type references
+//            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
 
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key), frame);
         }
