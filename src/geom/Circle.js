@@ -544,4 +544,5 @@ Phaser.Circle.intersectsRectangle = function (c, r) {
 };
 
 //   Because PIXI uses its own Circle, we'll replace it with ours to avoid duplicating code or confusion.
-PIXI.Circle = Phaser.Circle;
+// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+//PIXI.Circle = Phaser.Circle;

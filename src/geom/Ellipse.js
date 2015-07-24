@@ -303,4 +303,5 @@ Phaser.Ellipse.prototype.getBounds = function() {
 };
 
 //   Because PIXI uses its own Ellipse, we'll replace it with ours to avoid duplicating code or confusion.
-PIXI.Ellipse = Phaser.Ellipse;
+// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+//PIXI.Ellipse = Phaser.Ellipse;
