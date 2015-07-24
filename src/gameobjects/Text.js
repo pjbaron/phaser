@@ -125,7 +125,8 @@ Phaser.Text = function (game, x, y, text, style) {
 
     this.setStyle(style);
 
-    PIXI.Text.call(this, text, this.style);
+// PJBNOTE: the new renderer doesn't support proper text drawing yet, that needs to be added before this can be replaced
+//    PIXI.Text.call(this, text, this.style);
 
     this.position.set(x, y);
 
@@ -152,7 +153,8 @@ Phaser.Text = function (game, x, y, text, style) {
 
 };
 
-Phaser.Text.prototype = Object.create(PIXI.Text.prototype);
+// PJBNOTE: CRITICAL CHANGE - need to handle this before demos will run
+//Phaser.Text.prototype = Object.create(PIXI.Text.prototype);
 Phaser.Text.prototype.constructor = Phaser.Text;
 
 /**

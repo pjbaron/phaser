@@ -4,6 +4,8 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+// PJBNOTE: the new renderer supports this via the pbSurface.isTiled flag, not sure that it needs a separate class any more?
+
 /**
 * A TileSprite is a Sprite that has a repeating texture. The texture can be scrolled and scaled and will automatically wrap on the edges as it does so.
 * Please note that TileSprites, as with normal Sprites, have no input handler or physics bodies by default. Both need enabling.
@@ -160,7 +162,8 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
 
 };
 
-Phaser.TileSprite.prototype = Object.create(PIXI.TilingSprite.prototype);
+// PJBNOTE: CRITICAL CHANGE - remove class entirely?
+//Phaser.TileSprite.prototype = Object.create(PIXI.TilingSprite.prototype);
 Phaser.TileSprite.prototype.constructor = Phaser.TileSprite;
 
 /**
@@ -354,26 +357,30 @@ Phaser.TileSprite.prototype.loadTexture = function (key, frame) {
     {
         this.setTexture(key.texture);
     }
-    else if (key instanceof PIXI.Texture)
-    {
-        this.setTexture(key);
-    }
+// PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+//    else if (key instanceof PIXI.Texture)
+//    {
+//        this.setTexture(key);
+//    }
     else
     {
         if (key === null || typeof key === 'undefined')
         {
             this.key = '__default';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+//            this.setTexture(PIXI.TextureCache[this.key]);
         }
         else if (typeof key === 'string' && !this.game.cache.checkImageKey(key))
         {
             console.warn("Texture with key '" + key + "' not found.");
             this.key = '__missing';
-            this.setTexture(PIXI.TextureCache[this.key]);
+// PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+//            this.setTexture(PIXI.TextureCache[this.key]);
         }
         else
         {
-            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+// PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+//            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
             this.animations.loadFrameData(this.game.cache.getFrameData(key), frame);
         }
     }
