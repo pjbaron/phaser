@@ -832,22 +832,24 @@ Phaser.Input.prototype = {
         {
             return (displayObject.hitArea.contains(this._localPoint.x, this._localPoint.y));
         }
-        else if (displayObject instanceof PIXI.Sprite)
-        {
-            var width = displayObject.texture.frame.width;
-            var height = displayObject.texture.frame.height;
-            var x1 = -width * displayObject.anchor.x;
+// PJBNOTE: change to pbSprite, unless we merge Phaser.Sprite with pbSprite in which case most of these branches shouldn't be needed at all
+        // else if (displayObject instanceof PIXI.Sprite)
+        // {
+        //     var width = displayObject.texture.frame.width;
+        //     var height = displayObject.texture.frame.height;
+        //     var x1 = -width * displayObject.anchor.x;
 
-            if (this._localPoint.x >= x1 && this._localPoint.x < x1 + width)
-            {
-                var y1 = -height * displayObject.anchor.y;
+        //     if (this._localPoint.x >= x1 && this._localPoint.x < x1 + width)
+        //     {
+        //         var y1 = -height * displayObject.anchor.y;
 
-                if (this._localPoint.y >= y1 && this._localPoint.y < y1 + height)
-                {
-                    return true;
-                }
-            }
-        }
+        //         if (this._localPoint.y >= y1 && this._localPoint.y < y1 + height)
+        //         {
+        //             return true;
+        //         }
+        //     }
+        // }
+// PJBNOTE: see TileSprite.js for comments about removing that class
         else if (displayObject instanceof Phaser.TileSprite)
         {
             var width = displayObject.width;
