@@ -300,8 +300,10 @@ Phaser.Cache.prototype = {
 
         this._images[key] = { url: url, data: data, frameWidth: frameWidth, frameHeight: frameHeight, margin: margin, spacing: spacing };
 
-        PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
-        PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+// PJBNOTE: need to discuss whether we want to merge pbTexture in here and create links from the new renderer to this part of Phaser, or try to keep
+// PJBNOTE: the systems separate which will entail duplication of features as seen here with PIXI cache vs Phaser cache
+        // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+        // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
 
         this._images[key].frameData = Phaser.AnimationParser.spriteSheet(this.game, key, frameWidth, frameHeight, frameMax, margin, spacing);
 
@@ -340,8 +342,9 @@ Phaser.Cache.prototype = {
 
         this._images[key] = { url: url, data: data };
 
-        PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
-        PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+// PJBNOTE: see first note for decision about these
+        // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+        // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
 
         if (format == Phaser.Loader.TEXTURE_ATLAS_JSON_ARRAY)
         {
@@ -375,12 +378,14 @@ Phaser.Cache.prototype = {
 
         this._images[key] = { url: url, data: data };
 
-        PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
-        PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+// PJBNOTE: see first note for decision about these
+        // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+        // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
 
         Phaser.LoaderParser.bitmapFont(this.game, xmlData, key, xSpacing, ySpacing);
 
-        this._bitmapFont[key] = PIXI.BitmapText.fonts[key];
+// PJBNOTE: pbText equivalent?
+//        this._bitmapFont[key] = PIXI.BitmapText.fonts[key];
 
         this._resolveURL(url, this._bitmapFont[key]);
 
@@ -419,8 +424,9 @@ Phaser.Cache.prototype = {
         this._images['__default'].frameData = new Phaser.FrameData();
         this._images['__default'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null, this.game.rnd.uuid()));
 
-        PIXI.BaseTextureCache['__default'] = new PIXI.BaseTexture(img);
-        PIXI.TextureCache['__default'] = new PIXI.Texture(PIXI.BaseTextureCache['__default']);
+// PJBNOTE: see first note for decision about these
+        // PIXI.BaseTextureCache['__default'] = new PIXI.BaseTexture(img);
+        // PIXI.TextureCache['__default'] = new PIXI.Texture(PIXI.BaseTextureCache['__default']);
 
     },
 
@@ -440,8 +446,9 @@ Phaser.Cache.prototype = {
         this._images['__missing'].frameData = new Phaser.FrameData();
         this._images['__missing'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null, this.game.rnd.uuid()));
 
-        PIXI.BaseTextureCache['__missing'] = new PIXI.BaseTexture(img);
-        PIXI.TextureCache['__missing'] = new PIXI.Texture(PIXI.BaseTextureCache['__missing']);
+// PJBNOTE: see first note for decision about these
+        // PIXI.BaseTextureCache['__missing'] = new PIXI.BaseTexture(img);
+        // PIXI.TextureCache['__missing'] = new PIXI.Texture(PIXI.BaseTextureCache['__missing']);
 
     },
 
@@ -509,8 +516,9 @@ Phaser.Cache.prototype = {
         this._images[key].frameData = new Phaser.FrameData();
         this._images[key].frameData.addFrame(new Phaser.Frame(0, 0, 0, data.width, data.height, url, this.game.rnd.uuid()));
 
-        PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
-        PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+// PJBNOTE: see first note for decision about these
+        // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+        // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
 
         this._resolveURL(url, this._images[key]);
 
@@ -1442,10 +1450,11 @@ Phaser.Cache.prototype = {
 
         delete this._images[key];
 
-        if (removeFromPixi)
-        {
-            PIXI.BaseTextureCache[key].destroy();
-        }
+// PJBNOTE: may need removeFrom flag for new renderer depending on implementation
+        // if (removeFromPixi)
+        // {
+        //     PIXI.BaseTextureCache[key].destroy();
+        // }
 
     },
 
