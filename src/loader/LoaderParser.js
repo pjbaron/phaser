@@ -38,7 +38,9 @@ Phaser.LoaderParser = {
         {
             var charCode = parseInt(letters[i].getAttribute('id'), 10);
 
-            var textureRect = new PIXI.Rectangle(
+// PJBNOTE: not sure why this is using PIXI.Rectangle as that has been over-ridden with Phaser.Rectangle already
+//            var textureRect = new PIXI.Rectangle(
+            var textureRect = new Phaser.Rectangle(
                 parseInt(letters[i].getAttribute('x'), 10),
                 parseInt(letters[i].getAttribute('y'), 10),
                 parseInt(letters[i].getAttribute('width'), 10),
@@ -49,8 +51,9 @@ Phaser.LoaderParser = {
                 xOffset: parseInt(letters[i].getAttribute('xoffset'), 10),
                 yOffset: parseInt(letters[i].getAttribute('yoffset'), 10),
                 xAdvance: parseInt(letters[i].getAttribute('xadvance'), 10) + xSpacing,
-                kerning: {},
-                texture: PIXI.TextureCache[cacheKey] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], textureRect)
+                kerning: {}
+// PJBNOTE: pbText replaces prior bitmap-font handling, probably want a reference to its pbSurface here
+//                texture: PIXI.TextureCache[cacheKey] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], textureRect)
             };
         }
 
@@ -65,7 +68,8 @@ Phaser.LoaderParser = {
             data.chars[second].kerning[first] = amount;
         }
 
-        PIXI.BitmapText.fonts[cacheKey] = data;
+// PJBNOTE: pbText replaces prior bitmap-font handling
+//        PIXI.BitmapText.fonts[cacheKey] = data;
 
     }
 
