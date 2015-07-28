@@ -57,7 +57,8 @@ Phaser.RenderTexture = function (game, width, height, key, scaleMode, resolution
 
 };
 
-Phaser.RenderTexture.prototype = Object.create(PIXI.RenderTexture.prototype);
+// PJBNOTE: CRITICAL CHANGE - if this class survives the transition (see notes in file header comments) this needs an equivalent object to extend
+//Phaser.RenderTexture.prototype = Object.create(PIXI.RenderTexture.prototype);
 Phaser.RenderTexture.prototype.constructor = Phaser.RenderTexture;
 
 /**

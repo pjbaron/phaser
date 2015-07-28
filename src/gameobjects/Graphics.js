@@ -57,7 +57,8 @@ Phaser.Graphics = function (game, x, y) {
     */
     this.cameraOffset = new Phaser.Point();
 
-    PIXI.Graphics.call(this);
+// PJBNOTE: may move this class functionality into the renderer (see note below @line 83)
+    //PIXI.Graphics.call(this);
 
     this.position.set(x, y);
 

@@ -131,7 +131,8 @@ Phaser.BitmapText = function (game, x, y, font, text, size) {
 
 };
 
-Phaser.BitmapText.prototype = Object.create(PIXI.BitmapText.prototype);
+// PJBNOTE: CRITICAL CHANGE - switch to pbText?
+//Phaser.BitmapText.prototype = Object.create(PIXI.BitmapText.prototype);
 Phaser.BitmapText.prototype.constructor = Phaser.BitmapText;
 
 /**

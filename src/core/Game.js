@@ -672,7 +672,7 @@ Phaser.Game.prototype = {
                 }
 
 // PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
-                this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
+                // this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
                 this.context = this.renderer.context;
             }
             else
@@ -682,11 +682,11 @@ Phaser.Game.prototype = {
         }
         else
         {
-// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
             //  They requested WebGL and their browser supports it
             this.renderType = Phaser.WEBGL;
 
-            this.renderer = new PIXI.WebGLRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "antialias": this.antialias, "preserveDrawingBuffer": this.preserveDrawingBuffer });
+// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
+            // this.renderer = new PIXI.WebGLRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "antialias": this.antialias, "preserveDrawingBuffer": this.preserveDrawingBuffer });
             this.context = null;
         }
 

@@ -85,7 +85,8 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
     */
     this._scroll = new Phaser.Point();
 
-    PIXI.TilingSprite.call(this, PIXI.TextureCache['__default'], width, height);
+    // PJBNOTE: class may be deprecated (see note at top), otherwise this should create a pbSurface with isTiled = true
+    //PIXI.TilingSprite.call(this, PIXI.TextureCache['__default'], width, height);
 
     this.position.set(x, y);
 
