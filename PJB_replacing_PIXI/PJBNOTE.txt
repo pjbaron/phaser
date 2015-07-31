@@ -1,0 +1,312 @@
+This file shows the merged results of PJBNOTE and PIXI searches through the /src folder of the PhaserSansPixi project.
+What we should be able to see here is all uses of PIXI in Phaser 2.X along with the comment I added previously about how to deal with it.
+It forms a summary list of changes required to fit the new renderer into Phaser 2.X and remove PIXI without causing errors.
+
+
+
+C:\wamp\www\phaser_sans_pixi\src\Phaser.js:
+   83: // PJBNOTE: shouldn't be needed with PIXI removal
+   84: //PIXI.InteractionManager = PIXI.InteractionManager || function () {};
+   88: // PJBNOTE: shouldn't be needed with PIXI removal
+   89: //PIXI.dontSayHello = true;
+   91: // PIXI.Polygon.prototype.type = PIXI.Graphics.POLY;
+   92: // PIXI.Rectangle.prototype.type = PIXI.Graphics.RECT;
+   93: // PIXI.Circle.prototype.type = PIXI.Graphics.CIRC;
+   94: // PIXI.Ellipse.prototype.type = PIXI.Graphics.ELIP;
+
+C:\wamp\www\phaser_sans_pixi\src\animation\AnimationManager.js:
+  418: // PJBNOTE: I'm not sure what this is supposed to do... under what circumstances would it be used?
+  419: //        this.sprite.setTexture(PIXI.TextureCache[this.currentFrame.uuid]);
+
+C:\wamp\www\phaser_sans_pixi\src\animation\AnimationParser.js:
+   79: // PJBNOTE: need to change this to the new renderer approach... are these spritesheets obsolete?
+   80:             // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
+  140: // PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
+  141:             // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+  207: // PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
+  208:             // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+  295: // PJBNOTE: need to change this to the new renderer approach... should we add XML support to the renderer or continue to support it through this function?
+  296:             // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
+
+C:\wamp\www\phaser_sans_pixi\src\animation\Frame.js:
+   53:     * @property {string} uuid - DEPRECATED: A link to the PIXI.TextureCache entry.
+
+C:\wamp\www\phaser_sans_pixi\src\core\Camera.js:
+  104:     * @property {PIXI.DisplayObject} displayObject - The display object to which all game objects are added. Set by World.boot
+  106: // PJBNOTE: this is probably equivalent to the new renderer rootLayer, however I believe this whole camera approach is obsolete due to new layers.
+
+C:\wamp\www\phaser_sans_pixi\src\core\Filter.js:
+   44:     * @property {boolean} dirty - Internal PIXI var.
+   47: // PJBNOTE: this approach to Filters is obsolete, the new renderer provides full user-defined filter support.  May be desirable to wrap it with this class for backwards compatibility.
+   51:     * @property {number} padding - Internal PIXI var.
+
+C:\wamp\www\phaser_sans_pixi\src\core\FlexGrid.js:
+  110: // PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
+  199: // PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
+
+C:\wamp\www\phaser_sans_pixi\src\core\Game.js:
+   99: // PJBNOTE: reference to PIXI renderer here can probably be replaced with a new renderer reference but all accessors will need to be traced to ensure the parameters & methods are valid
+  101:     * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer - The Pixi Renderer.
+  590: // PJBNOTE: removed version number for PIXI, new renderer should have a version string
+  591: //                '%c %c %c Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + '  %c %c ' + ' http://phaser.io  %c %c \u2665%c\u2665%c\u2665 ',
+  617: // PJBNOTE: add version for new renderer            
+  618: //            console.log('Phaser v' + v + ' | Pixi.js ' + PIXI.VERSION + ' | ' + r + ' | ' + a + ' | http://phaser.io');
+  663: // PJBNOTE: the new renderer has directly equivalent code built into it... need to choose which one to use and remove the other version
+  664: // PJBNOTE: the new renderer can support more modes than Canvas/WebGL but doesn't currently (21st July 2015) adjust the other parameters used here (transparent, resolution, etc)
+  674: // PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
+  675:                 // this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
+  688: // PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
+  689:             // this.renderer = new PIXI.WebGLRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "antialias": this.antialias, "preserveDrawingBuffer": this.preserveDrawingBuffer });
+  914: // PJBNOTE: I'm not sure what this is for.  I doubt the new renderer supports it yet.
+  915: //            PIXI.glContexts[this.renderer.glContextId] = null;
+
+C:\wamp\www\phaser_sans_pixi\src\core\Group.js:
+    7: // PJBNOTE: superceeded by "layers" which are not only built into the new renderer, but are essential to it's operation.  We probably need to make substantial changes to Group to fit it to layers.
+   14: * @extends PIXI.DisplayObjectContainer
+   44: // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+   45: //    PIXI.DisplayObjectContainer.call(this);
+  159: // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+  160: //Phaser.Group.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+
+C:\wamp\www\phaser_sans_pixi\src\core\Stage.js:
+    7: // PJBNOTE: sounds like this is equivalent to rootLayer in the new renderer with a few extra features (loss of focus etc)
+    8: // PJBNOTE: decisions to be made whether we want a single Stage which is separate (or derived) from the new layer system... it may prevent tricks like having multiple canvas objects acting as separate stages.
+    9: // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+   15: * @extends PIXI.Stage
+   26: // PJBNOTE: not sure if we need this at all, the new renderer rootLayer does not currently (24/7/2015) require initialisation or construction externally
+   27: //    PIXI.Stage.call(this, 0x000000);
+   78: // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
+   79: //Phaser.Stage.prototype = Object.create(PIXI.Stage.prototype);
+  366: // PJBNOTE: change this after deciding the future of this class as detailed above
+  367:         //return PIXI.scaleModes.DEFAULT === PIXI.scaleModes.LINEAR;
+  376: // PJBNOTE: change this after deciding the future of this class as detailed above
+  377:             //PIXI.scaleModes.DEFAULT = PIXI.scaleModes.LINEAR;
+  381: // PJBNOTE: change this after deciding the future of this class as detailed above
+  382:             //PIXI.scaleModes.DEFAULT = PIXI.scaleModes.NEAREST;
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\BitmapData.js:
+   98:     * @property {PIXI.BaseTexture} baseTexture - The PIXI.BaseTexture.
+  101: // PJBNOTE: I think the PIXI.BaseTexture is a close equivalent of a pbSurface in the new renderer.  Parameters and methods will vary.
+  102: // PJBNOTE: after reading PIXI.BaseTexture source, it may be possible to simply store a canvas reference here instead.
+  103: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  104:     //this.baseTexture = new PIXI.BaseTexture(this.canvas);
+  107:     * @property {PIXI.Texture} texture - The PIXI.Texture.
+  110: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  111:     // this.texture = new PIXI.Texture(this.baseTexture);
+ 1019: // PJBNOTE: new renderer does not yet support tinted canvas
+ 1020: //                    source.tintedTexture = PIXI.CanvasTinter.getTintedTexture(source, source.tint);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\BitmapText.js:
+   16: // PJBNOTE: change this to extend pbText and check all parameters and methods accessed from the super class
+   17: * @extends PIXI.BitmapText
+  111: // PJBNOTE: call super constructor
+  112: //    PIXI.BitmapText.call(this, text);
+  134: // PJBNOTE: CRITICAL CHANGE - switch to pbText?
+  135: //Phaser.BitmapText.prototype = Object.create(PIXI.BitmapText.prototype);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\Graphics.js:
+   12: * @extends PIXI.Graphics
+   60: // PJBNOTE: may move this class functionality into the renderer (see note below @line 83)
+   61:     //PIXI.Graphics.call(this);
+   83: // PJBNOTE: basic drawing functions.  Should this be in the renderer itself?
+   84: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+   85: //Phaser.Graphics.prototype = Object.create(PIXI.Graphics.prototype);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\Image.js:
+   12: // PJBNOTE: I expect this will change to wrap the new renderer pbSprite, but maybe it's closer to the pbImage or pbTransformObject?
+   13: * @extends PIXI.Sprite
+   18: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - The texture used by the Image during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+   67:     *  @property {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Image during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+   71: // PJBNOTE: call appropriate c'tor for the equivalent new renderer feature
+   72: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+   73: //    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
+  161: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  162: //Phaser.Image.prototype = Object.create(PIXI.Sprite.prototype);
+  252: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Image during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+  279: // PJBNOTE: a pbSurface probably...
+  280:     // else if (key instanceof PIXI.Texture)
+  289: // PJBNOTE: what's the difference between undefined and missing?  I believe they're both simple default textures to indicate a graphics failure?
+  290:             // this.setTexture(PIXI.TextureCache[this.key]);
+  296: // PJBNOTE: what's the difference between undefined and missing?  I believe they're both simple default textures to indicate a graphics failure?
+  297:             // this.setTexture(PIXI.TextureCache[this.key]);
+  301: // PJBNOTE: I have no idea what 'key' is holding at this point...
+  302:             // this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+  646:  * @param {PIXI.Matrix} wt - The updated worldTransform matrix.
+  878: // PJBNOTE: appears to be animating but without using an AnimationManager or the Animation class... which is still possible by changing cellFrame on the pbSurface
+  879: //                this.setTexture(PIXI.TextureCache[frameData.getFrame(value).uuid]);
+  908: // PJBNOTE: appears to be animating via a label, but without using an AnimationManager or the Animation class... new renderer does not support names
+  909: // PJBNOTE: and it looks like PIXI doesn't either and is using a uuid (I thought that was deprecated?) to reference the texture
+  910: //                this.setTexture(PIXI.TextureCache[frameData.getFrameByName(value).uuid]);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\RenderTexture.js:
+    7: // PJBNOTE: this seems to be directly equivalent to something I've been calling RTT (render-to-texture) in the new renderer
+    8: // PJBNOTE: unless it adds some new features, the entire class should be deprecated.  Otherwise it may need to extend pbImage and redirect the draw methods
+    9: // PJBNOTE: to the special purpose rtt functions in pbWebGl.js
+   17: * @extends PIXI.RenderTexture
+   48:     * @property {PIXI.Matrix} matrix - The matrix that is applied when display objects are rendered to this RenderTexture.
+   50: // PJBNOTE: see if PIXI.Matrix is 2d or 3d (3 or 4 column homogenous) and use the appropriate version of pbMatrix... check all parameters and method calls
+   51: //    this.matrix = new PIXI.Matrix();
+   53: // PJBNOTE: if this class survives the transition (see notes in file header comments) this needs an equivalent
+   54: //    PIXI.RenderTexture.call(this, width, height, this.game.renderer, scaleMode, resolution);
+   60: // PJBNOTE: CRITICAL CHANGE - if this class survives the transition (see notes in file header comments) this needs an equivalent object to extend
+   61: //Phaser.RenderTexture.prototype = Object.create(PIXI.RenderTexture.prototype);
+   78: // PJBNOTE: deprecated class?  even if not, the new renderer redirects such drawing calls through an intermediary layer automatically
+   79:     // if (this.renderer.type === PIXI.WEBGL_RENDERER)
+  103: // PJBNOTE: deprecated class?  even if not, the new renderer redirects such drawing calls through an intermediary layer automatically
+  104:     // if (this.renderer.type === PIXI.WEBGL_RENDERER)
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\RetroFont.js:
+    7: // PJBNOTE: directly equivalent to pbText (as at 21st July 2015)... deprecate or extend that class
+  147: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  148:         // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
+  555: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  556:         // PIXI.TextureCache[frames[i].uuid].frame.x = frames[i].x;
+  557:         // PIXI.TextureCache[frames[i].uuid].frame.y = frames[i].y;
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\Rope.js:
+    7: // PJBNOTE: I think this can be replaced by using texture offsets in pbSurface (see pbInvaders demo which used this for it's starfield for a while)
+    8: // PJBNOTE: Further for webGl purposes, setting the pbSurface.isTiled flag will enable gl.WRAP in both directions
+    9: // PJBNOTE: I suspect this whole class can be deprecated unless it does something more than described in the comments below
+   18: * @extends PIXI.Rope
+   22: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Rope during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   70:     *  @property {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+   92: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+   93:     // PIXI.Rope.call(this, key, this.points);
+  163: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  164: //Phaser.Rope.prototype = Object.create(PIXI.Rope.prototype);
+  314: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Rope during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+  332:  // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  333:     // else if (key instanceof PIXI.Texture)
+  342: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  343:             // this.setTexture(PIXI.TextureCache[this.key]);
+  349: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
+  350:             // this.setTexture(PIXI.TextureCache[this.key]);
+  354: // PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here            
+  355:             // this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\Sprite.js:
+    7: // PJBNOTE: need to look at this object very carefully, should be possible to merge with pbSprite and eliminate one or the other entirely
+    8: // PJBNOTE: pbSprite uses pbTransformObject to store a transform, pbImage for currentCell, and pbSurface (indirectly through image) for the texture
+   19: * @extends PIXI.Sprite
+   23: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   66:     *  @property {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+   70: // PJBNOTE: call pbSprite super (or merge as discussed at top of this file)
+   71: //    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
+  211: // PJBNOTE: CRITICAL CHANGE - sort this out before we can run anything
+  212: //Phaser.Sprite.prototype = Object.create(PIXI.Sprite.prototype);
+  373: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+  406: // PJBNOTE: use pbSprite.image.surface type references
+  407:     // else if (key instanceof PIXI.Texture)
+  416: // PJBNOTE: use pbSprite.image.surface type references
+  417: //            this.setTexture(PIXI.TextureCache[this.key]);
+  423: // PJBNOTE: use pbSprite.image.surface type references
+  424: //            this.setTexture(PIXI.TextureCache[this.key]);
+  428: // PJBNOTE: use pbSprite.image.surface type references
+  429: //            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+  858: * @param {Phaser.Sprite|Phaser.Image|Phaser.TileSprite|Phaser.Button|PIXI.DisplayObject} displayObject - The display object to check against.
+  872:  * @param {PIXI.Matrix} wt - The updated worldTransform matrix.
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\SpriteBatch.js:
+    7: // PJBNOTE: find out how similar the SpriteBatch class is to the new renderer's built in batching (via layers)... this whole class may be obsolete
+    8: // PJBNOTE: this may be more similar to the 'direct pipeline' of the pbSimpleLayer which is optimised for even faster sprite batching
+   28: // PJBNOTE: call super or merge features as discussed at the top of this class
+   29: //    PIXI.SpriteBatch.call(this);
+   41: // PJBNOTE: CRITICAL CHANGE - need to decide how to handle this class (see comments at top)
+   42: //Phaser.SpriteBatch.prototype = Phaser.Utils.extend(true, Phaser.SpriteBatch.prototype, Phaser.Group.prototype, PIXI.SpriteBatch.prototype);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\Text.js:
+   13: * @extends PIXI.Text
+  128: // PJBNOTE: the new renderer doesn't support proper text drawing yet, that needs to be added before this can be replaced
+  129: //    PIXI.Text.call(this, text, this.style);
+  156: // PJBNOTE: CRITICAL CHANGE - need to handle this before demos will run
+  157: //Phaser.Text.prototype = Object.create(PIXI.Text.prototype);
+
+C:\wamp\www\phaser_sans_pixi\src\gameobjects\TileSprite.js:
+    7: // PJBNOTE: the new renderer supports this via the pbSurface.isTiled flag, not sure that it needs a separate class any more?
+   15: * @extends PIXI.TilingSprite
+   21: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the TileSprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture or PIXI.Texture.
+   66:     *  @property {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the Sprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+   88:     // PJBNOTE: class may be deprecated (see note at top), otherwise this should create a pbSurface with isTiled = true
+   89:     //PIXI.TilingSprite.call(this, PIXI.TextureCache['__default'], width, height);
+  166: // PJBNOTE: CRITICAL CHANGE - remove class entirely?
+  167: //Phaser.TileSprite.prototype = Object.create(PIXI.TilingSprite.prototype);
+  343: * @param {string|Phaser.RenderTexture|Phaser.BitmapData|PIXI.Texture} key - This is the image or texture used by the TileSprite during rendering. It can be a string which is a reference to the Cache entry, or an instance of a RenderTexture, BitmapData or PIXI.Texture.
+  361: // PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+  362: //    else if (key instanceof PIXI.Texture)
+  371: // PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+  372: //            this.setTexture(PIXI.TextureCache[this.key]);
+  378: // PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+  379: //            this.setTexture(PIXI.TextureCache[this.key]);
+  383: // PJBNOTE: switch to pbSurface to get the texture, or remove this class as discussed at the top
+  384: //            this.setTexture(new PIXI.Texture(PIXI.BaseTextureCache[key]));
+
+C:\wamp\www\phaser_sans_pixi\src\geom\Circle.js:
+  546: //   Because PIXI uses its own Circle, we'll replace it with ours to avoid duplicating code or confusion.
+  547: // PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+  548: //PIXI.Circle = Phaser.Circle;
+
+C:\wamp\www\phaser_sans_pixi\src\geom\Ellipse.js:
+  305: //   Because PIXI uses its own Ellipse, we'll replace it with ours to avoid duplicating code or confusion.
+  306: // PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+  307: //PIXI.Ellipse = Phaser.Ellipse;
+
+C:\wamp\www\phaser_sans_pixi\src\geom\Point.js:
+  923: //   Because PIXI uses its own Point, we'll replace it with ours to avoid duplicating code or confusion.
+  924: // PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+  925: //PIXI.Point = Phaser.Point;
+
+C:\wamp\www\phaser_sans_pixi\src\geom\Rectangle.js:
+  914: //   Because PIXI uses its own Rectangle, we'll replace it with ours to avoid duplicating code or confusion.
+  915: // PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+  916: //PIXI.Rectangle = Phaser.Rectangle;
+  917: // PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
+  918: //PIXI.EmptyRectangle = new Phaser.Rectangle(0, 0, 0, 0);
+
+C:\wamp\www\phaser_sans_pixi\src\input\Input.js:
+  835: // PJBNOTE: change to pbSprite, unless we merge Phaser.Sprite with pbSprite in which case most of these branches shouldn't be needed at all
+  836:         // else if (displayObject instanceof PIXI.Sprite)
+  852: // PJBNOTE: see TileSprite.js for comments about removing that class
+
+C:\wamp\www\phaser_sans_pixi\src\loader\Cache.js:
+  303: // PJBNOTE: need to discuss whether we want to merge pbTexture in here and create links from the new renderer to this part of Phaser, or try to keep
+  304: // PJBNOTE: the systems separate which will entail duplication of features as seen here with PIXI cache vs Phaser cache
+  305:         // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+  306:         // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+  345: // PJBNOTE: see first note for decision about these
+  346:         // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+  347:         // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+  381: // PJBNOTE: see first note for decision about these
+  382:         // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+  383:         // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+  387: // PJBNOTE: pbText equivalent?
+  388: //        this._bitmapFont[key] = PIXI.BitmapText.fonts[key];
+  427: // PJBNOTE: see first note for decision about these
+  428:         // PIXI.BaseTextureCache['__default'] = new PIXI.BaseTexture(img);
+  429:         // PIXI.TextureCache['__default'] = new PIXI.Texture(PIXI.BaseTextureCache['__default']);
+  449: // PJBNOTE: see first note for decision about these
+  450:         // PIXI.BaseTextureCache['__missing'] = new PIXI.BaseTexture(img);
+  451:         // PIXI.TextureCache['__missing'] = new PIXI.Texture(PIXI.BaseTextureCache['__missing']);
+  519: // PJBNOTE: see first note for decision about these
+  520:         // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
+  521:         // PIXI.TextureCache[key] = new PIXI.Texture(PIXI.BaseTextureCache[key]);
+ 1453: // PJBNOTE: may need removeFrom flag for new renderer depending on implementation
+ 1456:         //     PIXI.BaseTextureCache[key].destroy();
+
+C:\wamp\www\phaser_sans_pixi\src\loader\LoaderParser.js:
+   41: // PJBNOTE: not sure why this is using PIXI.Rectangle as that has been over-ridden with Phaser.Rectangle already
+   42: //            var textureRect = new PIXI.Rectangle(
+   55: // PJBNOTE: pbText replaces prior bitmap-font handling, probably want a reference to its pbSurface here
+   56: //                texture: PIXI.TextureCache[cacheKey] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], textureRect)
+   71: // PJBNOTE: pbText replaces prior bitmap-font handling
+   72: //        PIXI.BitmapText.fonts[cacheKey] = data;
+
+C:\wamp\www\phaser_sans_pixi\src\tilemap\TilemapLayer.js:
+    7: // PJBNOTE: this may be obsolete, the new renderer handles tile layers directly... depends on how many new features this class offers and whether
+    8: // PJBNOTE: it's worth carrying them over into the new renderer or simpler to keep them here
+   78:     * @property {PIXI.BaseTexture} baseTexture
+   81: // PJBNOTE: use a pbSurface
+   82: //    this.baseTexture = new PIXI.BaseTexture(this.canvas);
+   86:     * @property {PIXI.Texture} texture
+   89: // PJBNOTE: use a pbSurface
+   90: //    this.texture = new PIXI.Texture(this.baseTexture);
+
