@@ -5,7 +5,6 @@ module.exports = {
             'src/**/*.js',
             '!src/Intro.js',
             '!src/Outro.js',
-            '!src/pixi/**/*',
             '!src/physics/p2/p2.js'
         ],
         options: { jshintrc: '.jshintrc' }
