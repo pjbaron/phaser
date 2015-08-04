@@ -36,51 +36,54 @@
 
     echo <<<EOL
 
-    <script src="$path/src/pixi/Pixi.js"></script>
-    <script src="$path/src/pixi/geom/Matrix.js"></script>
-    <script src="$path/src/pixi/geom/Polygon.js"></script>
-    <script src="$path/src/pixi/geom/Rectangle.js"></script>
-    <script src="$path/src/pixi/geom/RoundedRectangle.js"></script>
-    <script src="$path/src/pixi/display/DisplayObject.js"></script>
-    <script src="$path/src/pixi/display/DisplayObjectContainer.js"></script>
-    <script src="$path/src/pixi/display/Sprite.js"></script>
-    <script src="$path/src/pixi/display/SpriteBatch.js"></script>
-    <script src="$path/src/pixi/filters/FilterBlock.js"></script>
-    <script src="$path/src/pixi/text/Text.js"></script>
-    <script src="$path/src/pixi/text/BitmapText.js"></script>
-    <script src="$path/src/pixi/display/Stage.js"></script>
-    <script src="$path/src/pixi/utils/Utils.js"></script>
-    <script src="$path/src/pixi/utils/EventTarget.js"></script>
-    <script src="$path/src/pixi/utils/Polyk.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLShaderUtils.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/shaders/PixiShader.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/shaders/PixiFastShader.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/shaders/StripShader.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/shaders/PrimitiveShader.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/shaders/ComplexPrimitiveShader.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLGraphics.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/WebGLRenderer.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLBlendModeManager.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLMaskManager.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLStencilManager.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLShaderManager.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLSpriteBatch.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLFastSpriteBatch.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/WebGLFilterManager.js"></script>
-    <script src="$path/src/pixi/renderers/webgl/utils/FilterTexture.js"></script>
-    <script src="$path/src/pixi/renderers/canvas/utils/CanvasBuffer.js"></script>
-    <script src="$path/src/pixi/renderers/canvas/utils/CanvasMaskManager.js"></script>
-    <script src="$path/src/pixi/renderers/canvas/utils/CanvasTinter.js"></script>
-    <script src="$path/src/pixi/renderers/canvas/CanvasRenderer.js"></script>
-    <script src="$path/src/pixi/renderers/canvas/CanvasGraphics.js"></script>
+    <script src="$path/src/renderer/lib/dat.gui.js"></script>
+    <script src="$path/src/renderer/lib/stats.js"></script>
+    <script src="$path/src/renderer/lib/jszip.js"></script>
 
-    <script src="$path/src/pixi/extras/Strip.js"></script>
-    <script src="$path/src/pixi/extras/Rope.js"></script>
-    <script src="$path/src/pixi/extras/TilingSprite.js"></script>
-    <script src="$path/src/pixi/textures/BaseTexture.js"></script>
-    <script src="$path/src/pixi/textures/Texture.js"></script>
-    <script src="$path/src/pixi/textures/RenderTexture.js"></script>
-    <script src="$path/src/pixi/filters/AbstractFilter.js"></script>
+    <script src="$path/src/renderer/data_structures/pbMatrix3.js"></script>
+    <script src="$path/src/renderer/data_structures/pbMatrix4.js"></script>
+    <script src="$path/src/renderer/data_structures/pbRectangle.js"></script>
+    <script src="$path/src/renderer/data_structures/pbDictionary.js"></script>
+
+    <script src="$path/src/renderer/root/pbPhaserRender.js"></script>
+    <script src="$path/src/renderer/root/pbRenderer.js"></script>
+    <script src="$path/src/renderer/root/pbRootTimer.js"></script>
+
+    <script src="$path/src/renderer/textures/pbSurface.js"></script>
+    <script src="$path/src/renderer/textures/pbTextures.js"></script>
+    <script src="$path/src/renderer/textures/webgl/pbWebGlTextures.js"></script>
+
+    <script src="$path/src/renderer/logical_sprites/pbSprite.js"></script>
+    <script src="$path/src/renderer/logical_sprites/pbTransformObject.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/pbBaseLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/pbSimpleLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/canvas/pbCanvasLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/webgl/pbWebGlLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/pbBaseImage.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/canvas/pbCanvasImage.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/webgl/pbWebGlImage.js"></script>
+
+    <script src="$path/src/renderer/renderers/pbBaseGraphics.js"></script>
+    <script src="$path/src/renderer/renderers/canvas/pbCanvas.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/pbWebGl.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawImageSingle.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawTextureSingle.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawBatch.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/shaders/pbWebGlShaders.js"></script>
+    
+    <script src="$path/src/renderer/file_handling/pbLoader.js"></script>
+
+    <script src="$path/src/renderer/features/pbText.js"></script>
+    <script src="$path/src/renderer/features/pbTiles.js"></script>
+    <script src="$path/src/renderer/features/pbButtons.js"></script>
+
+    <script src="$path/src/renderer/creature/gl-matrix-min.js"></script>
+    <script src="$path/src/renderer/creature/CreatureMeshBone.js"></script>
+    <script src="$path/src/renderer/creature/CreaturePhaser3JSRenderer.js"></script>
+    <script src="$path/src/renderer/creature/pbCreatureHandler.js"></script>
+    <script src="$path/src/renderer/creature/pbCreatureAssist.js"></script>
+
+
 
     <script src="$path/src/Phaser.js"></script>
     <script src="$path/src/utils/Utils.js"></script>
@@ -91,8 +94,6 @@
     <script src="$path/src/geom/Line.js"></script>
     <script src="$path/src/geom/Ellipse.js"></script>
     <script src="$path/src/geom/Polygon.js"></script>
-
-    <script src="$path/src/pixi/primitives/Graphics.js"></script>
 
     <script src="$path/src/core/Camera.js"></script>
     <script src="$path/src/core/State.js"></script>
