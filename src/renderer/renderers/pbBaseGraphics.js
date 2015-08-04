@@ -68,25 +68,25 @@ pbBaseGraphics.prototype.colorStringToRGBA = function(hex)
 	if (hex.charAt(0) === '#') hex = hex.slice(1);
 	if (hex.length === 3)	// shorthand form (#F26)
 		return {
-	        r: parseInt(hex.charAt(0)+hex.charAt(0), 16) / 255,
-	        g: parseInt(hex.charAt(1)+hex.charAt(1), 16) / 255,
-	        b: parseInt(hex.charAt(2)+hex.charAt(2), 16) / 255,
-	        a: 1.0
-    	};
+			r: parseInt(hex.charAt(0)+hex.charAt(0), 16) / 255,
+			g: parseInt(hex.charAt(1)+hex.charAt(1), 16) / 255,
+			b: parseInt(hex.charAt(2)+hex.charAt(2), 16) / 255,
+			a: 1.0
+		};
 	else if (hex.length === 6)	// no alpha form (#FE246A)
 		return {
-	        r: parseInt(hex.slice(0,2), 16) / 255,
-	        g: parseInt(hex.slice(2,4), 16) / 255,
-	        b: parseInt(hex.slice(4,6), 16) / 255,
-	        a: 1.0
-    	};		
+			r: parseInt(hex.slice(0,2), 16) / 255,
+			g: parseInt(hex.slice(2,4), 16) / 255,
+			b: parseInt(hex.slice(4,6), 16) / 255,
+			a: 1.0
+		};		
 	else
 		return {
-	        r: parseInt(hex.slice(0,2), 16) / 255,
-	        g: parseInt(hex.slice(2,4), 16) / 255,
-	        b: parseInt(hex.slice(4,6), 16) / 255,
-	        a: parseInt(hex.slice(6,8), 16) / 255
-    	};
+			r: parseInt(hex.slice(0,2), 16) / 255,
+			g: parseInt(hex.slice(2,4), 16) / 255,
+			b: parseInt(hex.slice(4,6), 16) / 255,
+			a: parseInt(hex.slice(6,8), 16) / 255
+		};
 };
 
 

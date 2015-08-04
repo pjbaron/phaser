@@ -84,23 +84,23 @@ pbWebGl.prototype.drawImageWithTransform = function( _srcTextureRegister, _image
 	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
 	buffer[ 7 ] = buffer[ 15] = rect.y;
 
-    // bind the source buffer
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	// bind the source buffer
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	// bind the source texture
 	gl.activeTexture(gl.TEXTURE0 + _srcTextureRegister);
-    gl.bindTexture(gl.TEXTURE_2D, this.textures.currentSrcTexture);
+	gl.bindTexture(gl.TEXTURE_2D, this.textures.currentSrcTexture);
 
 	// send the transform matrix to the vector shader
 	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );
 	// set the depth value
-   	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
 	// point the position attribute at the last bound buffer
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 	gl.enableVertexAttribArray(this.shaders.getAttribute( "aPosition" ));
-    // draw the buffer: four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// draw the buffer: four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 
@@ -177,22 +177,22 @@ pbWebGl.prototype.drawModeZ = function( _textureNumber, _image, _transform, _z )
 	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
 	buffer[ 7 ] = buffer[ 15] = rect.y;
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	// send the transform matrix to the vector shader
 	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );
 
 	// set the depth value
-   	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
 
 	// point the position attribute at the last bound buffer
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
 //    var ut = this.shaders.getUniform( "uTime" );
 //	if (ut) gl.uniform1f( ut, (pbPhaserRender.frameCount % 100) / 100.0 );
 
-    // four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 
@@ -241,16 +241,16 @@ pbWebGl.prototype.drawImageWithTransform3D = function( _textureNumber, _image, _
 	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
 	buffer[ 7 ] = buffer[ 15] = rect.y;
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	// send the transform matrix to the vector shader
 	gl.uniformMatrix4fv( this.shaders.getUniform( "uModelMatrix4" ), false, _transform );
 
 	// point the position attribute at the last bound buffer
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    // four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 
@@ -300,7 +300,7 @@ pbWebGl.prototype.drawImage = function( _textureNumber, _x, _y, _z, _surface, _c
 	buffer[ 10] = buffer[ 14] = tex_r;
 	buffer[ 7 ] = buffer[ 15] = tex_y;
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	// TODO: most of these are semi-static, cache them
 	var matrix = pbMatrix3.makeTransform(_x, _y, _angle, _scale, _scale);
@@ -316,13 +316,13 @@ pbWebGl.prototype.drawImage = function( _textureNumber, _x, _y, _z, _surface, _c
 	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, matrix );
 
 	// set the depth value
-   	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
 
 	// point the position attribute at the last bound buffer
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    // four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 
@@ -336,8 +336,8 @@ pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transfor
 		// create a webGl texture from the canvas
 		this.canvasTextureNumber = 0;
 		this.textures.createTextureFromCanvas(this.canvasTextureNumber, _canvas);
-	    // set the fragment shader sampler to use TEXTURE0
-	   	gl.uniform1i( this.shaders.getSampler(), this.canvasTextureNumber );
+		// set the fragment shader sampler to use TEXTURE0
+		gl.uniform1i( this.shaders.getSampler(), this.canvasTextureNumber );
 		// prepare the projection matrix in the vertex shader
 		gl.uniformMatrix3fv( this.shaders.getUniform( "uProjectionMatrix" ), false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );
 	}
@@ -380,19 +380,19 @@ pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transfor
 	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
 	buffer[ 7 ] = buffer[ 15] = rect.y;
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	// send the transform matrix to the vector shader
 	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );
 
 	// set the depth value
-   	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
 
 	// point the position attribute at the last bound buffer
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    // four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 

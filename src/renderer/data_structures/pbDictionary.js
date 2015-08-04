@@ -147,6 +147,6 @@ pbDictionary.prototype.iterateKeys = function(_func, _context)
 pbDictionary.prototype.superCall = function(clazz, functionName)
 {
 	// console.log("pbDictionary.superCall", functionName);
-    var args = Array.prototype.slice.call(arguments, 2);
-    clazz.prototype.__super__.prototype[functionName].apply(this, args);
+	var args = Array.prototype.slice.call(arguments, 2);
+	clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };

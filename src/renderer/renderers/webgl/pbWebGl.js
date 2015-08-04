@@ -141,16 +141,16 @@ pbWebGl.prototype.prepareBuffer = function()
 	this.positionBuffer = gl.createBuffer();
 
 	// bind the buffer to the RAM resident positionBuffer
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
 };
 
 
 
 pbWebGl.prototype.reset = function()
 {
-    gl.bindBuffer( gl.ARRAY_BUFFER, null );
-   	gl.bindTexture( gl.TEXTURE_2D, null );
-   	this.shaders.clearProgram();
+	gl.bindBuffer( gl.ARRAY_BUFFER, null );
+	gl.bindTexture( gl.TEXTURE_2D, null );
+	this.shaders.clearProgram();
 	this.textures.currentSrcTexture = null;
 };
 
@@ -175,17 +175,17 @@ pbWebGl.prototype.scissor = function(_x, _y, _width, _height)
 // check if value is a power of two 
 function isPowerOfTwo(x)
 {
-    return ((x & (x - 1)) === 0);
+	return ((x & (x - 1)) === 0);
 }
 
  
 // return the next highest power of two from this value (keep the value if it is already a power of two)
 function nextHighestPowerOfTwo(x)
 {
-    --x;
-    for (var i = 1; i < 32; i <<= 1)
-    {
-        x = x | x >> i;
-    }
-    return x + 1;
+	--x;
+	for (var i = 1; i < 32; i <<= 1)
+	{
+		x = x | x >> i;
+	}
+	return x + 1;
 }

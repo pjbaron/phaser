@@ -21,9 +21,9 @@ function pbText()
 
 pbText.prototype.create = function(_key, _layer, _firstAscii, _offset)
 {
-    this.textureObject = textures.getFirst(_key);
-    if (this.textureObject)
-    {
+	this.textureObject = textures.getFirst(_key);
+	if (this.textureObject)
+	{
 		this.surface = this.textureObject.surface;
 		this.layer = _layer;
 		this.firstAscii = _firstAscii;

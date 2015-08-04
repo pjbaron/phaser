@@ -69,9 +69,9 @@ pbWebGl.prototype.drawTextureWithTransform = function( _texture, _transform, _z,
 	buffer[ 2 ] = buffer[ 6 ] = buffer[ 7 ] = buffer[ 15] = 0;
 	buffer[ 3 ] = buffer[ 11] = buffer[ 10] = buffer[ 14] = 1.0;
 
-    // bind the source buffer
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	// bind the source buffer
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
 	gl.activeTexture( gl.TEXTURE0 + _texture.register );
 	gl.bindTexture(gl.TEXTURE_2D, _texture);
@@ -82,15 +82,15 @@ pbWebGl.prototype.drawTextureWithTransform = function( _texture, _transform, _z,
 	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), gl.FALSE, _transform );
 
 	// set the depth value
-   	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
 
 	// point the position attribute at the last bound buffer
 	// OBSCURE ERROR NOTE: "no bound ARRAY_BUFFER"
 	// is caused by null in this.positionBuffer above
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, gl.FALSE, 0, 0 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, gl.FALSE, 0, 0 );
 	gl.enableVertexAttribArray(this.shaders.getAttribute( "aPosition" ));
-    // four vertices per quad, one quad
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+	// four vertices per quad, one quad
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 
@@ -115,7 +115,7 @@ pbWebGl.prototype.drawTextureToDisplay = function( _texture, _shaderProgram)
 		-1, -1,
 		1, -1
 	];
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
 	gl.bufferData( gl.ARRAY_BUFFER, new Float32Array(verts), gl.STATIC_DRAW );
 
 	gl.activeTexture( gl.TEXTURE0 + _texture.register );
@@ -134,7 +134,7 @@ pbWebGl.prototype.applyShaderToTexture = function( _srcTexture, _callback, _cont
 
 	if (!this.positionBuffer)
 		this.prepareBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
 
 	// create a buffer for the vertices used to draw the _srcTexture to the _dstTexture
 	var buffer = this.drawingArray.subarray(0, 16);

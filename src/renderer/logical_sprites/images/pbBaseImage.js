@@ -65,7 +65,7 @@ pbBaseImage.prototype.setCorners = function(ltx, lty, rtx, rty, lbx, lby, rbx, r
 pbBaseImage.prototype.superCall = function(clazz, functionName)
 {
 	//console.log("pbBaseImage.superCall", functionName);
-    var args = Array.prototype.slice.call(arguments, 2);
-    clazz.prototype.__super__.prototype[functionName].apply(this, args);
+	var args = Array.prototype.slice.call(arguments, 2);
+	clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };
 

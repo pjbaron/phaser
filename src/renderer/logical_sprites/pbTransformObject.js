@@ -267,7 +267,7 @@ pbTransformObject.prototype.removeChildAt = function(_index)
 pbTransformObject.prototype.superCall = function(clazz, functionName)
 {
 	// console.log("pbTransformObject.superCall", functionName);
-    var args = Array.prototype.slice.call(arguments, 2);
-    clazz.prototype.__super__.prototype[functionName].apply(this, args);
+	var args = Array.prototype.slice.call(arguments, 2);
+	clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };
 

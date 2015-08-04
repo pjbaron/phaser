@@ -200,9 +200,9 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
  */
 pbSurface.prototype.createAtlas = function(_JSON, _imageData)
 {
-    var data = JSON.parse(_JSON);
-    var w = data.meta.size.w;
-    var h = data.meta.size.h;
+	var data = JSON.parse(_JSON);
+	var w = data.meta.size.w;
+	var h = data.meta.size.h;
 	this.isNPOT = !(this.isPowerOfTwo(w) && this.isPowerOfTwo(h));
 
 	console.log("pbSurface.createAtlas " + w + "x" + h + " frames = " + data.frames.length + " isNPOT = " + (this.isNPOT ? "true" : "false"));
@@ -244,5 +244,5 @@ pbSurface.prototype.destroy = function()
 
 pbSurface.prototype.isPowerOfTwo = function(x)
 {
-    return ((x > 0) && !(x & (x - 1)));
+	return ((x > 0) && !(x & (x - 1)));
 };

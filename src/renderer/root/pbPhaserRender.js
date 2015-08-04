@@ -35,14 +35,14 @@ function pbPhaserRender(_docId)
 	pbPhaserRender.height = 600;
 
 	// canvas
-    pbPhaserRender.canvas = document.createElement('canvas');
-    pbPhaserRender.canvas.setAttribute('id', this.docId);
-    pbPhaserRender.canvas.setAttribute('width', pbPhaserRender.width);
-    pbPhaserRender.canvas.setAttribute('height', pbPhaserRender.height);
-    pbPhaserRender.canvas.setAttribute('style', 'border: none');
-    // NOTE: canvas performance seems heavily dependent on the Node order of it's parent, it needs to be first!
+	pbPhaserRender.canvas = document.createElement('canvas');
+	pbPhaserRender.canvas.setAttribute('id', this.docId);
+	pbPhaserRender.canvas.setAttribute('width', pbPhaserRender.width);
+	pbPhaserRender.canvas.setAttribute('height', pbPhaserRender.height);
+	pbPhaserRender.canvas.setAttribute('style', 'border: none');
+	// NOTE: canvas performance seems heavily dependent on the Node order of it's parent, it needs to be first!
 	var guiContainer = document.getElementById('gui');    
-    document.body.insertBefore(pbPhaserRender.canvas, guiContainer);
+	document.body.insertBefore(pbPhaserRender.canvas, guiContainer);
 }
 
 
@@ -58,22 +58,22 @@ pbPhaserRender.prototype.create = function(_renderMode, _bootCallback, _updateCa
 	this.gameContext = _gameContext;
 
 	// globals
- 	rootLayer = null;
+	rootLayer = null;
 
 	// boot when the document is ready
 	var _this = this;
-    this._onBoot = function () {
-        	return _this.boot();
-    	};
-    if (document.readyState === 'complete' || document.readyState === 'interactive')
-    {
-        window.setTimeout(this._onBoot, 0);
-    }
-    else
-    {
-        document.addEventListener('DOMContentLoaded', this._onBoot, false);
-        window.addEventListener('load', this._onBoot, false);
-    }
+	this._onBoot = function () {
+			return _this.boot();
+		};
+	if (document.readyState === 'complete' || document.readyState === 'interactive')
+	{
+		window.setTimeout(this._onBoot, 0);
+	}
+	else
+	{
+		document.addEventListener('DOMContentLoaded', this._onBoot, false);
+		window.addEventListener('load', this._onBoot, false);
+	}
 
 	// create the loader and set a callback for when the files have all loaded
 	pbPhaserRender.loader = new pbLoader( this.allLoaded, this );
@@ -82,28 +82,28 @@ pbPhaserRender.prototype.create = function(_renderMode, _bootCallback, _updateCa
 
 pbPhaserRender.prototype.boot = function()
 {
-    if (this.isBooted)
-    {
-    	// only boot once
-        return;
-    }
+	if (this.isBooted)
+	{
+		// only boot once
+		return;
+	}
 
-    if (!document.body)
-    {
-    	// wait until the document.body is available, keep trying every 20 ms
-        window.setTimeout(this._onBoot, 20);
-        return;
-    }
+	if (!document.body)
+	{
+		// wait until the document.body is available, keep trying every 20 ms
+		window.setTimeout(this._onBoot, 20);
+		return;
+	}
 
-   	console.log("pbRenderer boot");
+	console.log("pbRenderer boot");
 
-    document.removeEventListener('DOMContentLoaded', this._onBoot);
-    window.removeEventListener('load', this._onBoot);
+	document.removeEventListener('DOMContentLoaded', this._onBoot);
+	window.removeEventListener('load', this._onBoot);
 
-    // only boot once
-    this.isBooted = true;
+	// only boot once
+	this.isBooted = true;
 
-    // start the update ticking
+	// start the update ticking
 	this.rootTimer = new pbRootTimer();
 	this.rootTimer.start(this.update, this);
 };
@@ -168,8 +168,8 @@ pbPhaserRender.prototype.update = function()
 		rootLayer = new layerClass();
 		rootLayer.create(null, pbPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
 		
-	    // call the game's boot callback if there's nothing left to load
-	    this.bootCallback.call( this.gameContext );
+		// call the game's boot callback if there's nothing left to load
+		this.bootCallback.call( this.gameContext );
 
 		this.state = "running";
 		return;

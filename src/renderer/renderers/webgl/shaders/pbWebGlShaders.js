@@ -391,12 +391,12 @@ var simpleShaderSources = {
 		" varying vec2 v_texcoord;" +
 		" uniform sampler2D uImageSampler;" +
 		" void main() {" +
-    	"   gl_FragColor = texture2D(uImageSampler, v_texcoord);" +
+		"   gl_FragColor = texture2D(uImageSampler, v_texcoord);" +
 		" }",
 
 	vertex:
-    	" attribute vec4 aPosition;" +
-    	" varying vec2 v_texcoord;" +
+		" attribute vec4 aPosition;" +
+		" varying vec2 v_texcoord;" +
 		" void main() {" +
 		"   gl_Position = aPosition;" +
 		"   v_texcoord = aPosition.xy * 0.5 + 0.5;" +
@@ -487,10 +487,10 @@ pbWebGlShaders.prototype.destroy = function()
 
 pbWebGlShaders.prototype.addJSON = function( jsonString )
 {
-    var programJSON = JSON.parse(jsonString);
-    programJSON.fragment = programJSON.fragment.join('\n');
-    programJSON.vertex = programJSON.vertex.join('\n');
-    return this.add( programJSON );
+	var programJSON = JSON.parse(jsonString);
+	programJSON.fragment = programJSON.fragment.join('\n');
+	programJSON.vertex = programJSON.vertex.join('\n');
+	return this.add( programJSON );
 };
 
 
@@ -647,9 +647,9 @@ pbWebGlShaders.prototype.setProgram = function(_programIndex, _textureNumber)
 
 		// set the fragment shader sampler to use the correct texture
 		if (program.samplerUniforms && program.samplerUniforms.uImageSampler)
-	   		gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );
+			gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );
 
-	   	return program;
+		return program;
 	}
 
 	return this.programList[ pbWebGlShaders.currentProgram ];
@@ -689,7 +689,7 @@ pbWebGlShaders.prototype.clearProgram = function()
 pbWebGlShaders.prototype.prepare = function(_textureNumber)
 {
 	if (_textureNumber === undefined)
-    	_textureNumber = 0;
+		_textureNumber = 0;
 	
 	var program = this.programList[ pbWebGlShaders.currentProgram ];
 
@@ -697,8 +697,8 @@ pbWebGlShaders.prototype.prepare = function(_textureNumber)
 	{
 		// set the shader to use TEXTURE0 and the first sampler uniform
 		if (program.samplerUniforms.uImageSampler)
-   			gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );
-   	}
+			gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );
+	}
 
 	if (program.uniforms)
 	{

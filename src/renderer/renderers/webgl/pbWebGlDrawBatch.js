@@ -42,7 +42,7 @@ pbWebGl.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface,
 	var old_r;
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * 24 - 8);
+	var buffer = this.drawingArray.subarray(0, len * 24 - 8);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
 	for ( var i = -2, c = 0; (i += 2) < len; c += 16 )
@@ -57,10 +57,10 @@ pbWebGl.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface,
 			// degenerate triangle: repeat the last vertex
 			buffer[ c     ] = old_r;
 			buffer[ c + 1 ] = old_t;
-		 	// repeat the next vertex
+			// repeat the next vertex
 			buffer[ c + 4 ] = l;
-		 	buffer[ c + 5 ] = b;
-		 	// texture coordinates are unused
+			buffer[ c + 5 ] = b;
+			// texture coordinates are unused
 			//buffer[ c + 2 ] = buffer[ c + 3 ] = buffer[ c + 6 ] = buffer[ c + 7 ] = 0;
 			c += 8;
 		}
@@ -86,10 +86,10 @@ pbWebGl.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface,
 	}
 
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len / 2 * 6 - 2);		// four vertices per sprite plus two degenerate points
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len / 2 * 6 - 2);		// four vertices per sprite plus two degenerate points
 };
 
 
@@ -129,7 +129,7 @@ pbWebGl.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surf
 	var vHigh = _surface.cellTextureBounds[0].height;
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * 24 - 8);
+	var buffer = this.drawingArray.subarray(0, len * 24 - 8);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
 	for ( var i = -4, c = 0; (i += 4) < len; c += 16 )
@@ -147,10 +147,10 @@ pbWebGl.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surf
 			// degenerate triangle: repeat the last vertex
 			buffer[ c     ] = old_r;
 			buffer[ c + 1 ] = old_t;
-		 	// repeat the next vertex
+			// repeat the next vertex
 			buffer[ c + 4 ] = l;
-		 	buffer[ c + 5 ] = b;
-		 	// texture coordinates
+			buffer[ c + 5 ] = b;
+			// texture coordinates
 			buffer[ c + 2 ] = u;
 			buffer[ c + 3 ] = v;
 			buffer[ c + 6 ] = u;
@@ -181,10 +181,10 @@ pbWebGl.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surf
 	}
 
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len / 4 * 6 - 2);		// four vertices per sprite plus two degenerate points
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len / 4 * 6 - 2);		// four vertices per sprite plus two degenerate points
 };
 
 
@@ -218,7 +218,7 @@ pbWebGl.prototype.blitListDirect = function( _list, _listLength, _surface, _text
 	var old_r;
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * 24 - 8);
+	var buffer = this.drawingArray.subarray(0, len * 24 - 8);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
 	for ( var i = -1, c = 0; ++i < len; c += 16 )
@@ -233,10 +233,10 @@ pbWebGl.prototype.blitListDirect = function( _list, _listLength, _surface, _text
 			// degenerate triangle: repeat the last vertex
 			buffer[ c     ] = old_r;
 			buffer[ c + 1 ] = old_t;
-		 	// repeat the next vertex
+			// repeat the next vertex
 			buffer[ c + 4 ] = l;
-		 	buffer[ c + 5 ] = b;
-		 	// texture coordinates are unused
+			buffer[ c + 5 ] = b;
+			// texture coordinates are unused
 			//buffer[ c + 2 ] = buffer[ c + 3 ] = buffer[ c + 6 ] = buffer[ c + 7 ] = 0;
 			c += 8;
 		}
@@ -262,10 +262,10 @@ pbWebGl.prototype.blitListDirect = function( _list, _listLength, _surface, _text
 	}
 
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
 };
 
 
@@ -299,7 +299,7 @@ pbWebGl.prototype.blitDrawImages = function( _textureNumber, _list, _surface )
 	var old_r;
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * 24 - 8);
+	var buffer = this.drawingArray.subarray(0, len * 24 - 8);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
 	for ( var i = -1, c = 0; ++i < len; c += 16 )
@@ -315,10 +315,10 @@ pbWebGl.prototype.blitDrawImages = function( _textureNumber, _list, _surface )
 			// degenerate triangle: repeat the last vertex
 			buffer[ c     ] = old_r;
 			buffer[ c + 1 ] = old_t;
-		 	// repeat the next vertex
+			// repeat the next vertex
 			buffer[ c + 4 ] = l;
-		 	buffer[ c + 5 ] = b;
-		 	// texture coordinates are unused
+			buffer[ c + 5 ] = b;
+			// texture coordinates are unused
 			//buffer[ c + 2 ] = buffer[ c + 3 ] = buffer[ c + 6 ] = buffer[ c + 7 ] = 0;
 			c += 8;
 		}
@@ -344,10 +344,10 @@ pbWebGl.prototype.blitDrawImages = function( _textureNumber, _list, _surface )
 	}
 
 
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
 };
 
 
@@ -382,10 +382,10 @@ pbWebGl.prototype.blitDrawImagesPoint = function( _list, _listLength, _surface, 
 	var len = Math.min(_listLength, MAX_SPRITES * 2);
 
 	// make a buffer view of the _list which is only as long as we need
-    var buffer = _list.subarray(0, len);
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 2, gl.FLOAT, false, 0, 0 );
-    gl.drawArrays(gl.POINTS, 0, len / 2);
+	var buffer = _list.subarray(0, len);
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 2, gl.FLOAT, false, 0, 0 );
+	gl.drawArrays(gl.POINTS, 0, len / 2);
 };
 
 
@@ -418,22 +418,22 @@ pbWebGl.prototype.blitDrawImagesPointAnim = function(_list, _listLength, _surfac
 	var len = Math.min(_listLength, MAX_SPRITES * 4);
 
 	// make a buffer view of the _list which is only as long as we need
-    var buffer = _list.subarray(0, len);
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 2, gl.FLOAT, false, 4 * 4, 0 * 4 );
-    gl.vertexAttribPointer( this.shaders.getAttribute( "aTextureCoord" ), 2, gl.FLOAT, false, 4 * 4, 2 * 4 );
-    gl.drawArrays(gl.POINTS, 0, len / 4);
+	var buffer = _list.subarray(0, len);
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 2, gl.FLOAT, false, 4 * 4, 0 * 4 );
+	gl.vertexAttribPointer( this.shaders.getAttribute( "aTextureCoord" ), 2, gl.FLOAT, false, 4 * 4, 2 * 4 );
+	gl.drawArrays(gl.POINTS, 0, len / 4);
 };
 
 
 // TODO: turns out we can use multiple bindBuffers instead of interleaving the data... give it a test for speed!  (I suspect this will cause additional stalls when transmitting the data)
-    // gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    // gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
-    // gl.enableVertexAttribArray(colorLoc);
-    // gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
-    // gl.vertexAttribPointer(vertLoc, 2, gl.FLOAT, false, 0, 0);
-    // gl.enableVertexAttribArray(vertLoc);
-    // gl.drawArrays(gl.POINTS, 0, numPoints);
+	// gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+	// gl.vertexAttribPointer(colorLoc, 3, gl.FLOAT, false, 0, 0);
+	// gl.enableVertexAttribArray(colorLoc);
+	// gl.bindBuffer(gl.ARRAY_BUFFER, vertBuffer);
+	// gl.vertexAttribPointer(vertLoc, 2, gl.FLOAT, false, 0, 0);
+	// gl.enableVertexAttribArray(vertLoc);
+	// gl.drawArrays(gl.POINTS, 0, numPoints);
 
 
 // unused.  Sends tx,ty,sin,cos,sx,sy and u,v to gl.
@@ -451,7 +451,7 @@ pbWebGl.prototype.batchDrawImages = function( _textureNumber, _list, _surface )
 	var len = Math.min(_list.length, MAX_SPRITES);
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
+	var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig (chrome)!
 	for ( var i = -1, c = 0; ++i < len; c += 44 )
@@ -560,12 +560,12 @@ pbWebGl.prototype.batchDrawImages = function( _textureNumber, _list, _surface )
 	}
 
 	// point the attributes at the buffer (stride and offset are in bytes, there are 4 bytes per gl.FLOAT)
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ) , 4, gl.FLOAT, false, 11 * 4, 0 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aTransform" ), 4, gl.FLOAT, false, 11 * 4, 4 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aTranslate" ), 3, gl.FLOAT, false, 11 * 4, 8 * 4 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points
 };
 
 
@@ -588,7 +588,7 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 	var len = Math.min(_list.length, MAX_SPRITES);
 
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
+	var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
 
 	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
 	for ( var i = -1, c = 0; ++i < len; c += 44 )
@@ -704,13 +704,13 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 	}
 
 	// point the attributes at the buffer (stride and offset are in bytes, there are 4 bytes per gl.FLOAT)
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ),     4, gl.FLOAT, false, 11 * 4,  0 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix0" ), 2, gl.FLOAT, false, 11 * 4,  4 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix1" ), 2, gl.FLOAT, false, 11 * 4,  6 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix2" ), 3, gl.FLOAT, false, 11 * 4,  8 * 4 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
 };
 
 
@@ -734,14 +734,14 @@ pbWebGl.prototype.rawBatchDrawTextures = function( _list )
 	// TODO: generate warning if length is capped
 	var len = Math.min(_list.length, MAX_SPRITES);
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
-    var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
+	var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
 
 	var wide, high;
 	// half width, half height (of source frame)
 	wide = srcTexture.width;
 	high = srcTexture.height;
 
-    var l, r, t, b;
+	var l, r, t, b;
 
 	for ( var i = -1, c = 0; ++i < len; c += 44 )
 	{
@@ -850,13 +850,13 @@ pbWebGl.prototype.rawBatchDrawTextures = function( _list )
 	}
 
 	// point the attributes at the buffer (stride and offset are in bytes, there are 4 bytes per gl.FLOAT)
-    gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ),     4, gl.FLOAT, false, 11 * 4,  0 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix0" ), 2, gl.FLOAT, false, 11 * 4,  4 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix1" ), 2, gl.FLOAT, false, 11 * 4,  6 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix2" ), 3, gl.FLOAT, false, 11 * 4,  8 * 4 );
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
 };
 
 

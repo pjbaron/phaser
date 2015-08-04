@@ -35,11 +35,11 @@ pbWebGl.prototype.fillRect = function( x, y, wide, high, color, targetWidth, tar
 	var y2 = y + high;
 	var vertices =
 	[
-         x, y,
-         x2, y,
-         x, y2,
-         x2, y2
-    ];
+		 x, y,
+		 x2, y,
+		 x, y2,
+		 x2, y2
+	];
 
 	this.bgVertexBuffer = gl.createBuffer();
 	this.bgVertexBuffer.numPoints = 4;
@@ -90,11 +90,11 @@ pbWebGl.prototype.drawRect = function( x, y, wide, high, color, targetWidth, tar
 	var y2 = y + high;
 	var vertices =
 	[
-         x, y, x2, y,
-         x2, y, x2, y2,
-         x2, y2, x, y2,
-         x, y2, x, y
-    ];
+		 x, y, x2, y,
+		 x2, y, x2, y2,
+		 x2, y2, x, y2,
+		 x, y2, x, y
+	];
 
 	this.bgVertexBuffer = gl.createBuffer();
 	this.bgVertexBuffer.numPoints = 4 * 2;

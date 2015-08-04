@@ -29,9 +29,9 @@ function pbCreatureAssist( docId )
 
 	// size of the destination texture
 //    this.dstWidth = 256;
-    this.dstWidth = 512;
+	this.dstWidth = 512;
 //    this.dstHeight = 128;
-    this.dstHeight = 256;
+	this.dstHeight = 256;
 }
 
 
@@ -43,8 +43,8 @@ pbCreatureAssist.prototype.create = function()
 	var jsonString = pbPhaserRender.loader.getFile( this.creatureShaderJSON ).responseText;
 	this.creatureShaderProgram = pbPhaserRender.renderer.graphics.shaders.addJSON( jsonString );
 
-    // get the source texture using 'key'
-    this.dinoTexture = textures.getFirst("creature");
+	// get the source texture using 'key'
+	this.dinoTexture = textures.getFirst("creature");
 
 	// unzip the compressed data file and create the animation JSON data structures
 	var zip = new JSZip( pbPhaserRender.loader.getFile( this.creatureDataZip ).response );
@@ -67,9 +67,9 @@ pbCreatureAssist.prototype.create = function()
 	// create a transform to be applied when drawing a creature to the render-to-texture on the GPU
 	// this controls the offset, rotation and size of the creature's raw sprite source
 	// it starts off with no offset, rotation and a scale of 1.0
-    this.typeTransform = pbMatrix3.makeTransform(this.xpos, this.ypos, this.rot, this.scale, this.scale);
+	this.typeTransform = pbMatrix3.makeTransform(this.xpos, this.ypos, this.rot, this.scale, this.scale);
 
-    // add the creature type to the creature handler, using it's name for future reference
+	// add the creature type to the creature handler, using it's name for future reference
 	this.creatures.create("creatureType", creatureData, this.dinoTexture, 1, 3, this.dstWidth, this.dstHeight, this.typeTransform, 1.0 );
 
 	// add an instance of the creature to the creature handler
@@ -88,7 +88,7 @@ pbCreatureAssist.prototype.create = function()
 	// 
 
 	// set up the renderer postUpdate callback to draw the camera sprite using the render-to-texture surface on the GPU
-    pbPhaserRender.renderer.postUpdate = this.postUpdate;
+	pbPhaserRender.renderer.postUpdate = this.postUpdate;
 
 	// add a top layer for ui text messages
 	this.uiLayer = new layerClass();
@@ -210,10 +210,10 @@ pbCreatureAssist.prototype.update = function()
 			this.scale += this.scaleChange;
 
 		// create the new transform
-	    this.typeTransform = pbMatrix3.makeTransform(this.xpos, this.ypos, this.rot, this.scale, this.scale);
-	    this.creatures.adjust("creatureType", this.typeTransform);
+		this.typeTransform = pbMatrix3.makeTransform(this.xpos, this.ypos, this.rot, this.scale, this.scale);
+		this.creatures.adjust("creatureType", this.typeTransform);
 
-	    // update the UI display
+		// update the UI display
 		this.text.changeLine(this.x_text, "x position: " + this.xpos.toFixed(3));
 		this.text.changeLine(this.y_text, "y position: " + this.ypos.toFixed(3));
 		this.text.changeLine(this.r_text, "rotation: " + this.rot.toFixed(3));
@@ -251,7 +251,7 @@ pbCreatureAssist.prototype.postUpdate = function()
 	var transform = pbMatrix3.makeTransform(o.x, o.y, o.r, o.scale, o.scale);
 	pbPhaserRender.renderer.graphics.drawTextureWithTransform( o.type.dstTexture, transform, 1.0 );
 
-   	// debug box
+	// debug box
 //   	var wide = o.type.renderer.width * this.dstWidth * this.scale;
 //   	var high = o.type.renderer.height * this.dstHeight * this.scale;
 //		pbPhaserRender.renderer.graphics.drawRect(o.x + o.type.renderer.left, o.y + o.type.renderer.bottom - high, wide, high, {r:0xff, g:0xff, b:0xff, a:0xff});
