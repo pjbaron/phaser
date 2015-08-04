@@ -1,13 +1,5 @@
-//  If we've updated pixi or p2 then their UMD wrappers will be wrong, this will fix it:
+//  If we've updated p2 then the UMD wrappers will be wrong, this will fix it:
 module.exports = {
-    pixi: {
-        src: ['src/pixi/Outro.js'],
-        dest: 'src/pixi/Outro.js',
-        replacements: [{
-            from: "define(PIXI);",
-            to: "define('PIXI', (function() { return root.PIXI = PIXI; })() );"
-        }]
-    },
 
     p2: {
         src: ['src/physics/p2/p2.js'],

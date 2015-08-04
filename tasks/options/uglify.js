@@ -8,14 +8,6 @@ module.exports = {
         dest: '<%= compile_dir %>/p2.min.js'
     },
 
-    pixi: {
-        options: {
-            banner: '/* Pixi.js custom build for Phaser v<%= package.version %> - http://phaser.io - @photonstorm - (c) 2014 Photon Storm Ltd. */\n'
-        },
-        src: ['<%= concat.pixi.dest %>'],
-        dest: '<%= compile_dir %>/pixi.min.js'
-    },
-
     ninja: {
         options: {
             banner: '/* Ninja Physics for Phaser v<%= package.version %> - http://phaser.io - @photonstorm - (c) 2014 Photon Storm Ltd. */\n'
