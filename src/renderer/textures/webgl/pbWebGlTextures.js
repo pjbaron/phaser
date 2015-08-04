@@ -48,7 +48,9 @@ pbWebGlTextures.prototype.prepareOnGPU = function(_texture, _tiling, _npot, _tex
 {
 	// activate the texture
 	if (_textureNumber === undefined)
+	{
     	_textureNumber = 0;
+	}
    	gl.activeTexture( gl.TEXTURE0 + _textureNumber );
 	
 	// bind the texture to the currently active texture register
@@ -96,7 +98,9 @@ pbWebGlTextures.prototype.prepare = function( _imageData, _tiling, _npot, _textu
 {
 	// exit immediately if this _imageData is already the selected texture
 	if (this.currentSrcTexture && this.currentSrcTexture.imageData === _imageData)
+	{
 		return false;
+	}
 
 	var texture = null;
 
@@ -104,7 +108,9 @@ pbWebGlTextures.prototype.prepare = function( _imageData, _tiling, _npot, _textu
 	// TODO: if we keep a log of all textureRegisters which have been used so far and what is in them...
 	// ...and we know how many registers are available, we can reduce the frequency of texture uploading.
 	if (_textureNumber === undefined)
+	{
     	_textureNumber = 0;
+	}
    	gl.activeTexture( gl.TEXTURE0 + _textureNumber );
 
 	var index = this.onGPU.indexOf(_imageData);
@@ -127,7 +133,9 @@ pbWebGlTextures.prototype.prepare = function( _imageData, _tiling, _npot, _textu
 	    }
 
 	    if (!_imageData.isDirty)	// only debug when a new texture is sent, not when an old texture is marked 'dirty' (because spam will slow things down)
+	    {
 			console.log( "pbWebGlTextures.prepare uploading source texture : ", _imageData.width, "x", _imageData.height );
+	    }
 
 	    // link the texture object to the imageData and vice-versa
 		texture = gl.createTexture();
@@ -140,7 +148,10 @@ pbWebGlTextures.prototype.prepare = function( _imageData, _tiling, _npot, _textu
 	    gl.bindTexture(gl.TEXTURE_2D, texture);
    
    		// optionally flip the texture vertically
-	    if (_flipy === undefined) _flipy = false;
+	    if (_flipy === undefined)
+	    {
+	    	_flipy = false;
+	    }
 	    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, _flipy);
 
    		// upload the texture to the GPU
@@ -279,10 +290,14 @@ pbWebGlTextures.prototype.setRenderSourceImage = function( _textureNumber, _imag
 
 		var index = this.onGPU.indexOf(_imageData);
 		if (index == -1)
+		{
 			this.onGPU.push(_imageData);
+		}
 		texture = _imageData.gpuTexture;
 		if (texture === null)
+		{
 			console.log("WARNING: imageData has null for gpuTexture.");
+		}
 		gl.activeTexture(gl.TEXTURE0 + _textureNumber);
 		gl.bindTexture(gl.TEXTURE_2D, texture);
 		this.currentSrcTexture = texture;
@@ -304,8 +319,10 @@ pbWebGlTextures.prototype.prepareTextureForAccess = function(_texture)
 	// 	console.log("pbWebGlTextures.prepareTextureForAccess", _texture.width, "x", _texture.height);
 
 	if (!this.fb)
+	{
 		// make a framebuffer
 		this.fb = gl.createFramebuffer();
+	}
 
 	// make this the current frame buffer
 	gl.bindFramebuffer(gl.FRAMEBUFFER, this.fb);
@@ -542,7 +559,9 @@ pbWebGlTextures.initFramebuffer = function(_texture, _depth)
     gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, _texture, 0);
     // attach the depth buffer to the framebuffer
     if (_depth)
+    {
     	gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, _depth);
+    }
 
     return fb;
 };
