@@ -8,7 +8,7 @@
 
 function pbBaseLayer()
 {
-	this.super(pbBaseLayer, 'constructor');
+	this.superCall(pbBaseLayer, 'constructor');
 
 	this.list = null;
 	this.parent = null;
@@ -29,7 +29,7 @@ pbBaseLayer.prototype.create = function(_parent, _renderer, _x, _y, _z, _angleIn
 	// console.log("pbBaseLayer.create", _x, _y);
 	
 	// call the pbTransformObject create for this pbBaseLayer
-	this.super(pbBaseLayer, 'create', null, _x, _y, _z, _angleInRadians, _scaleX, _scaleY);
+	this.superCall(pbBaseLayer, 'create', null, _x, _y, _z, _angleInRadians, _scaleX, _scaleY);
 
 	// TODO: add pass-through option so that layers can choose not to inherit their parent's transforms and will use the rootLayer transform instead
 	// TODO: pbBaseLayer is rotating around it's top-left corner (because there's no width/height and no anchor point??)
@@ -50,7 +50,7 @@ pbBaseLayer.prototype.setClipping = function(_x, _y, _width, _height)
 pbBaseLayer.prototype.destroy = function()
 {
 	// call the pbTransformObject destroy for this pbBaseLayer
-	this.super(pbBaseLayer, 'destroy');
+	this.superCall(pbBaseLayer, 'destroy');
 
 	this.clip = null;
 
@@ -71,7 +71,7 @@ pbBaseLayer.prototype.update = function(_drawList)
 {
 	// console.log("pbBaseLayer.update");
 	// call the pbTransformObject update for this pbBaseLayer to access the child hierarchy
-	this.super(pbBaseLayer, 'update', _drawList);
+	this.superCall(pbBaseLayer, 'update', _drawList);
 };
 
 
@@ -164,8 +164,8 @@ pbBaseLayer.prototype.addChild = function( _child )
 	}
 	else
 	{
-		// call the super.addChild function
-		this.super(pbBaseLayer, 'addChild', _child);
+		// call the superCall.addChild function
+		this.superCall(pbBaseLayer, 'addChild', _child);
 	}
 };
 
@@ -186,8 +186,8 @@ pbBaseLayer.prototype.removeChild = function( _child )
 	}
 	else
 	{
-		// call the super.removeChild function
-		this.super(pbBaseLayer, 'removeChild', _child);
+		// call the superCall.removeChild function
+		this.superCall(pbBaseLayer, 'removeChild', _child);
 	}
 };
 

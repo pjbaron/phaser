@@ -8,7 +8,7 @@
 
 function pbTextures()
 {
-	this.super(pbTextures, 'constructor');
+	this.superCall(pbTextures, 'constructor');
 }
 
 
@@ -29,6 +29,6 @@ pbTextures.prototype.addGPUTexture = function(_key, _textureIndex)
 {
 	// add the _textureIndex to the textures dictionary referenced by 'key'
 	// on access the null 'surface' value will cause a test for 'GPU'
-	return this.super(pbTextures, 'add', _key, { imageData: null, surface: null, GPU: _textureIndex });	
+	return this.superCall(pbTextures, 'add', _key, { imageData: null, surface: null, GPU: _textureIndex });	
 };
 

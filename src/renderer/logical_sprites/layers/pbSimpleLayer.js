@@ -266,7 +266,7 @@ pbSimpleLayer.prototype.addChild = function( _child )
 {
 	if (_child instanceof pbTransformObject)
 	{
-		// call the super.addChild function
+		// call the superCall.addChild function
 		this.__super__.prototype.addChild.call( this, _child );
 	}
 	else

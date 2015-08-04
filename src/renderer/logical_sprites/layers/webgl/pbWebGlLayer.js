@@ -38,7 +38,7 @@ pbWebGlLayer.prototype.create = function(_parent, _renderer, _x, _y, _z, _angleI
 	// console.log("pbWebGlLayer.create", _x, _y);
 	
 	// call the pbBaseLayer create for this pbWebGlLayer
-	this.super(pbWebGlLayer, 'create', _parent, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY);
+	this.superCall(pbWebGlLayer, 'create', _parent, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY);
 
 	// create dictionary to store drawing commands in the correct order, indexed by the source surface
 	// to prepare the data for fast batch drawing
@@ -50,7 +50,7 @@ pbWebGlLayer.prototype.create = function(_parent, _renderer, _x, _y, _z, _angleI
 pbWebGlLayer.prototype.destroy = function()
 {
 	// call the pbBaseLayer destroy for this pbWebGlLayer
-	this.super(pbWebGlLayer, 'destroy');
+	this.superCall(pbWebGlLayer, 'destroy');
 
 	this.drawDictionary = null;
 };
@@ -66,7 +66,7 @@ pbWebGlLayer.prototype.update = function(_dictionary)
 	this.drawDictionary.clear();
 
 	// call the pbBaseLayer update for this pbWebGlLayer to access the child hierarchy
-	this.super(pbWebGlLayer, 'update', this.drawDictionary);
+	this.superCall(pbWebGlLayer, 'update', this.drawDictionary);
 
 	if (this.clip)
 	{

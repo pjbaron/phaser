@@ -7,7 +7,7 @@
 
 function pbCanvasLayer()
 {
-	this.super(pbCanvasLayer, 'constructor');
+	this.superCall(pbCanvasLayer, 'constructor');
 	// this.parent = null;
 	// this.phaserRender = null;
 	// this.clip = null;
@@ -29,7 +29,7 @@ pbCanvasLayer.prototype.update = function()
 	this.drawList = [];
 
 	// call the pbBaseLayer update for this pbCanvasLayer to access the child hierarchy
-	this.super(pbCanvasLayer, 'update', this.drawList);
+	this.superCall(pbCanvasLayer, 'update', this.drawList);
 
 	if (this.clip)
 	{

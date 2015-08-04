@@ -144,9 +144,9 @@ pbDictionary.prototype.iterateKeys = function(_func, _context)
 // allow this class to be extended
 // permits multiple levels of inheritance 	http://jsfiddle.net/ZWZP6/2/  
 // improvement over original answer at 		http://stackoverflow.com/questions/7300552/calling-overridden-methods-in-javascript
-pbDictionary.prototype.super = function(clazz, functionName)
+pbDictionary.prototype.superCall = function(clazz, functionName)
 {
-	// console.log("pbDictionary.super", functionName);
+	// console.log("pbDictionary.superCall", functionName);
     var args = Array.prototype.slice.call(arguments, 2);
     clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };

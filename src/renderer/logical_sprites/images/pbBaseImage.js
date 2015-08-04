@@ -62,9 +62,9 @@ pbBaseImage.prototype.setCorners = function(ltx, lty, rtx, rty, lbx, lby, rbx, r
 // allow this class to be extended
 // permits multiple levels of inheritance 	http://jsfiddle.net/ZWZP6/2/  
 // improvement over original answer at 		http://stackoverflow.com/questions/7300552/calling-overridden-methods-in-javascript
-pbBaseImage.prototype.super = function(clazz, functionName)
+pbBaseImage.prototype.superCall = function(clazz, functionName)
 {
-	//console.log("pbBaseImage.super", functionName);
+	//console.log("pbBaseImage.superCall", functionName);
     var args = Array.prototype.slice.call(arguments, 2);
     clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };
