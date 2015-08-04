@@ -75,20 +75,3 @@ var Phaser = Phaser || {
     }
 
 };
-
-// We don't need this in Pixi, so we've removed it to save space
-// however the Stage object expects a reference to it, so here is a dummy entry.
-// Ensure that an existing PIXI.InteractionManager is not overriden - in case you're using your own PIXI library.
-
-// PJBNOTE: shouldn't be needed with PIXI removal
-//PIXI.InteractionManager = PIXI.InteractionManager || function () {};
-
-//  Equally we're going to supress the Pixi console log, with their agreement.
-
-// PJBNOTE: shouldn't be needed with PIXI removal
-//PIXI.dontSayHello = true;
-
-// PIXI.Polygon.prototype.type = PIXI.Graphics.POLY;
-// PIXI.Rectangle.prototype.type = PIXI.Graphics.RECT;
-// PIXI.Circle.prototype.type = PIXI.Graphics.CIRC;
-// PIXI.Ellipse.prototype.type = PIXI.Graphics.ELIP;

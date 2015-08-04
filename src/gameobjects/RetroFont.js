@@ -138,9 +138,7 @@ Phaser.RetroFont = function (game, key, characterWidth, characterHeight, chars, 
 
     for (var c = 0; c < chars.length; c++)
     {
-        var uuid = game.rnd.uuid();
-
-        var frame = this.frameData.addFrame(new Phaser.Frame(c, currentX, currentY, this.characterWidth, this.characterHeight, '', uuid));
+        var frame = this.frameData.addFrame(new Phaser.Frame(c, currentX, currentY, this.characterWidth, this.characterHeight, ''));
 
         this.grabData[chars.charCodeAt(c)] = frame.index;
 

@@ -94,7 +94,7 @@ Phaser.TilemapLayer = function (game, tilemap, index, width, height) {
     * @property {Phaser.Frame} textureFrame
     * @protected
     */
-    this.textureFrame = new Phaser.Frame(0, 0, 0, width, height, 'tilemapLayer', game.rnd.uuid());
+    this.textureFrame = new Phaser.Frame(0, 0, 0, width, height, 'tilemapLayer');
 
     Phaser.Image.call(this, this.game, 0, 0, this.texture, this.textureFrame);
 

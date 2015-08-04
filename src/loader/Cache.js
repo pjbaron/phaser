@@ -420,9 +420,9 @@ Phaser.Cache.prototype = {
         img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABVJREFUeF7NwIEAAAAAgKD9qdeocAMAoAABm3DkcAAAAABJRU5ErkJggg==";
 
         this._images['__default'] = { url: null, data: img };
-        this._images['__default'].frame = new Phaser.Frame(0, 0, 0, 32, 32, '', '');
+        this._images['__default'].frame = new Phaser.Frame(0, 0, 0, 32, 32, '');
         this._images['__default'].frameData = new Phaser.FrameData();
-        this._images['__default'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null, this.game.rnd.uuid()));
+        this._images['__default'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null));
 
 // PJBNOTE: see first note for decision about these
         // PIXI.BaseTextureCache['__default'] = new PIXI.BaseTexture(img);
@@ -442,9 +442,9 @@ Phaser.Cache.prototype = {
         img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ9JREFUeNq01ssOwyAMRFG46v//Mt1ESmgh+DFmE2GPOBARKb2NVjo+17PXLD8a1+pl5+A+wSgFygymWYHBb0FtsKhJDdZlncG2IzJ4ayoMDv20wTmSMzClEgbWYNTAkQ0Z+OJ+A/eWnAaR9+oxCF4Os0H8htsMUp+pwcgBBiMNnAwF8GqIgL2hAzaGFFgZauDPKABmowZ4GL369/0rwACp2yA/ttmvsQAAAABJRU5ErkJggg==";
 
         this._images['__missing'] = { url: null, data: img };
-        this._images['__missing'].frame = new Phaser.Frame(0, 0, 0, 32, 32, '', '');
+        this._images['__missing'].frame = new Phaser.Frame(0, 0, 0, 32, 32, '');
         this._images['__missing'].frameData = new Phaser.FrameData();
-        this._images['__missing'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null, this.game.rnd.uuid()));
+        this._images['__missing'].frameData.addFrame(new Phaser.Frame(0, 0, 0, 32, 32, null));
 
 // PJBNOTE: see first note for decision about these
         // PIXI.BaseTextureCache['__missing'] = new PIXI.BaseTexture(img);
@@ -512,9 +512,9 @@ Phaser.Cache.prototype = {
 
         this._images[key] = { url: url, data: data };
 
-        this._images[key].frame = new Phaser.Frame(0, 0, 0, data.width, data.height, key, this.game.rnd.uuid());
+        this._images[key].frame = new Phaser.Frame(0, 0, 0, data.width, data.height, key);
         this._images[key].frameData = new Phaser.FrameData();
-        this._images[key].frameData.addFrame(new Phaser.Frame(0, 0, 0, data.width, data.height, url, this.game.rnd.uuid()));
+        this._images[key].frameData.addFrame(new Phaser.Frame(0, 0, 0, data.width, data.height, url));
 
 // PJBNOTE: see first note for decision about these
         // PIXI.BaseTextureCache[key] = new PIXI.BaseTexture(data);
