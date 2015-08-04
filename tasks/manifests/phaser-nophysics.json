@@ -10,8 +10,6 @@
     "src/geom/Ellipse.js",
     "src/geom/Polygon.js",
 
-    "src/pixi/primitives/Graphics.js",
-
     "src/core/Camera.js",
     "src/core/State.js",
     "src/core/StateManager.js",

@@ -411,12 +411,6 @@ Cleaning dist...[32mOK[39m
                  ^ Expected '{' and instead saw 'this'.
     210 |[90m            this.scale += this.scaleChange;[39m
                      ^ Expected '{' and instead saw 'this'.
-    213 |[90m        this.typeTransform = pbMatrix3.makeTransform(this.xpos, this.ypos, this.rot, this.scale, this.scale);[39m
-         ^ Mixed spaces and tabs.
-    214 |[90m        this.creatures.adjust("creatureType", this.typeTransform);[39m
-         ^ Mixed spaces and tabs.
-    216 |[90m        // update the UI display[39m
-         ^ Mixed spaces and tabs.
     217 |[90m        this.text.changeLine(this.x_text, "x position: " + this.xpos.toFixed(3));[39m
          ^ Identifier 'x_text' is not in camel case.
     218 |[90m        this.text.changeLine(this.y_text, "y position: " + this.ypos.toFixed(3));[39m
@@ -425,7 +419,13 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'r_text' is not in camel case.
     220 |[90m        this.text.changeLine(this.s_text, "scale: " + this.scale.toFixed(3));[39m
          ^ Identifier 's_text' is not in camel case.
-[31m>> [39mToo many errors. (83% scanned).
+    221 |[90m        this.text.changeLine(this.w_text, "width: " + this.dstWidth);[39m
+         ^ Identifier 'w_text' is not in camel case.
+    222 |[90m        this.text.changeLine(this.h_text, "height: " + this.dstHeight);[39m
+         ^ Identifier 'h_text' is not in camel case.
+    255 |[90m//       var wide = o.type.renderer.width * this.dstWidth * this.scale;[39m
+             ^ Mixed spaces and tabs.
+[31m>> [39mToo many errors. (96% scanned).
 [1m   src\renderer\creature\pbCreatureHandler.js[22m
      33 |[90m        this.dictionary = new pbDictionary();[39m
                                        ^ A constructor name should start with an uppercase letter.
@@ -1184,30 +1184,6 @@ Cleaning dist...[32mOK[39m
                              ^ Expected '{' and instead saw 'this'.
      97 |[90m    if (this.transform) this.transform.destroy();[39m
                                  ^ Expected '{' and instead saw 'this'.
-    176 |[90m        get: function() {[39m
-            ^ Mixed spaces and tabs.
-    177 |[90m            return this.image.fullScreen;[39m
-            ^ Mixed spaces and tabs.
-    178 |[90m        },[39m
-            ^ Mixed spaces and tabs.
-    179 |[90m        set: function(value) {[39m
-            ^ Mixed spaces and tabs.
-    180 |[90m            this.image.fullScreen = value;[39m
-            ^ Mixed spaces and tabs.
-    181 |[90m        }[39m
-            ^ Mixed spaces and tabs.
-    185 |[90m        get: function() {[39m
-            ^ Mixed spaces and tabs.
-    186 |[90m            return this.image.tiling;[39m
-            ^ Mixed spaces and tabs.
-    187 |[90m        },[39m
-            ^ Mixed spaces and tabs.
-    188 |[90m        set: function(value) {[39m
-            ^ Mixed spaces and tabs.
-    189 |[90m            this.image.tiling = value;[39m
-            ^ Mixed spaces and tabs.
-    190 |[90m        }[39m
-            ^ Mixed spaces and tabs.
      27 |[90m    this.textureObject = textures.getFirst(_key);[39m
                                   ^ 'textures' is not defined.
      31 |[90m    this.image = new imageClass();[39m
@@ -1365,42 +1341,12 @@ Cleaning dist...[32mOK[39m
                                         ^ Expected '{' and instead saw 'hex'.
      70 |[90m        return {[39m
                  ^ Expected '{' and instead saw 'return'.
-     71 |[90m            r: parseInt(hex.charAt(0)+hex.charAt(0), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     72 |[90m            g: parseInt(hex.charAt(1)+hex.charAt(1), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     73 |[90m            b: parseInt(hex.charAt(2)+hex.charAt(2), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     74 |[90m            a: 1.0[39m
-         ^ Mixed spaces and tabs.
-     75 |[90m        };[39m
-            ^ Mixed spaces and tabs.
      77 |[90m        return {[39m
                  ^ Expected '{' and instead saw 'return'.
-     78 |[90m            r: parseInt(hex.slice(0,2), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     79 |[90m            g: parseInt(hex.slice(2,4), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     80 |[90m            b: parseInt(hex.slice(4,6), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     81 |[90m            a: 1.0[39m
-         ^ Mixed spaces and tabs.
-     82 |[90m        };        [39m
-            ^ Mixed spaces and tabs.
      82 |[90m        };        [39m
                    ^ Trailing whitespace.
      84 |[90m        return {[39m
                  ^ Expected '{' and instead saw 'return'.
-     85 |[90m            r: parseInt(hex.slice(0,2), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     86 |[90m            g: parseInt(hex.slice(2,4), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     87 |[90m            b: parseInt(hex.slice(4,6), 16) / 255,[39m
-         ^ Mixed spaces and tabs.
-     88 |[90m            a: parseInt(hex.slice(6,8), 16) / 255[39m
-         ^ Mixed spaces and tabs.
-     89 |[90m        };[39m
-            ^ Mixed spaces and tabs.
     108 |[90mpbBaseGraphics.prototype.drawImageWithTransform = function(_textureNumber, _image, _transform, _z_order)[39m
          ^ Identifier '_z_order' is not in camel case.
      24 |[90mpbBaseGraphics.prototype.create = function(_canvas)[39m
@@ -1461,7 +1407,37 @@ Cleaning dist...[32mOK[39m
                                                                  ^ '_fillColor' is defined but never used.
     148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
                                                                                                          ^ 'targetHeight' is defined but never used.
-[31m>> [39mToo many errors. (80% scanned).
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                                                           ^ 'targetWidth' is defined but never used.
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                                              ^ 'color' is defined but never used.
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                                       ^ 'high' is defined but never used.
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                                 ^ 'wide' is defined but never used.
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                           ^ 'y' is defined but never used.
+    148 |[90mpbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
+                                                        ^ 'x' is defined but never used.
+    153 |[90mpbBaseGraphics.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface )[39m
+                                                                                               ^ '_surface' is defined but never used.
+    153 |[90mpbBaseGraphics.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface )[39m
+                                                                                     ^ '_listLength' is defined but never used.
+    153 |[90mpbBaseGraphics.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface )[39m
+                                                                        ^ '_list' is defined but never used.
+    158 |[90mpbBaseGraphics.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surface )[39m
+                                                                                                   ^ '_surface' is defined but never used.
+    158 |[90mpbBaseGraphics.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surface )[39m
+                                                                                         ^ '_listLength' is defined but never used.
+    158 |[90mpbBaseGraphics.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surface )[39m
+                                                                            ^ '_list' is defined but never used.
+    163 |[90mpbBaseGraphics.prototype.blitListDirect = function( _list, _listLength, _surface )[39m
+                                                                                         ^ '_surface' is defined but never used.
+    163 |[90mpbBaseGraphics.prototype.blitListDirect = function( _list, _listLength, _surface )[39m
+                                                                               ^ '_listLength' is defined but never used.
+    163 |[90mpbBaseGraphics.prototype.blitListDirect = function( _list, _listLength, _surface )[39m
+                                                                  ^ '_list' is defined but never used.
+[31m>> [39mToo many errors. (89% scanned).
 [1m   src\renderer\renderers\webgl\pbWebGl.js[22m
      32 |[90mpbWebGl.prototype = new pbBaseGraphics();[39m
                                  ^ A constructor name should start with an uppercase letter.
@@ -1475,14 +1451,6 @@ Cleaning dist...[32mOK[39m
                  ^ Expected '{' and instead saw 'this'.
     113 |[90m        this.textures.destroy();[39m
                  ^ Expected '{' and instead saw 'this'.
-    152 |[90m       gl.bindTexture( gl.TEXTURE_2D, null );[39m
-           ^ Mixed spaces and tabs.
-    152 |[90m       gl.bindTexture( gl.TEXTURE_2D, null );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
-    153 |[90m       this.shaders.clearProgram();[39m
-           ^ Mixed spaces and tabs.
-    153 |[90m       this.shaders.clearProgram();[39m
-                ^ Expected 'this' to have an indentation at 5 instead at 8.
      32 |[90mpbWebGl.prototype = new pbBaseGraphics();[39m
                                  ^ 'pbBaseGraphics' is not defined.
      34 |[90mpbWebGl.prototype.__super__ = pbBaseGraphics;        // http://stackoverflow.com/questions/7300552/calling-overridden-methods-in-javascript[39m
@@ -1504,14 +1472,6 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'old_r' is not in camel case.
      59 |[90m            buffer[ c + 1 ] = old_t;[39m
          ^ Identifier 'old_t' is not in camel case.
-     60 |[90m             // repeat the next vertex[39m
-          ^ Mixed spaces and tabs.
-     62 |[90m             buffer[ c + 5 ] = b;[39m
-          ^ Mixed spaces and tabs.
-     62 |[90m             buffer[ c + 5 ] = b;[39m
-                      ^ Expected 'buffer' to have an indentation at 13 instead at 14.
-     63 |[90m             // texture coordinates are unused[39m
-          ^ Mixed spaces and tabs.
      76 |[90m        buffer[ c + 8 ] = buffer[ c + 12] = old_r = x + wide;[39m
          ^ Identifier 'old_r' is not in camel case.
      77 |[90m        buffer[ c + 5 ] = buffer[ c + 13] = old_t = y - high;[39m
@@ -1524,14 +1484,6 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'old_r' is not in camel case.
     149 |[90m            buffer[ c + 1 ] = old_t;[39m
          ^ Identifier 'old_t' is not in camel case.
-    150 |[90m             // repeat the next vertex[39m
-          ^ Mixed spaces and tabs.
-    152 |[90m             buffer[ c + 5 ] = b;[39m
-          ^ Mixed spaces and tabs.
-    152 |[90m             buffer[ c + 5 ] = b;[39m
-                      ^ Expected 'buffer' to have an indentation at 13 instead at 14.
-    153 |[90m             // texture coordinates[39m
-          ^ Mixed spaces and tabs.
     169 |[90m        buffer[ c + 8 ] = buffer[ c + 12] = old_r = x + wide;[39m
          ^ Identifier 'old_r' is not in camel case.
     170 |[90m        buffer[ c + 5 ] = buffer[ c + 13] = old_t = y - high;[39m
@@ -1544,14 +1496,6 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'old_r' is not in camel case.
     235 |[90m            buffer[ c + 1 ] = old_t;[39m
          ^ Identifier 'old_t' is not in camel case.
-    236 |[90m             // repeat the next vertex[39m
-          ^ Mixed spaces and tabs.
-    238 |[90m             buffer[ c + 5 ] = b;[39m
-          ^ Mixed spaces and tabs.
-    238 |[90m             buffer[ c + 5 ] = b;[39m
-                      ^ Expected 'buffer' to have an indentation at 13 instead at 14.
-    239 |[90m             // texture coordinates are unused[39m
-          ^ Mixed spaces and tabs.
     252 |[90m        buffer[ c + 8 ] = buffer[ c + 12] = old_r = x + wide;[39m
          ^ Identifier 'old_r' is not in camel case.
     253 |[90m        buffer[ c + 5 ] = buffer[ c + 13] = old_t = y - high;[39m
@@ -1564,14 +1508,6 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'old_r' is not in camel case.
     317 |[90m            buffer[ c + 1 ] = old_t;[39m
          ^ Identifier 'old_t' is not in camel case.
-    318 |[90m             // repeat the next vertex[39m
-          ^ Mixed spaces and tabs.
-    320 |[90m             buffer[ c + 5 ] = b;[39m
-          ^ Mixed spaces and tabs.
-    320 |[90m             buffer[ c + 5 ] = b;[39m
-                      ^ Expected 'buffer' to have an indentation at 13 instead at 14.
-    321 |[90m             // texture coordinates are unused[39m
-          ^ Mixed spaces and tabs.
     334 |[90m        buffer[ c + 8 ] = buffer[ c + 12] = old_r = x + wide;[39m
          ^ Identifier 'old_r' is not in camel case.
     335 |[90m        buffer[ c + 5 ] = buffer[ c + 13] = old_t = y - high;[39m
@@ -1596,7 +1532,39 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'tex_r' is not in camel case.
     536 |[90m        buffer[ c + 14] = buffer[ c + 36] = tex_b;        // t[39m
          ^ Identifier 'tex_b' is not in camel case.
-[31m>> [39mToo many errors. (62% scanned).
+    613 |[90m            console.log("ERROR: invalid cellFrame", cell);[39m
+                     ^ Expected '{' and instead saw 'console'.
+    614 |[90m        var tex_x = rect.x;[39m
+         ^ Identifier 'tex_x' is not in camel case.
+    615 |[90m        var tex_y = rect.y;[39m
+         ^ Identifier 'tex_y' is not in camel case.
+    616 |[90m        var tex_r = rect.x + rect.width;[39m
+         ^ Identifier 'tex_r' is not in camel case.
+    617 |[90m        var tex_b = rect.y + rect.height;[39m
+         ^ Identifier 'tex_b' is not in camel case.
+    652 |[90m            buffer[ c     ] = cnr.lbx * l; buffer[ c + 1 ] = cnr.lby * b;[39m
+                                                    ^ Expected 'buffer' to have an indentation at 13 instead at 44.
+    653 |[90m            buffer[ c + 11] = cnr.ltx * l; buffer[ c + 12] = cnr.lty * t;[39m
+                                                    ^ Expected 'buffer' to have an indentation at 13 instead at 44.
+    654 |[90m            buffer[ c + 22] = cnr.rbx * r; buffer[ c + 23] = cnr.rby * b;[39m
+                                                    ^ Expected 'buffer' to have an indentation at 13 instead at 44.
+    655 |[90m            buffer[ c + 33] = cnr.rtx * r; buffer[ c + 34] = cnr.rty * t;[39m
+                                                    ^ Expected 'buffer' to have an indentation at 13 instead at 44.
+    659 |[90m            buffer[ c     ] = l; buffer[ c + 1 ] = b;[39m
+                                          ^ Expected 'buffer' to have an indentation at 13 instead at 34.
+    660 |[90m            buffer[ c + 11] = l; buffer[ c + 12] = t;[39m
+                                          ^ Expected 'buffer' to have an indentation at 13 instead at 34.
+    661 |[90m            buffer[ c + 22] = r; buffer[ c + 23] = b;[39m
+                                          ^ Expected 'buffer' to have an indentation at 13 instead at 34.
+    662 |[90m            buffer[ c + 33] = r; buffer[ c + 34] = t;[39m
+                                          ^ Expected 'buffer' to have an indentation at 13 instead at 34.
+    670 |[90m        buffer[ c + 2 ] = buffer[ c + 13] = tex_x;        // l[39m
+         ^ Identifier 'tex_x' is not in camel case.
+    671 |[90m        buffer[ c + 3 ] = buffer[ c + 25] = tex_b;        // b[39m
+         ^ Identifier 'tex_b' is not in camel case.
+    672 |[90m        buffer[ c + 24] = buffer[ c + 35] = tex_r;        // r[39m
+         ^ Identifier 'tex_r' is not in camel case.
+[31m>> [39mToo many errors. (77% scanned).
 [1m   src\renderer\renderers\webgl\pbWebGlDrawImageSingle.js[22m
      15 |[90m        this.prepareBuffer();[39m
                  ^ Expected '{' and instead saw 'this'.
@@ -1610,10 +1578,6 @@ Cleaning dist...[32mOK[39m
                                             ^ Expected 'buffer' to have an indentation at 9 instead at 36.
      67 |[90m        buffer[ 12] = cnr.rtx * r; buffer[ 13] = cnr.rty * t;[39m
                                             ^ Expected 'buffer' to have an indentation at 9 instead at 36.
-     98 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-           ^ Mixed spaces and tabs.
-     98 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
     153 |[90m        buffer[ 0 ] = cnr.lbx * l; buffer[ 1 ] = cnr.lby * b;[39m
                                             ^ Expected 'buffer' to have an indentation at 9 instead at 36.
     154 |[90m        buffer[ 4 ] = cnr.ltx * l; buffer[ 5 ] = cnr.lty * t;[39m
@@ -1622,10 +1586,6 @@ Cleaning dist...[32mOK[39m
                                             ^ Expected 'buffer' to have an indentation at 9 instead at 36.
     156 |[90m        buffer[ 12] = cnr.rtx * r; buffer[ 13] = cnr.rty * t;[39m
                                             ^ Expected 'buffer' to have an indentation at 9 instead at 36.
-    186 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-           ^ Mixed spaces and tabs.
-    186 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
     278 |[90m    var tex_x = rect.x;[39m
          ^ Identifier 'tex_x' is not in camel case.
     279 |[90m    var tex_y = rect.y;[39m
@@ -1642,22 +1602,8 @@ Cleaning dist...[32mOK[39m
          ^ Identifier 'tex_r' is not in camel case.
     301 |[90m    buffer[ 7 ] = buffer[ 15] = tex_y;[39m
          ^ Identifier 'tex_y' is not in camel case.
-    319 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-           ^ Mixed spaces and tabs.
-    319 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
-    339 |[90m        // set the fragment shader sampler to use TEXTURE0[39m
-         ^ Mixed spaces and tabs.
-    340 |[90m           gl.uniform1i( this.shaders.getSampler(), this.canvasTextureNumber );[39m
-         ^ Mixed spaces and tabs.
-    340 |[90m           gl.uniform1i( this.shaders.getSampler(), this.canvasTextureNumber );[39m
-                    ^ Expected 'gl' to have an indentation at 9 instead at 12.
     349 |[90m    var rect = new pbRectangle(0, 0, 1, 1);[39m
                             ^ A constructor name should start with an uppercase letter.
-    389 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-           ^ Mixed spaces and tabs.
-    389 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
      10 |[90mpbWebGl.prototype.drawImageWithTransform = function( _srcTextureRegister, _image, _transform, _z )[39m
          ^ 'pbWebGl' is not defined.
      31 |[90m        rect.width = gl.drawingBufferWidth / surface.cellSourceSize[cell].wide;[39m
@@ -1688,8 +1634,8 @@ Cleaning dist...[32mOK[39m
                             ^ 'gl' is not defined.
      96 |[90m    gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );[39m
              ^ 'gl' is not defined.
-     98 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ 'gl' is not defined.
+     98 |[90m    gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
+             ^ 'gl' is not defined.
     100 |[90m    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );[39m
              ^ 'gl' is not defined.
     100 |[90m    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );[39m
@@ -1698,14 +1644,32 @@ Cleaning dist...[32mOK[39m
              ^ 'gl' is not defined.
     103 |[90m    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);[39m
              ^ 'gl' is not defined.
-[31m>> [39mToo many errors. (25% scanned).
+    103 |[90m    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);[39m
+                           ^ 'gl' is not defined.
+    107 |[90mpbWebGl.prototype.drawModeZ = function( _textureNumber, _image, _transform, _z )[39m
+         ^ 'pbWebGl' is not defined.
+    128 |[90m        rect.width = gl.drawingBufferWidth / surface.cellSourceSize[cell].wide;[39m
+                              ^ 'gl' is not defined.
+    129 |[90m        rect.height = gl.drawingBufferHeight / surface.cellSourceSize[cell].high;[39m
+                               ^ 'gl' is not defined.
+    130 |[90m        wide = gl.drawingBufferWidth;[39m
+                        ^ 'gl' is not defined.
+    131 |[90m        high = gl.drawingBufferHeight;[39m
+                        ^ 'gl' is not defined.
+    148 |[90m        l = -wide * _image.anchorX;[39m
+                 ^ 'l' is not defined.
+    149 |[90m        r = wide + l;[39m
+                 ^ 'r' is not defined.
+    149 |[90m        r = wide + l;[39m
+                            ^ 'l' is not defined.
+    150 |[90m        t = -high * _image.anchorY;[39m
+                 ^ 't' is not defined.
+    151 |[90m        b = high + t;[39m
+                 ^ 'b' is not defined.
+[31m>> [39mToo many errors. (37% scanned).
 [1m   src\renderer\renderers\webgl\pbWebGlDrawTextureSingle.js[22m
      24 |[90m        this.prepareBuffer();[39m
                  ^ Expected '{' and instead saw 'this'.
-     85 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-           ^ Mixed spaces and tabs.
-     85 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ Expected 'gl' to have an indentation at 5 instead at 8.
     100 |[90m        this.shaders.setProgram(_shaderProgram, _texture.register);[39m
                  ^ Expected '{' and instead saw 'this'.
     102 |[90m        this.shaders.setProgram(this.shaders.simpleShaderProgram, _texture.register);[39m
@@ -1738,8 +1702,8 @@ Cleaning dist...[32mOK[39m
              ^ 'gl' is not defined.
      82 |[90m    gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), gl.FALSE, _transform );[39m
                                                                              ^ 'gl' is not defined.
-     85 |[90m       gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
-                ^ 'gl' is not defined.
+     85 |[90m    gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );[39m
+             ^ 'gl' is not defined.
      90 |[90m    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, gl.FALSE, 0, 0 );[39m
              ^ 'gl' is not defined.
      90 |[90m    gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, gl.FALSE, 0, 0 );[39m
@@ -1800,12 +1764,24 @@ Cleaning dist...[32mOK[39m
                               ^ 'gl' is not defined.
     154 |[90m    gl.bindTexture(gl.TEXTURE_2D, _srcTexture);[39m
              ^ 'gl' is not defined.
-[31m>> [39mToo many errors. (95% scanned).
+    154 |[90m    gl.bindTexture(gl.TEXTURE_2D, _srcTexture);[39m
+                            ^ 'gl' is not defined.
+    156 |[90m    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);[39m
+             ^ 'gl' is not defined.
+[31m>> [39mToo many errors. (96% scanned).
 [1m   src\renderer\renderers\webgl\pbWebGlGraphics.js[22m
      29 |[90m    if (targetWidth === undefined) targetWidth = pbPhaserRender.width;[39m
                                             ^ Expected '{' and instead saw 'targetWidth'.
      30 |[90m    if (targetHeight === undefined) targetHeight = pbPhaserRender.height;[39m
                                              ^ Expected '{' and instead saw 'targetHeight'.
+     38 |[90m         x, y,[39m
+          ^ Mixed spaces and tabs.
+     39 |[90m         x2, y,[39m
+          ^ Mixed spaces and tabs.
+     40 |[90m         x, y2,[39m
+          ^ Mixed spaces and tabs.
+     41 |[90m         x2, y2[39m
+          ^ Mixed spaces and tabs.
      38 |[90m         x, y,[39m
                   ^ Expected 'x' to have an indentation at 9 instead at 10.
      39 |[90m         x2, y,[39m
@@ -1819,11 +1795,19 @@ Cleaning dist...[32mOK[39m
      84 |[90m    if (targetHeight === undefined) targetHeight = pbPhaserRender.height;[39m
                                              ^ Expected '{' and instead saw 'targetHeight'.
      93 |[90m         x, y, x2, y,[39m
+          ^ Mixed spaces and tabs.
+     94 |[90m         x2, y, x2, y2,[39m
+          ^ Mixed spaces and tabs.
+     93 |[90m         x, y, x2, y,[39m
                   ^ Expected 'x' to have an indentation at 9 instead at 10.
      94 |[90m         x2, y, x2, y2,[39m
                   ^ Expected 'x2' to have an indentation at 9 instead at 10.
      95 |[90m         x2, y2, x, y2,[39m
+          ^ Mixed spaces and tabs.
+     95 |[90m         x2, y2, x, y2,[39m
                   ^ Expected 'x2' to have an indentation at 9 instead at 10.
+     96 |[90m         x, y2, x, y[39m
+          ^ Mixed spaces and tabs.
      96 |[90m         x, y2, x, y[39m
                   ^ Expected 'x' to have an indentation at 9 instead at 10.
      12 |[90mpbWebGl.prototype.fillStyle = function(_fillColor, _lineColor)[39m
@@ -1886,30 +1870,8 @@ Cleaning dist...[32mOK[39m
                             ^ 'gl' is not defined.
      80 |[90mpbWebGl.prototype.drawRect = function( x, y, wide, high, color, targetWidth, targetHeight )[39m
          ^ 'pbWebGl' is not defined.
-     83 |[90m    if (targetWidth === undefined) targetWidth = pbPhaserRender.width;[39m
-                                                          ^ 'pbPhaserRender' is not defined.
-     84 |[90m    if (targetHeight === undefined) targetHeight = pbPhaserRender.height;[39m
-                                                            ^ 'pbPhaserRender' is not defined.
-     99 |[90m    this.bgVertexBuffer = gl.createBuffer();[39m
-                                   ^ 'gl' is not defined.
-    101 |[90m    gl.bindBuffer( gl.ARRAY_BUFFER, this.bgVertexBuffer );[39m
-             ^ 'gl' is not defined.
-    101 |[90m    gl.bindBuffer( gl.ARRAY_BUFFER, this.bgVertexBuffer );[39m
-                            ^ 'gl' is not defined.
-    102 |[90m    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( vertices ), gl.STATIC_DRAW );[39m
-             ^ 'gl' is not defined.
-    102 |[90m    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( vertices ), gl.STATIC_DRAW );[39m
-                            ^ 'gl' is not defined.
-    102 |[90m    gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( vertices ), gl.STATIC_DRAW );[39m
-                                                                           ^ 'gl' is not defined.
-[31m>> [39mToo many errors. (83% scanned).
+[31m>> [39mToo many errors. (65% scanned).
 [1m   src\renderer\renderers\webgl\shaders\pbWebGlShaders.js[22m
-    394 |[90m        "   gl_FragColor = texture2D(uImageSampler, v_texcoord);" +[39m
-            ^ Mixed spaces and tabs.
-    398 |[90m        " attribute vec4 aPosition;" +[39m
-            ^ Mixed spaces and tabs.
-    399 |[90m        " varying vec2 v_texcoord;" +[39m
-            ^ Mixed spaces and tabs.
     420 |[90mfunction pbWebGlShaders()[39m
                                 ^ 'pbWebGlShaders' was used before it was defined.
     581 |[90m                    console.log("WARNING (pbWebGlShaders.createProgram): filter attribute returned NULL for", attribute, "it's probably unused in the filter", _source);[39m
@@ -1924,30 +1886,12 @@ Cleaning dist...[32mOK[39m
                          ^ Expected '{' and instead saw 'if'.
     646 |[90m                    gl.enableVertexAttribArray( program.attributes[a] );[39m
                              ^ Expected '{' and instead saw 'gl'.
-    650 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-         ^ Mixed spaces and tabs.
-    650 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-                        ^ Expected '{' and instead saw 'gl'.
-    650 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-                        ^ Expected 'gl' to have an indentation at 13 instead at 16.
-    652 |[90m           return program;[39m
-         ^ Mixed spaces and tabs.
-    652 |[90m           return program;[39m
-                    ^ Expected 'return' to have an indentation at 9 instead at 12.
-    692 |[90m        _textureNumber = 0;[39m
-            ^ Mixed spaces and tabs.
+    650 |[90m            gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
+                     ^ Expected '{' and instead saw 'gl'.
     692 |[90m        _textureNumber = 0;[39m
                  ^ Expected '{' and instead saw '_textureNumber'.
-    700 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-           ^ Mixed spaces and tabs.
-    700 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-                        ^ Expected '{' and instead saw 'gl'.
-    700 |[90m               gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
-                        ^ Expected 'gl' to have an indentation at 13 instead at 16.
-    701 |[90m       }[39m
-           ^ Mixed spaces and tabs.
-    701 |[90m       }[39m
-                ^ Expected '}' to have an indentation at 5 instead at 8.
+    700 |[90m            gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
+                     ^ Expected '{' and instead saw 'gl'.
     707 |[90m            gl.uniformMatrix3fv( program.uniforms.uProjectionMatrix, false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
                      ^ Expected '{' and instead saw 'gl'.
     711 |[90m            gl.uniformMatrix4fv( program.uniforms.uProjectionMatrix4, false, pbMatrix4.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
@@ -2004,30 +1948,35 @@ Cleaning dist...[32mOK[39m
                  ^ 'gl' is not defined.
     646 |[90m                    gl.enableVertexAttribArray( program.attributes[a] );[39m
                              ^ 'gl' is not defined.
-[31m>> [39mToo many errors. (86% scanned).
+    650 |[90m            gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
+                     ^ 'gl' is not defined.
+    678 |[90m                    gl.disableVertexAttribArray( value );[39m
+                             ^ 'gl' is not defined.
+    700 |[90m            gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );[39m
+                     ^ 'gl' is not defined.
+    707 |[90m            gl.uniformMatrix3fv( program.uniforms.uProjectionMatrix, false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                     ^ 'gl' is not defined.
+    707 |[90m            gl.uniformMatrix3fv( program.uniforms.uProjectionMatrix, false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                     ^ 'pbMatrix3' is not defined.
+    707 |[90m            gl.uniformMatrix3fv( program.uniforms.uProjectionMatrix, false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                                              ^ 'gl' is not defined.
+    707 |[90m            gl.uniformMatrix3fv( program.uniforms.uProjectionMatrix, false, pbMatrix3.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                                                                     ^ 'gl' is not defined.
+    711 |[90m            gl.uniformMatrix4fv( program.uniforms.uProjectionMatrix4, false, pbMatrix4.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                     ^ 'gl' is not defined.
+    711 |[90m            gl.uniformMatrix4fv( program.uniforms.uProjectionMatrix4, false, pbMatrix4.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                      ^ 'pbMatrix4' is not defined.
+    711 |[90m            gl.uniformMatrix4fv( program.uniforms.uProjectionMatrix4, false, pbMatrix4.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                                               ^ 'gl' is not defined.
+    711 |[90m            gl.uniformMatrix4fv( program.uniforms.uProjectionMatrix4, false, pbMatrix4.makeProjection(gl.drawingBufferWidth, gl.drawingBufferHeight) );[39m
+                                                                                                                                      ^ 'gl' is not defined.
 [1m   src\renderer\root\pbPhaserRender.js[22m
      27 |[90mfunction pbPhaserRender(_docId)[39m
                                 ^ 'pbPhaserRender' was used before it was defined.
      44 |[90m    var guiContainer = document.getElementById('gui');    [39m
                                                                ^ Trailing whitespace.
-     61 |[90m     rootLayer = null;[39m
-         ^ Mixed spaces and tabs.
-     61 |[90m     rootLayer = null;[39m
-              ^ Expected 'rootLayer' to have an indentation at 5 instead at 6.
-     66 |[90m            return _this.boot();[39m
-                ^ Mixed spaces and tabs.
-     67 |[90m        };[39m
-            ^ Mixed spaces and tabs.
      79 |[90m    pbPhaserRender.loader = new pbLoader( this.allLoaded, this );[39m
                                          ^ A constructor name should start with an uppercase letter.
-     87 |[90m        // only boot once[39m
-            ^ Mixed spaces and tabs.
-     93 |[90m        // wait until the document.body is available, keep trying every 20 ms[39m
-            ^ Mixed spaces and tabs.
-     98 |[90m       console.log("pbRenderer boot");[39m
-           ^ Mixed spaces and tabs.
-     98 |[90m       console.log("pbRenderer boot");[39m
-                ^ Expected 'console' to have an indentation at 5 instead at 8.
     107 |[90m    this.rootTimer = new pbRootTimer();[39m
                                   ^ A constructor name should start with an uppercase letter.
     124 |[90m        this.rootTimer.destroy();[39m
@@ -2048,14 +1997,10 @@ Cleaning dist...[32mOK[39m
                                                ^ A constructor name should start with an uppercase letter.
     168 |[90m        rootLayer = new layerClass();[39m
                                  ^ A constructor name should start with an uppercase letter.
-    171 |[90m        // call the game's boot callback if there's nothing left to load[39m
-         ^ Mixed spaces and tabs.
-    172 |[90m        this.bootCallback.call( this.gameContext );[39m
-         ^ Mixed spaces and tabs.
       9 |[90mrootLayer = null;[39m
          ^ 'rootLayer' is not defined.
-     61 |[90m     rootLayer = null;[39m
-              ^ 'rootLayer' is not defined.
+     61 |[90m    rootLayer = null;[39m
+             ^ 'rootLayer' is not defined.
      79 |[90m    pbPhaserRender.loader = new pbLoader( this.allLoaded, this );[39m
                                          ^ 'pbLoader' is not defined.
     107 |[90m    this.rootTimer = new pbRootTimer();[39m
@@ -2277,19 +2222,16 @@ Cleaning dist...[32mOK[39m
                                                                         ^ 'gl' is not defined.
 [31m>> [39mToo many errors. (13% scanned).
 
-[31m>> [39m1122 errors in 151 files
+[31m>> [39m1094 errors in 151 files
 
 [4mRunning "jshint:filters" (jshint) task[24m
 [32m>> [39m16 files lint free.
 
 [4mRunning "jshint:tooling" (jshint) task[24m
-[32m>> [39m11 files lint free.
+[32m>> [39m10 files lint free.
 
 [4mRunning "concat:p2" (concat) task[24m
 File dist/p2.js created.
-
-[4mRunning "concat:pixi" (concat) task[24m
-File dist/pixi.js created.
 
 [4mRunning "concat:ninja" (concat) task[24m
 File dist/ninja.js created.
@@ -2314,9 +2256,6 @@ File dist/phaser.js created.
 
 [4mRunning "uglify:p2" (uglify) task[24m
 File dist/p2.min.js created: 591.61 kB → 179.46 kB
-
-[4mRunning "uglify:pixi" (uglify) task[24m
-File dist/pixi.min.js created: 0 B → 109 B
 
 [4mRunning "uglify:ninja" (uglify) task[24m
 File dist/ninja.min.js created: 209.33 kB → 45.83 kB

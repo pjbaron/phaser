@@ -6,12 +6,6 @@ module.exports = {
         dest: '<%= compile_dir %>/p2.js'
     },
 
-    //  Our custom version of Pixi
-    pixi: {
-        src: require('../manifests/pixi'),
-        dest: '<%= compile_dir %>/pixi.js'
-    },
-
     //  Our custom version of Ninja Physics
     ninja: {
         src: require('../manifests/ninja'),
@@ -32,7 +26,7 @@ module.exports = {
         options: {
             banner: '<%= banner %>'
         },
-        src: ['<%= compile_dir %>/pixi.js', '<%= compile_dir %>/phaser-no-libs.js'],
+        src: ['<%= compile_dir %>/phaser-no-libs.js'],
         dest: '<%= compile_dir %>/phaser-arcade-physics.js'
     },
 
@@ -41,7 +35,7 @@ module.exports = {
         options: {
             banner: '<%= banner %>'
         },
-        src: ['<%= compile_dir %>/pixi.js', '<%= compile_dir %>/phaser-no-libs.js', '<%= compile_dir %>/ninja.js'],
+        src: ['<%= compile_dir %>/phaser-no-libs.js', '<%= compile_dir %>/ninja.js'],
         dest: '<%= compile_dir %>/phaser-ninja-physics.js'
     },
 
@@ -50,7 +44,7 @@ module.exports = {
         options: {
             banner: '<%= banner %>'
         },
-        src: ['<%= compile_dir %>/pixi.js', require('../manifests/phaser-nophysics')],
+        src: [require('../manifests/phaser-nophysics')],
         dest: '<%= compile_dir %>/phaser-no-physics.js'
     },
 
@@ -60,7 +54,6 @@ module.exports = {
             banner: '<%= banner %>'
         },
         src: [
-            '<%= compile_dir %>/pixi.js',
             require('../manifests/phaser-nophysics'),
             '<%= compile_dir %>/p2.js'
         ],
@@ -73,7 +66,6 @@ module.exports = {
             banner: '<%= banner %>'
         },
         src: [
-            '<%= compile_dir %>/pixi.js',
             '<%= compile_dir %>/phaser-no-libs.js',
             '<%= compile_dir %>/p2.js'
         ],
