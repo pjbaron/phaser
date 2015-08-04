@@ -49,8 +49,14 @@ function pbSurface()
  */
 pbSurface.prototype.createSingle = function(_imageData, _rttTexture, _rttTextureRegister, _trimmedFrom, _offsets)
 {
-	if (_rttTexture === undefined) _rttTexture = null;
-	if (_rttTextureRegister === undefined) _rttTextureRegister = 0;
+	if (_rttTexture === undefined)
+	{
+		_rttTexture = null;
+	}
+	if (_rttTextureRegister === undefined)
+	{
+		_rttTextureRegister = 0;
+	}
 
 	this.cells = this.cellsWide = this.cellsHigh = 1;
 
@@ -78,7 +84,7 @@ pbSurface.prototype.createSingle = function(_imageData, _rttTexture, _rttTexture
 	{
 		this.cellSourceSize[0] = { wide:_imageData.width, high:_imageData.height };
 	}
-	this.isNPOT = !(is_power_of_2(this.cellSourceSize[0].wide) && is_power_of_2(this.cellSourceSize[0].high));
+	this.isNPOT = !(this.isPowerOfTwo(this.cellSourceSize[0].wide) && this.isPowerOfTwo(this.cellSourceSize[0].high));
 
 	console.log("pbSurface.createSingle " + this.cellSourceSize[0].wide +  "x" + this.cellSourceSize[0].high + " isNPOT = " + (this.isNPOT ? "true" : "false"));
 
@@ -93,8 +99,14 @@ pbSurface.prototype.createSingle = function(_imageData, _rttTexture, _rttTexture
 
 pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _imageData, _rttTexture, _rttTextureRegister, _trimmedFrom, _offsets)
 {
-	if (_rttTexture === undefined) _rttTexture = null;
-	if (_rttTextureRegister === undefined) _rttTextureRegister = 0;
+	if (_rttTexture === undefined)
+	{
+		_rttTexture = null;
+	}
+	if (_rttTextureRegister === undefined)
+	{
+		_rttTextureRegister = 0;
+	}
 
 	var srcWide, srcHigh;
 	if (_rttTexture)
@@ -107,10 +119,16 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
 		srcWide = _imageData.width;
 		srcHigh = _imageData.height;
 	}
-	this.isNPOT = !(is_power_of_2(srcWide) && is_power_of_2(srcHigh));
+	this.isNPOT = !(this.isPowerOfTwo(srcWide) && this.isPowerOfTwo(srcHigh));
 
-	if (_wide === 0) _wide = srcWide;
-	if (_high === 0) _high = srcHigh;
+	if (_wide === 0)
+	{
+		_wide = srcWide;		
+	}
+	if (_high === 0)
+	{
+		_high = srcHigh;
+	}
 	
 	this.cellsWide = _numWide;
 	this.cellsHigh = _numHigh;
@@ -140,11 +158,17 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
 	this.cellTextureBounds = [];
 	this.cellSourceSize = [];
 	if (_trimmedFrom === undefined)
+	{
 		this.srcSize = this.cellSourceSize;
+	}
 	else
+	{
 		this.srcSize = [];
+	}
 	if (_offsets !== undefined)
+	{
 		this.cellOffsets = [];
+	}
 
 	var i = 0;
 	for(var y = 0; y < this.cellsHigh; y++)
@@ -153,10 +177,14 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
 		{
 			this.cellSourceSize[i] = { wide: _wide, high: _high };
 			if (_trimmedFrom !== undefined)
+			{
 				this.srcSize[i] = { wide:_trimmedFrom.width, high:_trimmedFrom.height };
+			}
 			this.cellTextureBounds[i++] = new pbRectangle(x * texWide, y * texHigh, texWide, texHigh);
 			if (_offsets !== undefined)
+			{
 				this.cellOffsets[i] = { x: _offsets.x, y: _offsets.y };
+			}
 		}
 	}
 };
@@ -175,7 +203,7 @@ pbSurface.prototype.createAtlas = function(_JSON, _imageData)
     var data = JSON.parse(_JSON);
     var w = data.meta.size.w;
     var h = data.meta.size.h;
-	this.isNPOT = !(is_power_of_2(w) && is_power_of_2(h));
+	this.isNPOT = !(this.isPowerOfTwo(w) && this.isPowerOfTwo(h));
 
 	console.log("pbSurface.createAtlas " + w + "x" + h + " frames = " + data.frames.length + " isNPOT = " + (this.isNPOT ? "true" : "false"));
 
@@ -197,7 +225,9 @@ pbSurface.prototype.createAtlas = function(_JSON, _imageData)
 		if (f.trimmed)
 		{
 			if (!this.cellOffsets)
+			{
 				this.cellOffsets = [];
+			}
 			this.cellOffsets[i] = { x: f.spriteSourceSize.x, y: f.spriteSourceSize.y };
 		}
 	}
@@ -212,7 +242,7 @@ pbSurface.prototype.destroy = function()
 };
 
 
-function is_power_of_2(x)
+pbSurface.prototype.isPowerOfTwo = function(x)
 {
     return ((x > 0) && !(x & (x - 1)));
-}
+};
