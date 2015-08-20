@@ -96,10 +96,9 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     */
     this.preserveDrawingBuffer = false;
 
-// PJBNOTE: reference to PIXI renderer here can probably be replaced with a new renderer reference but all accessors will need to be traced to ensure the parameters & methods are valid
     /**
-    * @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer - The Pixi Renderer.
-    */
+     * @property {pbRenderer} phaserRender - The renderer which draws content to Canvas, WebGL, etc
+     */
     this.renderer = null;
 
     /**
@@ -222,7 +221,8 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     /**
     * @property {CanvasRenderingContext2D} context - A handy reference to renderer.context (only set for CANVAS games, not WebGL)
     */
-    this.context = null;
+// PJBNOTE: provide an equivalent
+    //this.context = null;
 
     /**
     * @property {Phaser.Utils.Debug} debug - A set of useful debug utilitie.
@@ -660,35 +660,33 @@ Phaser.Game.prototype = {
             }
         }
 
-// PJBNOTE: the new renderer has directly equivalent code built into it... need to choose which one to use and remove the other version
-// PJBNOTE: the new renderer can support more modes than Canvas/WebGL but doesn't currently (21st July 2015) adjust the other parameters used here (transparent, resolution, etc)
-        if (this.renderType === Phaser.HEADLESS || this.renderType === Phaser.CANVAS || (this.renderType === Phaser.AUTO && this.device.webGL === false))
-        {
-            if (this.device.canvas)
-            {
-                if (this.renderType === Phaser.AUTO)
-                {
-                    this.renderType = Phaser.CANVAS;
-                }
+        this.renderer = new pbPhaserRender( this.canvas.id );
+        this.renderer.create( 'webgl', this.create, this.update, this );
+        this.renderType = Phaser.WEBGL;
 
-// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
-                // this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
-                this.context = this.renderer.context;
-            }
-            else
-            {
-                throw new Error('Phaser.Game - cannot create Canvas or WebGL context, aborting.');
-            }
-        }
-        else
-        {
-            //  They requested WebGL and their browser supports it
-            this.renderType = Phaser.WEBGL;
-
-// PJBNOTE: CRITICAL CHANGE... this must be changed for any demo to run using the new renderer
-            // this.renderer = new PIXI.WebGLRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "antialias": this.antialias, "preserveDrawingBuffer": this.preserveDrawingBuffer });
-            this.context = null;
-        }
+//         if (this.renderType === Phaser.HEADLESS || this.renderType === Phaser.CANVAS || (this.renderType === Phaser.AUTO && this.device.webGL === false))
+//         {
+//             if (this.device.canvas)
+//             {
+//                 if (this.renderType === Phaser.AUTO)
+//                 {
+//                     this.renderType = Phaser.CANVAS;
+//                 }
+//                 this.renderer = new PIXI.CanvasRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "clearBeforeRender": true });
+//                 this.context = this.renderer.context;
+//             }
+//             else
+//             {
+//                 throw new Error('Phaser.Game - cannot create Canvas or WebGL context, aborting.');
+//             }
+//         }
+//         else
+//         {
+//             //  They requested WebGL and their browser supports it
+//             this.renderType = Phaser.WEBGL;
+//             this.renderer = new PIXI.WebGLRenderer(this.width, this.height, { "view": this.canvas, "transparent": this.transparent, "resolution": 1, "antialias": this.antialias, "preserveDrawingBuffer": this.preserveDrawingBuffer });
+//             this.context = null;
+//         }
 
         if (this.renderType !== Phaser.HEADLESS)
         {
@@ -837,7 +835,8 @@ Phaser.Game.prototype = {
             if (this.device.cocoonJS && this.renderType === Phaser.CANVAS && this.stage.currentRenderOrderID === 1)
             {
                 //  Horrible hack! But without it Cocoon fails to render a scene with just a single drawImage call on it.
-                this.context.fillRect(0, 0, 0, 0);
+// PJBNOTE: need to provide a context equivalent
+                // this.context.fillRect(0, 0, 0, 0);
             }
         }
 

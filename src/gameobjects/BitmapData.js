@@ -116,7 +116,8 @@ Phaser.BitmapData = function (game, key, width, height) {
     */
     this.textureFrame = new Phaser.Frame(0, 0, 0, width, height, 'bitmapData');
 
-    this.texture.frame = this.textureFrame;
+// PJBNOTE: skipping this for now (20/8/2015), it's not needed for the first pass integration
+    //this.texture.frame = this.textureFrame;
 
     /**
     * @property {number} type - The const type of this object.
@@ -336,11 +337,13 @@ Phaser.BitmapData.prototype = {
             this.textureFrame.width = width;
             this.textureFrame.height = height;
 
-            this.texture.width = width;
-            this.texture.height = height;
+// PJBNOTE: skipping this for now (20/8/2015), it's not needed for the first pass integration
+            // this.texture.width = width;
+            // this.texture.height = height;
 
-            this.texture.crop.width = width;
-            this.texture.crop.height = height;
+// PJBNOTE: skipping this for now (20/8/2015), it's not needed for the first pass integration
+            // this.texture.crop.width = width;
+            // this.texture.crop.height = height;
 
             this.update();
             this.dirty = true;

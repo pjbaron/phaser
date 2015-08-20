@@ -20,6 +20,9 @@
 */
 Phaser.Image = function (game, x, y, key, frame) {
 
+    // call super constructor
+    pbSprite.call(this);
+
     x = x || 0;
     y = y || 0;
     key = key || null;
@@ -75,7 +78,8 @@ Phaser.Image = function (game, x, y, key, frame) {
     this.transformCallback = this.checkTransform;
     this.transformCallbackContext = this;
 
-    this.position.set(x, y);
+    this.x = x;
+    this.y = y;
 
     /**
     * @property {Phaser.Point} world - The world coordinates of this Image. This differs from the x/y coordinates which are relative to the Images container.
@@ -122,8 +126,8 @@ Phaser.Image = function (game, x, y, key, frame) {
 
     /**
     * A small internal cache:
-    * 0 = previous position.x
-    * 1 = previous position.y
+    * 0 = previous x
+    * 1 = previous y
     * 2 = previous rotation
     * 3 = renderID
     * 4 = fresh? (0 = no, 1 = yes)
@@ -158,8 +162,7 @@ Phaser.Image = function (game, x, y, key, frame) {
 
 };
 
-// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
-//Phaser.Image.prototype = Object.create(PIXI.Sprite.prototype);
+Phaser.Image.prototype = Object.create(pbSprite.prototype);
 Phaser.Image.prototype.constructor = Phaser.Image;
 
 /**
@@ -231,8 +234,8 @@ Phaser.Image.prototype.postUpdate = function() {
     //  Fixed to Camera?
     if (this._cache[7] === 1)
     {
-        this.position.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
-        this.position.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
+        this.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
+        this.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
     }
 
     //  Update any Children
@@ -304,8 +307,9 @@ Phaser.Image.prototype.loadTexture = function (key, frame) {
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key), frame);
         }
     }
-    
-    this.texture.baseTexture.dirty();
+
+// PJBNOTE: removed, pbSprite doesn't use this
+//    this.texture.baseTexture.dirty();
 
     if (setFrame)
     {
@@ -608,8 +612,8 @@ Phaser.Image.prototype.destroy = function(destroyChildren) {
 Phaser.Image.prototype.reset = function(x, y) {
 
     this.world.setTo(x, y);
-    this.position.x = x;
-    this.position.y = y;
+    this.x = x;
+    this.y = y;
     this.alive = true;
     this.exists = true;
     this.visible = true;

@@ -4,7 +4,7 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: need to look at this object very carefully, should be possible to merge with pbSprite and eliminate one or the other entirely
+// PJBNOTE: should be possible to merge with pbSprite... process underway
 // PJBNOTE: pbSprite uses pbTransformObject to store a transform, pbImage for currentCell, and pbSurface (indirectly through image) for the texture
 
 /**
@@ -60,6 +60,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     /**
     * @property {Phaser.AnimationManager} animations - This manages animations of the sprite. You can modify animations through it (see Phaser.AnimationManager)
     */
+// PJBNOTE: animations will be changed to fit the new scheme after the basics are working
     this.animations = new Phaser.AnimationManager(this);
 
     /**
@@ -70,6 +71,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
 // PJBNOTE: call pbSprite super (or merge as discussed at top of this file)
 //    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
 
+// PJBNOTE: I need a better understanding of how this is used
     this.transformCallback = this.checkTransform;
     this.transformCallbackContext = this;
 
@@ -78,6 +80,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     /**
     * @property {Phaser.Point} world - The world coordinates of this Sprite. This differs from the x/y coordinates which are relative to the Sprites container.
     */
+// PJBNOTE: shouldn't this be initialised correctly instead of relative to the parent container?
     this.world = new Phaser.Point(x, y);
 
     /**
@@ -157,6 +160,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     * @property {Phaser.Rectangle} cropRect - The Rectangle used to crop the texture. Set this via Sprite.crop. Any time you modify this property directly you must call Sprite.updateCrop.
     * @default
     */
+// PJBNOTE: not currently supported by the new renderer (unless it can be done in pbSurface rectangles?)
     this.cropRect = null;
 
     /**
@@ -208,8 +212,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
 
 };
 
-// PJBNOTE: CRITICAL CHANGE - sort this out before we can run anything
-//Phaser.Sprite.prototype = Object.create(PIXI.Sprite.prototype);
+Phaser.Sprite.prototype = Object.create(pbSprite.prototype);
 Phaser.Sprite.prototype.constructor = Phaser.Sprite;
 
 /**

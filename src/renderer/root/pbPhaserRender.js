@@ -190,3 +190,20 @@ pbPhaserRender.prototype.update = function()
 };
 
 
+/**
+ * resize - resize the renderer and the game canvas
+ *
+ * @param  {[type]} _width  [description]
+ * @param  {[type]} _height [description]
+ *
+ * @return {[type]}         [description]
+ */
+pbPhaserRender.prototype.resize = function( _width, _height )
+{
+	pbRenderer.width = _width;
+	pbRenderer.height = _height;
+	// TODO: did we want to change scaling?  If so use pbPhaserRender.canvas.style.width etc
+	pbPhaserRender.canvas.width = pbPhaserRender.width;
+	pbPhaserRender.canvas.height = pbPhaserRender.height;
+};
+
