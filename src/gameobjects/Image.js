@@ -271,19 +271,14 @@ Phaser.Image.prototype.loadTexture = function (key, frame) {
     }
     else if (key instanceof Phaser.BitmapData)
     {
-        //  This works from a reference, which probably isn't what we need here
-        this.setTexture(key.texture);
+// PJBNOTE: Phaser.BitmapData.texture is a pbSurface and Image extends pbSprite
+        this.surface = key.texture;
 
         if (this.game.cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA))
         {
             setFrame = !this.animations.loadFrameData(this.game.cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA), frame);
         }
     }
-// PJBNOTE: a pbSurface probably...
-    // else if (key instanceof PIXI.Texture)
-    // {
-    //     this.setTexture(key);
-    // }
     else
     {
         if (key === null || typeof key === 'undefined')
@@ -313,7 +308,7 @@ Phaser.Image.prototype.loadTexture = function (key, frame) {
 
     if (setFrame)
     {
-        this._frame = Phaser.Rectangle.clone(this.texture.frame);
+        this._frame = new Phaser.Rectangle(0, 0, this.surface.width, this.surface.height);
     }
 
     if (!smoothed)
@@ -1016,26 +1011,29 @@ Object.defineProperty(Phaser.Image.prototype, "smoothed", {
 
     get: function () {
 
-        return !this.texture.baseTexture.scaleMode;
+// PJBNOTE: smoothing is not supported in the new renderer yet
+        return false;
+        // return !this.texture.baseTexture.scaleMode;
 
     },
 
     set: function (value) {
 
-        if (value)
-        {
-            if (this.texture)
-            {
-                this.texture.baseTexture.scaleMode = 0;
-            }
-        }
-        else
-        {
-            if (this.texture)
-            {
-                this.texture.baseTexture.scaleMode = 1;
-            }
-        }
+// PJBNOTE: smoothing is not supported in the new renderer yet
+        // if (value)
+        // {
+        //     if (this.texture)
+        //     {
+        //         this.texture.baseTexture.scaleMode = 0;
+        //     }
+        // }
+        // else
+        // {
+        //     if (this.texture)
+        //     {
+        //         this.texture.baseTexture.scaleMode = 1;
+        //     }
+        // }
     }
 
 });

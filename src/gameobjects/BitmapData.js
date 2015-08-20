@@ -98,17 +98,15 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @property {PIXI.BaseTexture} baseTexture - The PIXI.BaseTexture.
     * @default
     */
-// PJBNOTE: I think the PIXI.BaseTexture is a close equivalent of a pbSurface in the new renderer.  Parameters and methods will vary.
 // PJBNOTE: after reading PIXI.BaseTexture source, it may be possible to simply store a canvas reference here instead.
-// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
-    //this.baseTexture = new PIXI.BaseTexture(this.canvas);
+    this.baseTexture = this.canvas;
 
     /**
     * @property {PIXI.Texture} texture - The PIXI.Texture.
     * @default
     */
-// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
-    // this.texture = new PIXI.Texture(this.baseTexture);
+    this.texture = new pbSurface();
+    this.texture.create(width, height);
 
     /**
     * @property {Phaser.Frame} textureFrame - The Frame this BitmapData uses for rendering.
@@ -331,8 +329,9 @@ Phaser.BitmapData.prototype = {
             this.canvas.width = width;
             this.canvas.height = height;
 
-            this.baseTexture.width = width;
-            this.baseTexture.height = height;
+// PJBNOTE: I made this.baseTexture = this.canvas
+            // this.baseTexture.width = width;
+            // this.baseTexture.height = height;
 
             this.textureFrame.width = width;
             this.textureFrame.height = height;

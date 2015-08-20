@@ -76,7 +76,7 @@ Phaser.Stage = function (game) {
 };
 
 // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
-//Phaser.Stage.prototype = Object.create(PIXI.Stage.prototype);
+//Phaser.Stage.prototype = Object.create(pbLayer.prototype);  //PIXI.Stage.prototype);
 Phaser.Stage.prototype.constructor = Phaser.Stage;
 
 /**

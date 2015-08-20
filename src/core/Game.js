@@ -502,10 +502,10 @@ Phaser.Game.prototype = {
 
             this.math = Phaser.Math;
 
-            this.scale = new Phaser.ScaleManager(this, this._width, this._height);
-            this.stage = new Phaser.Stage(this);
-
             this.setUpRenderer();
+
+            this.scale = new Phaser.ScaleManager(this, this._width, this._height);
+            this.stage = rootLayer; //new Phaser.Stage(this);
 
             this.device.checkFullScreenSupport();
 
@@ -690,7 +690,7 @@ Phaser.Game.prototype = {
 
         if (this.renderType !== Phaser.HEADLESS)
         {
-            this.stage.smoothed = this.antialias;
+            // this.stage.smoothed = this.antialias;
             
             Phaser.Canvas.addToDOM(this.canvas, this.parent, false);
             Phaser.Canvas.setTouchAction(this.canvas);

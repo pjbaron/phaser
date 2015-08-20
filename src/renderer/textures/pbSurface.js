@@ -36,6 +36,32 @@ function pbSurface()
 }
 
 
+
+
+/**
+ * create - create an empty surface for a single cell image
+ *
+ */
+pbSurface.prototype.create = function(_width, _height)
+{
+	this.cells = this.cellsWide = this.cellsHigh = 1;
+
+	this.cellSourceSize = [];
+	this.srcSize = this.cellSourceSize;
+	this.cellSourceSize[0] = { wide:_width, high:_height };
+	this.isNPOT = !(this.isPowerOfTwo(this.cellSourceSize[0].wide) && this.isPowerOfTwo(this.cellSourceSize[0].high));
+
+	console.log("pbSurface.create " + this.cellSourceSize[0].wide +  "x" + this.cellSourceSize[0].high + " isNPOT = " + (this.isNPOT ? "true" : "false"));
+
+	this.rttTexture = null;
+	this.rttTextureRegister = 0;
+	this.imageData = null;
+	
+	this.cellTextureBounds = [];
+	this.cellTextureBounds[0] = new pbRectangle(0, 0, 1, 1);
+};
+
+
 /**
  * createSingle - create a surface to contain a single sprite image
  *
