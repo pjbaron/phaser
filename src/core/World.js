@@ -71,7 +71,7 @@ Phaser.World.prototype.boot = function () {
 
     this.game.camera = this.camera;
 
-// PJBNOTE: Stage is equivalent to rootLayer
+// PJBNOTE: Stage is equivalent to pbPhaserRender.rootLayer
     // this.game.stage.addChild(this);
 
 };

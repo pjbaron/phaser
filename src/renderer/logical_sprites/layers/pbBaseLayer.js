@@ -31,7 +31,7 @@ pbBaseLayer.prototype.create = function(_parent, _renderer, _x, _y, _z, _angleIn
 	// call the pbTransformObject create for this pbBaseLayer
 	this.superCall(pbBaseLayer, 'create', null, _x, _y, _z, _angleInRadians, _scaleX, _scaleY);
 
-	// TODO: add pass-through option so that layers can choose not to inherit their parent's transforms and will use the rootLayer transform instead
+	// TODO: add pass-through option so that layers can choose not to inherit their parent's transforms and will use the pbPhaserRender.rootLayer transform instead
 	// TODO: pbBaseLayer is rotating around it's top-left corner (because there's no width/height and no anchor point??)
 
 	this.phaserRender = _renderer;
@@ -81,7 +81,7 @@ pbBaseLayer.prototype.draw = function(_list)
 	var srf = obj.image.surface;
 	
 	// debug sprite count
-	sprCountDbg += _list.length;
+	pbPhaserRender.sprCountDbg += _list.length;
 
 	if (_list.length === 1)
 	{

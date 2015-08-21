@@ -1,8 +1,10 @@
 /**
  *
- * pbRenderer - initialise the rendering system, callback when ready, and provide the main update tick callback
+ * pbRenderer - initialise the rendering system, create the surfaces, and provide the main rendering functions
  * 
  */
+
+
 
 
 
@@ -14,9 +16,10 @@ function pbRenderer( _parent )
 	this.parent = _parent;
 	this.useFramebuffer = null;
 	this.useRenderbuffer = null;
-	this.preUpdate = null;
-	this.postUpdate = null;
+	this.preUpdateCallback = null;
+	this.postUpdateCallback = null;
 	this.canvas = null;
+	this.gameContext = null;
 
 	// drawing system
 	this.graphics = null;
@@ -31,9 +34,9 @@ pbRenderer.prototype.destroy = function( )
 		this.graphics.destroy();
 	this.graphics = null;
 
-	this.updateCallback = null;
+	this.preUpdateCallback = null;
+	this.postUpdateCallback = null;
 	this.gameContext = null;
-	this.bootCallback = null;
 };
 
 
@@ -66,7 +69,7 @@ pbRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameContex
 	//
 	var rendererTypes = [ 'webgl', 'canvas' ];
 
-	useRenderer = 'none';
+	pbPhaserRender.useRenderer = 'none';
 	// try the preferred renderer if there is one
 	if (!_preferredRenderer || !this.tryRenderer(_preferredRenderer))
 	{
@@ -75,10 +78,14 @@ pbRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameContex
 		{
 			// (don't try the failed preferred choice again)
 			if (rendererTypes[i] != _preferredRenderer)
+			{
 				// how about this one?
 				if (this.tryRenderer(rendererTypes[i]))
+				{
 					// yay! success
 					break;
+				}
+			}
 		}
 	}
 };
@@ -93,7 +100,7 @@ pbRenderer.prototype.tryRenderer = function(_which)
 		if (this.graphics.create(this.canvas))
 		{
 			// got one, now set up the support
-			useRenderer = 'webgl';
+			pbPhaserRender.useRenderer = 'webgl';
 			layerClass = pbWebGlLayer;
 			imageClass = pbWebGlImage;
 			pbMatrix3.rotationDirection = 1;
@@ -111,7 +118,7 @@ pbRenderer.prototype.tryRenderer = function(_which)
 		if (this.graphics.create(this.canvas))
 		{
 			// got one, now set up the support
-			useRenderer = 'canvas';
+			pbPhaserRender.useRenderer = 'canvas';
 			layerClass = pbCanvasLayer;
 			imageClass = pbCanvasImage;
 			pbMatrix3.rotationDirection = -1;
@@ -126,29 +133,42 @@ pbRenderer.prototype.tryRenderer = function(_which)
 };
 
 
-pbRenderer.prototype.update = function( _callback, _context )
+pbRenderer.prototype.preUpdate = function()
 {
-	// debug global to count how many sprites are being drawn each frame
-	sprCountDbg = 0;
-
 	// prepare to draw (erase screen)
 	this.graphics.preRender( pbPhaserRender.width, pbPhaserRender.height, this.useFramebuffer, this.useRenderbuffer );
-	
-	// update game logic
-	if ( _callback )
-		_callback.call( _context );
 
-	// update all object transforms then draw everything
-	if ( rootLayer )
+	// anything else specific to the current task that should happen before the screen update
+	if ( this.preUpdateCallback )
 	{
-		// the rootLayer update will iterate the entire display list
-		rootLayer.update();
+		this.preUpdateCallback.call(this.gameContext);
+	}
+};
+
+
+pbRenderer.prototype.update = function( _updateCallback, _context )
+{
+	// update callback
+	if ( _updateCallback )
+	{
+		_updateCallback.call( _context );
 	}
 
-	// postUpdate if required
-	if ( this.postUpdate )
+	// update all object transforms then draw *everything*
+	if ( pbPhaserRender.rootLayer )
 	{
-		this.postUpdate.call(this.gameContext);
+		// the pbPhaserRender.rootLayer update will iterate the entire display list
+		pbPhaserRender.rootLayer.update();
+	}
+};
+
+
+pbRenderer.prototype.postUpdate = function()
+{
+	// postUpdate if required
+	if ( this.postUpdateCallback )
+	{
+		this.postUpdateCallback.call(this.gameContext);
 	}
 };
 

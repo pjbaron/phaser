@@ -93,8 +93,8 @@ pbCreatureAssist.prototype.create = function()
 	// add a top layer for ui text messages
 	this.uiLayer = new layerClass();
 	// _parent, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY
-	this.uiLayer.create(rootLayer, this.phaserRender, 0, 0, 0, 0, 1, 1);
-	rootLayer.addChild(this.uiLayer);
+	this.uiLayer.create(pbPhaserRender.rootLayer, this.phaserRender, 0, 0, 0, 0, 1, 1);
+	pbPhaserRender.rootLayer.addChild(this.uiLayer);
 
 	// prepare the text strings
 	this.text = new pbText();
@@ -226,15 +226,15 @@ pbCreatureAssist.prototype.update = function()
 	var e = this.phaserRender.rootTimer.elapsedTime;
 	this.creatures.update(e / 1000 * 2.0);
 
-	// render to the display from now on (pbRenderer.update: rootLayer.update)
+	// render to the display from now on (pbRenderer.update: pbPhaserRender.rootLayer.update)
 	// without this all other sprites in the scene will render to the last bound texture
-	// TODO: this should be parameterised in pbRenderer and set before the rootLayer.update call
+	// TODO: this should be parameterised in pbRenderer and set before the pbPhaserRender.rootLayer.update call
 	pbWebGlTextures.cancelFramebuffer();
 };
 
 
 /**
- * postUpdate - called after pbRenderer does rootLayer.update
+ * postUpdate - called after pbRenderer does pbPhaserRender.rootLayer.update
  * display all of the creature sprite images by rendering to the display from their render-to-textures on the GPU
  *
  * @return {[type]} [description]

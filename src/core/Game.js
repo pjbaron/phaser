@@ -505,7 +505,7 @@ Phaser.Game.prototype = {
             this.setUpRenderer();
 
             this.scale = new Phaser.ScaleManager(this, this._width, this._height);
-            this.stage = rootLayer; //new Phaser.Stage(this);
+            this.stage = pbPhaserRender.rootLayer; //new Phaser.Stage(this);
 
             this.device.checkFullScreenSupport();
 
@@ -524,7 +524,7 @@ Phaser.Game.prototype = {
             this.net = new Phaser.Net(this);
 
             this.time.boot();
-            this.stage.boot();
+            // this.stage.boot();
             this.world.boot();
             this.scale.boot();
             this.input.boot();
@@ -661,7 +661,7 @@ Phaser.Game.prototype = {
         }
 
         this.renderer = new pbPhaserRender( this.canvas.id );
-        this.renderer.create( 'webgl', this.create, this.update, this );
+        this.renderer.create( 'webgl' );
         this.renderType = Phaser.WEBGL;
 
 //         if (this.renderType === Phaser.HEADLESS || this.renderType === Phaser.CANVAS || (this.renderType === Phaser.AUTO && this.device.webGL === false))
@@ -791,17 +791,14 @@ Phaser.Game.prototype = {
             this.physics.preUpdate();
             this.state.preUpdate(timeStep);
             this.plugins.preUpdate(timeStep);
-            this.stage.preUpdate();
 
             this.state.update();
-            this.stage.update();
             this.sound.update();
             this.input.update();
             this.physics.update();
             this.particles.update();
             this.plugins.update();
 
-            this.stage.postUpdate();
             this.plugins.postUpdate();
         }
         else
@@ -826,11 +823,14 @@ Phaser.Game.prototype = {
         if (this.renderType != Phaser.HEADLESS)
         {
             this.state.preRender();
-            this.renderer.render(this.stage);
+            this.renderer.preRender(this.stage);
 
             this.plugins.render();
             this.state.render();
+            this.renderer.render(this.stage);
+
             this.plugins.postRender();
+            this.renderer.postRender(this.stage);
 
             if (this.device.cocoonJS && this.renderType === Phaser.CANVAS && this.stage.currentRenderOrderID === 1)
             {

@@ -199,9 +199,9 @@ Phaser.Image.prototype.preUpdate = function() {
     }
 
     //  Update any Children
-    for (var i = 0, len = this.children.length; i < len; i++)
+    for (var i = 0, len = this.transform.children.length; i < len; i++)
     {
-        this.children[i].preUpdate();
+        this.transform.children[i].preUpdate();
     }
 
     return true;
@@ -239,9 +239,9 @@ Phaser.Image.prototype.postUpdate = function() {
     }
 
     //  Update any Children
-    for (var i = 0, len = this.children.length; i < len; i++)
+    for (var i = 0, len = this.transform.children.length; i < len; i++)
     {
-        this.children[i].postUpdate();
+        this.transform.children[i].postUpdate();
     }
 
 };
@@ -566,20 +566,20 @@ Phaser.Image.prototype.destroy = function(destroyChildren) {
         this.animations.destroy();
     }
 
-    var i = this.children.length;
+    var i = this.transform.children.length;
 
     if (destroyChildren)
     {
         while (i--)
         {
-            this.children[i].destroy(destroyChildren);
+            this.transform.children[i].destroy(destroyChildren);
         }
     }
     else
     {
         while (i--)
         {
-            this.removeChild(this.children[i]);
+            this.removeChild(this.transform.children[i]);
         }
     }
 

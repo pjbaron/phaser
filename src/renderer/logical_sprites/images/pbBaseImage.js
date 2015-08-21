@@ -55,7 +55,7 @@ pbBaseImage.prototype.destroy = function()
 
 pbBaseImage.prototype.setCorners = function(ltx, lty, rtx, rty, lbx, lby, rbx, rby)
 {
-	alert("ERROR: render mode '", useRenderer, "' does not support setCorners!");
+	alert("ERROR: render mode '", pbPhaserRender.useRenderer, "' does not support setCorners!");
 };
 
 

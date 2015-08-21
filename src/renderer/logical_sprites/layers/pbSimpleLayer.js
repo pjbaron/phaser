@@ -126,7 +126,7 @@ pbSimpleLayer.prototype.prepareXY = function()
 	}
 
 	// debug sprite count
-	sprCountDbg += drawLength / 2;
+	pbPhaserRender.sprCountDbg += drawLength / 2;
 
 	return drawLength;
 };
@@ -191,7 +191,7 @@ pbSimpleLayer.prototype.prepareXYUV = function()
 	}
 
 	// debug sprite count
-	sprCountDbg += drawLength / 4;
+	pbPhaserRender.sprCountDbg += drawLength / 4;
 
 	return drawLength;
 };

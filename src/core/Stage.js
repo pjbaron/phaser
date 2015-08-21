@@ -4,7 +4,7 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: sounds like this is equivalent to rootLayer in the new renderer with a few extra features (loss of focus etc)
+// PJBNOTE: sounds like this is equivalent to pbPhaserRender.rootLayer in the new renderer with a few extra features (loss of focus etc)
 // PJBNOTE: decisions to be made whether we want a single Stage which is separate (or derived) from the new layer system... it may prevent tricks like having multiple canvas objects acting as separate stages.
 // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
 /**
@@ -23,7 +23,7 @@ Phaser.Stage = function (game) {
     */
     this.game = game;
 
-// PJBNOTE: not sure if we need this at all, the new renderer rootLayer does not currently (24/7/2015) require initialisation or construction externally
+// PJBNOTE: not sure if we need this at all, the new renderer pbPhaserRender.rootLayer does not currently (24/7/2015) require initialisation or construction externally
 //    PIXI.Stage.call(this, 0x000000);
 
     /**
