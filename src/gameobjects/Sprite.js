@@ -25,6 +25,9 @@
 */
 Phaser.Sprite = function (game, x, y, key, frame) {
 
+    // call super constructor
+    pbSprite.call(this);
+
     x = x || 0;
     y = y || 0;
     key = key || null;
@@ -68,14 +71,12 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     */
     this.key = key;
 
-// PJBNOTE: call pbSprite super (or merge as discussed at top of this file)
-//    PIXI.Sprite.call(this, PIXI.TextureCache['__default']);
-
 // PJBNOTE: I need a better understanding of how this is used
     this.transformCallback = this.checkTransform;
     this.transformCallbackContext = this;
 
-    this.position.set(x, y);
+    this.x = x;
+    this.y = y;
 
     /**
     * @property {Phaser.Point} world - The world coordinates of this Sprite. This differs from the x/y coordinates which are relative to the Sprites container.
@@ -176,8 +177,8 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     /**
     * A small internal cache:
     *
-    * 0 = previous position.x
-    * 1 = previous position.y
+    * 0 = previous x
+    * 1 = previous y
     * 2 = previous rotation
     * 3 = renderID
     * 4 = fresh? (0 = no, 1 = yes)
@@ -226,7 +227,7 @@ Phaser.Sprite.prototype.preUpdate = function() {
 
     if (this._cache[4] === 1 && this.exists)
     {
-        this.world.setTo(this.parent.position.x + this.position.x, this.parent.position.y + this.position.y);
+        this.world.setTo(this.parent.x + this.x, this.parent.y + this.y);
         this.worldTransform.tx = this.world.x;
         this.worldTransform.ty = this.world.y;
         this._cache[0] = this.world.x;
@@ -355,8 +356,8 @@ Phaser.Sprite.prototype.postUpdate = function() {
     //  Fixed to Camera?
     if (this._cache[7] === 1)
     {
-        this.position.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
-        this.position.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
+        this.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
+        this.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
     }
 
     //  Update any Children
@@ -790,8 +791,8 @@ Phaser.Sprite.prototype.reset = function(x, y, health) {
     if (typeof health === 'undefined') { health = 1; }
 
     this.world.setTo(x, y);
-    this.position.x = x;
-    this.position.y = y;
+    this.x = x;
+    this.y = y;
     this.alive = true;
     this.exists = true;
     this.visible = true;
@@ -1289,17 +1290,19 @@ Object.defineProperty(Phaser.Sprite.prototype, "smoothed", {
 * @name Phaser.Sprite#x
 * @property {number} x - The position of the Sprite on the x axis relative to the local coordinates of the parent.
 */
+
+// PJBNOTE: TODO: getter setter for x,y are already included in pbTransform, find neat fix for the body._reset flag change here
 Object.defineProperty(Phaser.Sprite.prototype, "x", {
 
     get: function () {
 
-        return this.position.x;
+        return this.x;
 
     },
 
     set: function (value) {
 
-        this.position.x = value;
+        this.x = value;
 
         if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
         {
@@ -1316,17 +1319,19 @@ Object.defineProperty(Phaser.Sprite.prototype, "x", {
 * @name Phaser.Sprite#y
 * @property {number} y - The position of the Sprite on the y axis relative to the local coordinates of the parent.
 */
+
+// PJBNOTE: TODO: getter setter for x,y are already included in pbTransform, find neat fix for the body._reset flag change here
 Object.defineProperty(Phaser.Sprite.prototype, "y", {
 
     get: function () {
 
-        return this.position.y;
+        return this.y;
 
     },
 
     set: function (value) {
 
-        this.position.y = value;
+        this.y = value;
 
         if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
         {
