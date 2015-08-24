@@ -436,11 +436,14 @@ Phaser.Sprite.prototype.loadTexture = function (key, frame, stopAnimation) {
         }
     }
     
-    this.texture.baseTexture.dirty();
+    if (this.image && this.image.surface)
+    {
+        this.image.surface.dirty();
+    }
 
     if (setFrame)
     {
-        this._frame = Phaser.Rectangle.clone(this.texture.frame);
+        this._frame = Phaser.Rectangle.clone(this.image.surface.frame);
     }
 
     if (!smoothed)
@@ -458,52 +461,53 @@ Phaser.Sprite.prototype.loadTexture = function (key, frame, stopAnimation) {
 * @memberof Phaser.Sprite
 * @param {Phaser.Frame} frame - The Frame to be used by the Sprite texture.
 */
-Phaser.Sprite.prototype.setFrame = function(frame) {
+// PJBNOTE: doesn't appear to be needed by Sprite.loadTexture and doesn't fit the new renderer... temporarily removed pending full deprecation
+// Phaser.Sprite.prototype.setFrame = function(frame) {
 
-    this._frame = frame;
+//     this._frame = frame;
 
-    this.texture.frame.x = frame.x;
-    this.texture.frame.y = frame.y;
-    this.texture.frame.width = frame.width;
-    this.texture.frame.height = frame.height;
+//     this.texture.frame.x = frame.x;
+//     this.texture.frame.y = frame.y;
+//     this.texture.frame.width = frame.width;
+//     this.texture.frame.height = frame.height;
 
-    this.texture.crop.x = frame.x;
-    this.texture.crop.y = frame.y;
-    this.texture.crop.width = frame.width;
-    this.texture.crop.height = frame.height;
+//     this.texture.crop.x = frame.x;
+//     this.texture.crop.y = frame.y;
+//     this.texture.crop.width = frame.width;
+//     this.texture.crop.height = frame.height;
 
-    if (frame.trimmed)
-    {
-        if (this.texture.trim)
-        {
-            this.texture.trim.x = frame.spriteSourceSizeX;
-            this.texture.trim.y = frame.spriteSourceSizeY;
-            this.texture.trim.width = frame.sourceSizeW;
-            this.texture.trim.height = frame.sourceSizeH;
-        }
-        else
-        {
-            this.texture.trim = { x: frame.spriteSourceSizeX, y: frame.spriteSourceSizeY, width: frame.sourceSizeW, height: frame.sourceSizeH };
-        }
+//     if (frame.trimmed)
+//     {
+//         if (this.texture.trim)
+//         {
+//             this.texture.trim.x = frame.spriteSourceSizeX;
+//             this.texture.trim.y = frame.spriteSourceSizeY;
+//             this.texture.trim.width = frame.sourceSizeW;
+//             this.texture.trim.height = frame.sourceSizeH;
+//         }
+//         else
+//         {
+//             this.texture.trim = { x: frame.spriteSourceSizeX, y: frame.spriteSourceSizeY, width: frame.sourceSizeW, height: frame.sourceSizeH };
+//         }
 
-        this.texture.width = frame.sourceSizeW;
-        this.texture.height = frame.sourceSizeH;
-        this.texture.frame.width = frame.sourceSizeW;
-        this.texture.frame.height = frame.sourceSizeH;
-    }
-    else if (!frame.trimmed && this.texture.trim)
-    {
-        this.texture.trim = null;
-    }
+//         this.texture.width = frame.sourceSizeW;
+//         this.texture.height = frame.sourceSizeH;
+//         this.texture.frame.width = frame.sourceSizeW;
+//         this.texture.frame.height = frame.sourceSizeH;
+//     }
+//     else if (!frame.trimmed && this.texture.trim)
+//     {
+//         this.texture.trim = null;
+//     }
 
-    if (this.cropRect)
-    {
-        this.updateCrop();
-    }
+//     if (this.cropRect)
+//     {
+//         this.updateCrop();
+//     }
 
-    this.texture._updateUvs();
+//     this.texture._updateUvs();
 
-};
+// };
 
 /**
 * Resets the Texture frame dimensions that the Sprite uses for rendering.
@@ -513,10 +517,11 @@ Phaser.Sprite.prototype.setFrame = function(frame) {
 */
 Phaser.Sprite.prototype.resetFrame = function() {
 
-    if (this._frame)
-    {
-        this.setFrame(this._frame);
-    }
+// PJBNOTE: deprecate resetFrame entirely?  New renderer doesn't work like this... so is this function necessary?
+    // if (this._frame)
+    // {
+    //     this.setFrame(this._frame);
+    // }
 
 };
 
@@ -589,18 +594,20 @@ Phaser.Sprite.prototype.updateCrop = function() {
     var cw = Math.min(this._frame.right, this._crop.right) - cx;
     var ch = Math.min(this._frame.bottom, this._crop.bottom) - cy;
 
-    this.texture.crop.x = cx;
-    this.texture.crop.y = cy;
-    this.texture.crop.width = cw;
-    this.texture.crop.height = ch;
+// PJBNOTE: crop is not currently supported by pbSurface in this format
+// PJBNOTE: this.texture references generally become this.image.surface
+    // this.texture.crop.x = cx;
+    // this.texture.crop.y = cy;
+    // this.texture.crop.width = cw;
+    // this.texture.crop.height = ch;
 
-    this.texture.frame.width = Math.min(cw, this.cropRect.width);
-    this.texture.frame.height = Math.min(ch, this.cropRect.height);
+    // this.texture.frame.width = Math.min(cw, this.cropRect.width);
+    // this.texture.frame.height = Math.min(ch, this.cropRect.height);
 
-    this.texture.width = this.texture.frame.width;
-    this.texture.height = this.texture.frame.height;
+    // this.texture.width = this.texture.frame.width;
+    // this.texture.height = this.texture.frame.height;
 
-    this.texture._updateUvs();
+    // this.texture._updateUvs();
 
 };
 
@@ -1260,7 +1267,11 @@ Object.defineProperty(Phaser.Sprite.prototype, "smoothed", {
 
     get: function () {
 
-        return !this.texture.baseTexture.scaleMode;
+        if (this.image && this.image.surface)
+        {
+            return !this.image.surface.scaleMode;
+        }
+        return false;
 
     },
 
@@ -1268,76 +1279,18 @@ Object.defineProperty(Phaser.Sprite.prototype, "smoothed", {
 
         if (value)
         {
-            if (this.texture)
+            if (this.image && this.image.surface)
             {
-                this.texture.baseTexture.scaleMode = 0;
+                this.image.surface.scaleMode = 0;
             }
         }
         else
         {
-            if (this.texture)
+            if (this.image && this.image.surface)
             {
-                this.texture.baseTexture.scaleMode = 1;
+                this.image.surface.scaleMode = 1;
             }
         }
-    }
-
-});
-
-/**
-* The position of the Sprite on the x axis relative to the local coordinates of the parent.
-*
-* @name Phaser.Sprite#x
-* @property {number} x - The position of the Sprite on the x axis relative to the local coordinates of the parent.
-*/
-
-// PJBNOTE: TODO: getter setter for x,y are already included in pbTransform, find neat fix for the body._reset flag change here
-Object.defineProperty(Phaser.Sprite.prototype, "x", {
-
-    get: function () {
-
-        return this.x;
-
-    },
-
-    set: function (value) {
-
-        this.x = value;
-
-        if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
-        {
-            this.body._reset = 1;
-        }
-
-    }
-
-});
-
-/**
-* The position of the Sprite on the y axis relative to the local coordinates of the parent.
-*
-* @name Phaser.Sprite#y
-* @property {number} y - The position of the Sprite on the y axis relative to the local coordinates of the parent.
-*/
-
-// PJBNOTE: TODO: getter setter for x,y are already included in pbTransform, find neat fix for the body._reset flag change here
-Object.defineProperty(Phaser.Sprite.prototype, "y", {
-
-    get: function () {
-
-        return this.y;
-
-    },
-
-    set: function (value) {
-
-        this.y = value;
-
-        if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
-        {
-            this.body._reset = 1;
-        }
-
     }
 
 });

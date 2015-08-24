@@ -105,6 +105,10 @@ Object.defineProperties(pbSprite.prototype, {
 		},
 		set: function (value) {
 			this.transform.x = value;
+	        if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
+	        {
+	            this.body._reset = 1;
+	        }
 		}
 	},
 
@@ -114,6 +118,10 @@ Object.defineProperties(pbSprite.prototype, {
 		},
 		set: function (value) {
 			this.transform.y = value;
+	        if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
+	        {
+	            this.body._reset = 1;
+	        }
 		}
 	},
 

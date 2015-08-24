@@ -33,6 +33,12 @@ function pbSurface()
 	this.isNPOT = false;
 	this.rttTexture = null;
 	this.rttTextureRegister = -1;
+	// the smoothing type used when scaling the surface
+	// TODO: currently unused by the renderer, referenced by Phaser.Sprite.smoothed
+	this.scaleMode = 0;
+	// is the surface 'dirty' (eg. parameters have changed, or texture)
+	// TODO: currently unused by the renderer, referenced by Phaser.Sprite.loadTexture
+	this._isDirty = false;
 }
 
 
@@ -271,4 +277,10 @@ pbSurface.prototype.destroy = function()
 pbSurface.prototype.isPowerOfTwo = function(x)
 {
 	return ((x > 0) && !(x & (x - 1)));
+};
+
+
+pbSurface.prototype.dirty = function()
+{
+	_isDirty = true;
 };
