@@ -21,7 +21,8 @@ function pbText()
 
 pbText.prototype.create = function(_key, _layer, _firstAscii, _offset)
 {
-	this.textureObject = textures.getFirst(_key);
+	// TODO: use Phaser.Cache!
+	// this.textureObject = textures.getFirst(_key);
 	if (this.textureObject)
 	{
 		this.surface = this.textureObject.surface;

@@ -44,7 +44,8 @@ pbCreatureAssist.prototype.create = function()
 	this.creatureShaderProgram = pbPhaserRender.renderer.graphics.shaders.addJSON( jsonString );
 
 	// get the source texture using 'key'
-	this.dinoTexture = textures.getFirst("creature");
+	// TODO: use Phaser.Cache!
+	// this.dinoTexture = textures.getFirst("creature");
 
 	// unzip the compressed data file and create the animation JSON data structures
 	var zip = new JSZip( pbPhaserRender.loader.getFile( this.creatureDataZip ).response );

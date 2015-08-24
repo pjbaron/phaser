@@ -6,15 +6,15 @@
  */
 
 
-function pbTextures()
-{
-	this.superCall(pbTextures, 'constructor');
-}
+// function pbTextures()
+// {
+// 	this.superCall(pbTextures, 'constructor');
+// }
 
 
-pbTextures.prototype = new pbDictionary();
-pbTextures.prototype.constructor = pbTextures;
-pbTextures.prototype.__super__ = pbDictionary;
+// pbTextures.prototype = new pbDictionary();
+// pbTextures.prototype.constructor = pbTextures;
+// pbTextures.prototype.__super__ = pbDictionary;
 
 
 /**
@@ -25,10 +25,10 @@ pbTextures.prototype.__super__ = pbDictionary;
  *
  * @return {Boolean} true if key already existed and we added another value to it
  */
-pbTextures.prototype.addGPUTexture = function(_key, _textureIndex)
-{
-	// add the _textureIndex to the textures dictionary referenced by 'key'
-	// on access the null 'surface' value will cause a test for 'GPU'
-	return this.superCall(pbTextures, 'add', _key, { imageData: null, surface: null, GPU: _textureIndex });	
-};
+// pbTextures.prototype.addGPUTexture = function(_key, _textureIndex)
+// {
+// 	// add the _textureIndex to the textures dictionary referenced by 'key'
+// 	// on access the null 'surface' value will cause a test for 'GPU'
+// 	return this.superCall(pbTextures, 'add', _key, { imageData: null, surface: null, GPU: _textureIndex });	
+// };
 
