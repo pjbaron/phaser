@@ -147,23 +147,34 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	if (this.parent && this.parent.transform)
 		pbMatrix3.setFastMultiply(this.transform, this.parent.transform);
 	
-	// draw if this sprite has an image
+	// draw if this transform objects has an image
 	if (this.image && this.visible)
 		this.image.draw(_drawDictionary, this.transform, this.z);
 
 	if (this.children)
 	{
-		// for all of my child sprites
+		// for all of my child transform objects
 		var c = this.children.length;
 		while(c--)
 		{
 			var child = this.children[c];
 
 			// update this child
-			if (!child.update(_drawDictionary))
+			if (child instanceof pbTransformObject)
 			{
-				child.destroy();
-				this.removeChildAt(c);
+				if (!child.update(_drawDictionary))
+				{
+					child.destroy();
+					this.removeChildAt(c);
+				}
+			}
+			else if (child instanceof Phaser.Image)
+			{
+				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
+				{
+					pbTransformObject.prototype.destroy.call(child.transform);
+					pbTransformObject.prototype.removeChildAt.call(child);
+				}
 			}
 		}
 	}
@@ -191,23 +202,34 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 			pbMatrix4.setFastMultiply(this.transform, this.parent.transform);
 	}
 	
-	// draw if this sprite has an image
+	// draw if this transform object has an image
 	if (this.image)
 		this.image.draw(_drawDictionary, this.transform, this.z);
 
 	if (this.children)
 	{
-		// for all of my child sprites
+		// for all of my child transform objects
 		var c = this.children.length;
 		while(c--)
 		{
 			var child = this.children[c];
 
 			// update this child
-			if (!child.update(_drawDictionary))
+			if (child instanceof pbTransformObject)
 			{
-				child.destroy();
-				this.removeChildAt(c);
+				if (!child.update(_drawDictionary))
+				{
+					child.destroy();
+					this.removeChildAt(c);
+				}
+			}
+			else if (child instanceof Phaser.Image)
+			{
+				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
+				{
+					pbTransformObject.prototype.destroy.call(child.transform);
+					pbTransformObject.prototype.removeChildAt.call(child);
+				}
 			}
 		}
 	}
