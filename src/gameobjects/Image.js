@@ -22,11 +22,14 @@ Phaser.Image = function (game, x, y, key, frame) {
 
     // call super constructor
     pbSprite.call(this);
-
+    
     x = x || 0;
     y = y || 0;
     key = key || null;
     frame = frame || null;
+
+    // pbSprite.create
+    this.createWithKey(game, x, y, key);
 
     /**
     * @property {Phaser.Game} game - A reference to the currently running Game.
@@ -215,7 +218,6 @@ Phaser.Image.prototype.preUpdate = function() {
 * @memberof Phaser.Image
 */
 Phaser.Image.prototype.update = function() {
-
 };
 
 /**
