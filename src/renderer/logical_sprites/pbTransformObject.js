@@ -91,12 +91,23 @@ pbTransformObject.prototype.create3D = function(_image, _x, _y, _z, _rx, _ry, _r
 };
 
 
-pbTransformObject.prototype.destroy = function()
+pbTransformObject.prototype.destroy = function( destroyChildren )
 {
-	// destroy all my children too
-	if (this.children)
-		for(var c = this.children.length - 1; c >= 0; --c)
-			this.children[c].destroy();
+	var c;
+
+	if ( destroyChildren )
+	{
+		// destroy all my children too
+		if (this.children)
+			for(c = this.children.length - 1; c >= 0; --c)
+				this.children[c].destroy();
+	}
+	else
+	{
+		if (this.children)
+			while(this.children.length)
+				this.removeChild(this.children[this.children.length - 1]);
+	}
 	this.children = null;
 
 	// remove me from my parent
@@ -150,7 +161,7 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 			if (!child.update(_drawDictionary))
 			{
 				child.destroy();
-				this.removechildAt(c);
+				this.removeChildAt(c);
 			}
 		}
 	}
@@ -194,7 +205,7 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 			if (!child.update(_drawDictionary))
 			{
 				child.destroy();
-				this.removechildAt(c);
+				this.removeChildAt(c);
 			}
 		}
 	}

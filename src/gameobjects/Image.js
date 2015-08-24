@@ -566,22 +566,7 @@ Phaser.Image.prototype.destroy = function(destroyChildren) {
         this.animations.destroy();
     }
 
-    var i = this.transform.children.length;
-
-    if (destroyChildren)
-    {
-        while (i--)
-        {
-            this.transform.children[i].destroy(destroyChildren);
-        }
-    }
-    else
-    {
-        while (i--)
-        {
-            this.removeChild(this.transform.children[i]);
-        }
-    }
+    this.transform.destroy( destroyChildren );
 
     this.alive = false;
     this.exists = false;
