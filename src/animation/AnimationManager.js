@@ -545,7 +545,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
             {
                 this._frameIndex = value;
 
-                this.sprite.setFrame(this.currentFrame);
+                this.sprite.cellFrame = this.currentFrame;
 
                 if (this.sprite.__tilePattern)
                 {
@@ -584,7 +584,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frameName', {
             {
                 this._frameIndex = this.currentFrame.index;
 
-                this.sprite.setFrame(this.currentFrame);
+                this.sprite.cellFrame = this.currentFrame;
 
                 if (this.sprite.__tilePattern)
                 {
