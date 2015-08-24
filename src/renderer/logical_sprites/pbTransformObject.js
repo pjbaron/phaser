@@ -43,6 +43,8 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 	// console.log("pbTransformObject.create");
 
 	if (_image === undefined) _image = null;
+	if (_x === undefined) _x = 0.0;
+	if (_y === undefined) _y = 0.0;
 	if (_z === undefined) _z = 1.0;
 	if (_angleInRadians === undefined) _angleInRadians = 0;
 	if (_scaleX === undefined) _scaleX = 1.0;

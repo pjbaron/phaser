@@ -4,7 +4,6 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: superceeded by "layers" which are not only built into the new renderer, but are essential to it's operation.  We probably need to make substantial changes to Group to fit it to layers.
 
 /**
 * A Group is a container for display objects that allows for fast pooling and object recycling.
@@ -21,6 +20,10 @@
 * @param {number} [physicsBodyType=0] - If enableBody is true this is the type of physics body that is created on new Sprites. Phaser.Physics.ARCADE, Phaser.Physics.P2, Phaser.Physics.NINJA, etc.
 */
 Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBodyType) {
+
+    pbTransformObject.call(this);
+    // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
+    pbTransformObject.create();
 
     if (typeof addToStage === 'undefined') { addToStage = false; }
     if (typeof enableBody === 'undefined') { enableBody = false; }
@@ -156,8 +159,8 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 };
 
-// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
-//Phaser.Group.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+
+Phaser.Group.prototype = Object.create(pbTransformObject.prototype);
 Phaser.Group.prototype.constructor = Phaser.Group;
 
 /**
@@ -412,7 +415,7 @@ Phaser.Group.prototype.resetCursor = function (index) {
 
     if (typeof index === 'undefined') { index = 0; }
 
-    if (index > this.children.length - 1)
+    if (index >= this.children.length)
     {
         index = 0;
     }
@@ -591,14 +594,15 @@ Phaser.Group.prototype.moveDown = function (child) {
 */
 Phaser.Group.prototype.xy = function (index, x, y) {
 
-    if (index < 0 || index > this.children.length)
+    if (index < 0 || index >= this.children.length)
     {
         return -1;
     }
     else
     {
-        this.getChildAt(index).x = x;
-        this.getChildAt(index).y = y;
+        var c = this.getChildAt(index);
+        c.x = x;
+        c.y = y;
     }
 
 };
@@ -1168,16 +1172,17 @@ Phaser.Group.prototype.preUpdate = function () {
 * @method Phaser.Group#update
 * @protected
 */
-Phaser.Group.prototype.update = function () {
+// PJBNOTE: deprecated, the pbTransformObject update method does this directly
+// Phaser.Group.prototype.update = function () {
 
-    var i = this.children.length;
+//     var i = this.children.length;
 
-    while (i--)
-    {
-        this.children[i].update();
-    }
+//     while (i--)
+//     {
+//         this.children[i].update();
+//     }
 
-};
+// };
 
 /**
 * The core postUpdate - as called by World.
@@ -1768,6 +1773,8 @@ Phaser.Group.prototype.destroy = function (destroyChildren, soft) {
         this.game = null;
         this.exists = false;
     }
+
+    pbTransformObject.destroy( destroyChildren );
 
 };
 
