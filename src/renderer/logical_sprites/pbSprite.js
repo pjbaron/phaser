@@ -19,14 +19,16 @@ function pbSprite()
 pbSprite.prototype.constructor = pbSprite;
 
 
-pbSprite.prototype.createWithKey = function(_x, _y, _key, _layer)
+pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 {
 	this.layer = _layer || null;
 
 	// get the texture object from the textures dictionary using 'key'
-	this.textureObject = textures.getFirst(_key);
-	// set up easy access to the surface
-	this.surface = this.textureObject.surface;
+	this.textureObject = game.cache.getImage(_key);
+	this.surface = new pbSurface();
+	this.surface.createGrid(0, 0, 1, 1, this.textureObject);
+	//this.textureObject = textures.getFirst(_key);
+	
 	// create an image holder and attach the surface
 	this.image = new imageClass();
 	this.image.create(this.surface);

@@ -33,6 +33,9 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     key = key || null;
     frame = frame || null;
 
+    // pbSprite.create
+    this.createWithKey(game, x, y, key);
+
     /**
     * @property {Phaser.Game} game - A reference to the currently running Game.
     */
