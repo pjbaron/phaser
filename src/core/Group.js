@@ -23,7 +23,8 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
     pbTransformObject.call(this);
     // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
-    pbTransformObject.create();
+    pbTransformObject.prototype.create.call(this);
+    
 
     if (typeof addToStage === 'undefined') { addToStage = false; }
     if (typeof enableBody === 'undefined') { enableBody = false; }
