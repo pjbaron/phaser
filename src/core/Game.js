@@ -330,7 +330,8 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     }
     else
     {
-        this.config = { enableDebug: true };
+// PJBNOTE: temporarily disabled during merge with new renderer... TODO: reactivate when 'key' supports Phaser.BitmapData again
+        this.config = { enableDebug: false };
 
         if (typeof width !== 'undefined')
         {
@@ -827,7 +828,9 @@ Phaser.Game.prototype = {
 
             this.plugins.render();
             this.state.render();
-            this.renderer.render(this.stage);
+
+// PJBNOTE: TODO: this.stage parameter is currently ignored, renderer is probably using rootLayer global still...
+            this.renderer.render(this); //this.stage);
 
             this.plugins.postRender();
             this.renderer.postRender(this.stage);
