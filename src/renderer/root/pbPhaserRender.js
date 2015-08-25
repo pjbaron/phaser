@@ -10,7 +10,7 @@
 // static globals
 
 // globally useful
-pbPhaserRender.rootLayer = null;
+//pbPhaserRender.rootLayer = null;
 pbPhaserRender.width = 0;
 pbPhaserRender.height = 0;
 pbPhaserRender.canvas = null;
@@ -55,7 +55,7 @@ pbPhaserRender.prototype.create = function(_renderMode)
 	this.renderMode = _renderMode;
 
 	// globals
-	pbPhaserRender.rootLayer = null;
+	//pbPhaserRender.rootLayer = null;
 
 	// boot when the document is ready
 	// var _this = this;
@@ -77,8 +77,8 @@ pbPhaserRender.prototype.create = function(_renderMode)
 	pbPhaserRender.renderer.create( this.renderMode, pbPhaserRender.canvas, this.gameContext );
 
 	// create the pbPhaserRender.rootLayer container for all graphics
-	pbPhaserRender.rootLayer = new layerClass();
-	pbPhaserRender.rootLayer.create(null, pbPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
+	//pbPhaserRender.rootLayer = new layerClass();
+	//pbPhaserRender.rootLayer.create(null, pbPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
 };
 
 
@@ -119,9 +119,9 @@ pbPhaserRender.prototype.destroy = function()
 //		this.rootTimer.destroy();
 //	this.rootTimer = null;
 
-	if ( pbPhaserRender.rootLayer )
-		pbPhaserRender.rootLayer.destroy();
-	pbPhaserRender.rootLayer = null;
+	// if ( pbPhaserRender.rootLayer )
+	// 	pbPhaserRender.rootLayer.destroy();
+	// pbPhaserRender.rootLayer = null;
 
 	if (pbPhaserRender.renderer)
 		pbPhaserRender.renderer.destroy();
@@ -155,9 +155,9 @@ pbPhaserRender.prototype.preRender = function()
 };
 
 
-pbPhaserRender.prototype.render = function()
+pbPhaserRender.prototype.render = function(game)
 {
-	pbPhaserRender.renderer.update();
+	pbPhaserRender.renderer.update(game);
 };
 
 

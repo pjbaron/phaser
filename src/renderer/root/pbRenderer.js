@@ -20,6 +20,7 @@ function pbRenderer( _parent )
 	this.postUpdateCallback = null;
 	this.canvas = null;
 	this.gameContext = null;
+	this.drawDictionary = null;
 
 	// drawing system
 	this.graphics = null;
@@ -62,6 +63,9 @@ pbRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameContex
 	pbPhaserRender.height = this.canvas.height;
 	this.graphics = null;
 	
+	this.drawDictionary = new pbDictionary();
+	this.drawDictionary.create();
+
 	//
 	// try to get the renderer set up
 	// all drawing modes should be tried in a predetermined order with optional preference respected
@@ -138,6 +142,11 @@ pbRenderer.prototype.preUpdate = function()
 	// prepare to draw (erase screen)
 	this.graphics.preRender( pbPhaserRender.width, pbPhaserRender.height, this.useFramebuffer, this.useRenderbuffer );
 
+	this.drawDictionary.clear();
+	// update all object transforms and build the draw dictionary
+	if (game && game.world)
+		game.world.update(this.drawDictionary);
+
 	// anything else specific to the current task that should happen before the screen update
 	if ( this.preUpdateCallback )
 	{
@@ -146,7 +155,7 @@ pbRenderer.prototype.preUpdate = function()
 };
 
 
-pbRenderer.prototype.update = function( _updateCallback, _context )
+pbRenderer.prototype.update = function( game, _updateCallback, _context )
 {
 	// update callback
 	if ( _updateCallback )
@@ -154,12 +163,14 @@ pbRenderer.prototype.update = function( _updateCallback, _context )
 		_updateCallback.call( _context );
 	}
 
-	// update all object transforms then draw *everything*
-	if ( pbPhaserRender.rootLayer )
-	{
-		// the pbPhaserRender.rootLayer update will iterate the entire display list
-		pbPhaserRender.rootLayer.update();
-	}
+	// draw *everything* in the drawDictionary
+	this.drawDictionary.iterateKeys(pbBaseLayer.prototype.draw, this);
+	
+	// if ( pbPhaserRender.rootLayer )
+	// {
+	// 	// the pbPhaserRender.rootLayer update will iterate the entire display list
+	// 	pbPhaserRender.rootLayer.update();
+	// }
 };
 
 

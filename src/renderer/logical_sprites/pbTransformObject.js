@@ -168,7 +168,7 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 					this.removeChildAt(c);
 				}
 			}
-			else if (child instanceof Phaser.Image)
+			else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite))
 			{
 				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
 				{
