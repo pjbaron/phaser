@@ -26,9 +26,10 @@ pbPhaserRender.loader = null;
 
 
 
-function pbPhaserRender(_docId)
+function pbPhaserRender( _canvas )
 {
-	this.docId = _docId;
+	pbPhaserRender.canvas = _canvas;
+	this.docId = _canvas.id;
 	this.isBooted = false;
 	pbPhaserRender.frameCount = 0;
 
@@ -36,11 +37,11 @@ function pbPhaserRender(_docId)
 	pbPhaserRender.height = 600;
 
 	// canvas
-	pbPhaserRender.canvas = document.createElement('canvas');
-	pbPhaserRender.canvas.setAttribute('id', this.docId);
-	pbPhaserRender.canvas.setAttribute('width', pbPhaserRender.width);
-	pbPhaserRender.canvas.setAttribute('height', pbPhaserRender.height);
-	pbPhaserRender.canvas.setAttribute('style', 'border: none');
+//	pbPhaserRender.canvas = document.createElement('canvas');
+//	pbPhaserRender.canvas.setAttribute('id', this.docId);
+//	pbPhaserRender.canvas.setAttribute('width', pbPhaserRender.width);
+//	pbPhaserRender.canvas.setAttribute('height', pbPhaserRender.height);
+//	pbPhaserRender.canvas.setAttribute('style', 'border: none');
 	// NOTE: canvas performance seems heavily dependent on the Node order of it's parent, it needs to be first!
 	var guiContainer = document.getElementById('gui');    
 	document.body.insertBefore(pbPhaserRender.canvas, guiContainer);

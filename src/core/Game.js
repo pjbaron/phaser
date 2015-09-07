@@ -661,7 +661,7 @@ Phaser.Game.prototype = {
             }
         }
 
-        this.renderer = new pbPhaserRender( this.canvas.id );
+        this.renderer = new pbPhaserRender( this.canvas );
         this.renderer.create( 'webgl' );
         this.renderType = Phaser.WEBGL;
 
