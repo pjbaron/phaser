@@ -128,7 +128,7 @@ Phaser.Text = function (game, x, y, text, style) {
 // PJBNOTE: the new renderer doesn't support proper text drawing yet, that needs to be added before this can be replaced
 //    PIXI.Text.call(this, text, this.style);
 
-    this.position.set(x, y);
+    //this.position.set(x, y);
 
     /**
     * A small internal cache:
@@ -212,11 +212,11 @@ Phaser.Text.prototype.update = function() {
 */
 Phaser.Text.prototype.postUpdate = function () {
 
-    if (this._cache[7] === 1)
-    {
-        this.position.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
-        this.position.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
-    }
+    // if (this._cache[7] === 1)
+    // {
+    //     this.position.x = (this.game.camera.view.x + this.cameraOffset.x) / this.game.camera.scale.x;
+    //     this.position.y = (this.game.camera.view.y + this.cameraOffset.y) / this.game.camera.scale.y;
+    // }
 
     //  Update any Children
     for (var i = 0, len = this.children.length; i < len; i++)
