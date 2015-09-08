@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -82,12 +82,12 @@ Phaser.Frame = function (index, x, y, width, height, name) {
     this.trimmed = false;
 
     /**
-    * @property {number} sourceSizeW - Width of the original sprite.
+    * @property {number} sourceSizeW - Width of the original sprite before it was trimmed.
     */
     this.sourceSizeW = width;
 
     /**
-    * @property {number} sourceSizeH - Height of the original sprite.
+    * @property {number} sourceSizeH - Height of the original sprite before it was trimmed.
     */
     this.sourceSizeH = height;
 
@@ -130,6 +130,27 @@ Phaser.Frame = function (index, x, y, width, height, name) {
 Phaser.Frame.prototype = {
 
     /**
+    * Adjusts of all the Frame properties based on the given width and height values.
+    *
+    * @method Phaser.Frame#resize
+    * @param {integer} width - The new width of the Frame.
+    * @param {integer} height - The new height of the Frame.
+    */
+    resize: function (width, height) {
+
+        this.width = width;
+        this.height = height;
+        this.centerX = Math.floor(width / 2);
+        this.centerY = Math.floor(height / 2);
+        this.distance = Phaser.Math.distance(0, 0, width, height);
+        this.sourceSizeW = width;
+        this.sourceSizeH = height;
+        this.right = this.x + width;
+        this.bottom = this.y + height;
+
+    },
+
+    /**
     * If the frame was trimmed when added to the Texture Atlas this records the trim and source data.
     *
     * @method Phaser.Frame#setTrim
@@ -163,7 +184,7 @@ Phaser.Frame.prototype = {
      * Clones this Frame into a new Phaser.Frame object and returns it.
      * Note that all properties are cloned, including the name, index and UUID.
      *
-     * @method clone
+     * @method Phaser.Frame#clone
      * @return {Phaser.Frame} An exact copy of this Frame object.
      */
     clone: function () {
@@ -191,7 +212,7 @@ Phaser.Frame.prototype = {
     */
     getRect: function (out) {
 
-        if (typeof out === 'undefined')
+        if (out === undefined)
         {
             out = new Phaser.Rectangle(this.x, this.y, this.width, this.height);
         }

@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -17,20 +17,24 @@ Phaser.AnimationParser = {
     *
     * @method Phaser.AnimationParser.spriteSheet
     * @param {Phaser.Game} game - A reference to the currently running game.
-    * @param {string} key - The Game.Cache asset key of the Sprite Sheet image.
+    * @param {string|Image} key - The Game.Cache asset key of the Sprite Sheet image or an actual HTML Image element.
     * @param {number} frameWidth - The fixed width of each frame of the animation.
     * @param {number} frameHeight - The fixed height of each frame of the animation.
-    * @param {number} [frameMax=-1] - The total number of animation frames to extact from the Sprite Sheet. The default value of -1 means "extract all frames".
+    * @param {number} [frameMax=-1] - The total number of animation frames to extract from the Sprite Sheet. The default value of -1 means "extract all frames".
     * @param {number} [margin=0] - If the frames have been drawn with a margin, specify the amount here.
     * @param {number} [spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
     * @return {Phaser.FrameData} A FrameData object containing the parsed frames.
     */
     spriteSheet: function (game, key, frameWidth, frameHeight, frameMax, margin, spacing) {
 
-        //  How big is our image?
-        var img = game.cache.getImage(key);
+        var img = key;
 
-        if (img == null)
+        if (typeof key === 'string')
+        {
+            img = game.cache.getImage(key);
+        }
+
+        if (img === null)
         {
             return null;
         }
@@ -73,14 +77,6 @@ Phaser.AnimationParser = {
         {
             data.addFrame(new Phaser.Frame(i, x, y, frameWidth, frameHeight, ''));
 
-// PJBNOTE: need to change this to the new renderer approach... are these spritesheets obsolete?
-            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[key], {
-            //     x: x,
-            //     y: y,
-            //     width: frameWidth,
-            //     height: frameHeight
-            // });
-
             x += frameWidth + spacing;
 
             if (x + frameWidth > width)
@@ -99,11 +95,10 @@ Phaser.AnimationParser = {
     *
     * @method Phaser.AnimationParser.JSONData
     * @param {Phaser.Game} game - A reference to the currently running game.
-    * @param {Object} json - The JSON data from the Texture Atlas. Must be in Array format.
-    * @param {string} cacheKey - The Game.Cache asset key of the texture image.
+    * @param {object} json - The JSON data from the Texture Atlas. Must be in Array format.
     * @return {Phaser.FrameData} A FrameData object containing the parsed frames.
     */
-    JSONData: function (game, json, cacheKey) {
+    JSONData: function (game, json) {
 
         //  Malformed?
         if (!json['frames'])
@@ -131,14 +126,6 @@ Phaser.AnimationParser = {
                 frames[i].filename
             ));
 
-// PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
-            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-            //     x: frames[i].frame.x,
-            //     y: frames[i].frame.y,
-            //     width: frames[i].frame.w,
-            //     height: frames[i].frame.h
-            // });
-
             if (frames[i].trimmed)
             {
                 newFrame.setTrim(
@@ -162,11 +149,10 @@ Phaser.AnimationParser = {
     *
     * @method Phaser.AnimationParser.JSONDataHash
     * @param {Phaser.Game} game - A reference to the currently running game.
-    * @param {Object} json - The JSON data from the Texture Atlas. Must be in JSON Hash format.
-    * @param {string} cacheKey - The Game.Cache asset key of the texture image.
+    * @param {object} json - The JSON data from the Texture Atlas. Must be in JSON Hash format.
     * @return {Phaser.FrameData} A FrameData object containing the parsed frames.
     */
-    JSONDataHash: function (game, json, cacheKey) {
+    JSONDataHash: function (game, json) {
 
         //  Malformed?
         if (!json['frames'])
@@ -195,14 +181,6 @@ Phaser.AnimationParser = {
                 key
             ));
 
-// PJBNOTE: need to change this to the new renderer approach... is this JSON parser obsolete?
-            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-            //     x: frames[key].frame.x,
-            //     y: frames[key].frame.y,
-            //     width: frames[key].frame.w,
-            //     height: frames[key].frame.h
-            // });
-
             if (frames[key].trimmed)
             {
                 newFrame.setTrim(
@@ -228,11 +206,10 @@ Phaser.AnimationParser = {
     *
     * @method Phaser.AnimationParser.XMLData
     * @param {Phaser.Game} game - A reference to the currently running game.
-    * @param {Object} xml - The XML data from the Texture Atlas. Must be in Starling XML format.
-    * @param {string} cacheKey - The Game.Cache asset key of the texture image.
+    * @param {object} xml - The XML data from the Texture Atlas. Must be in Starling XML format.
     * @return {Phaser.FrameData} A FrameData object containing the parsed frames.
     */
-    XMLData: function (game, xml, cacheKey) {
+    XMLData: function (game, xml) {
 
         //  Malformed?
         if (!xml.getElementsByTagName('TextureAtlas'))
@@ -280,14 +257,7 @@ Phaser.AnimationParser = {
 
             newFrame = data.addFrame(new Phaser.Frame(i, x, y, width, height, name));
 
-// PJBNOTE: need to change this to the new renderer approach... should we add XML support to the renderer or continue to support it through this function?
-            // PIXI.TextureCache[uuid] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], {
-            //     x: x,
-            //     y: y,
-            //     width: width,
-            //     height: height
-            // });
-                        //  Trimmed?
+            //  Trimmed?
             if (frameX !== null || frameY !== null)
             {
                 newFrame.setTrim(true, width, height, frameX, frameY, frameWidth, frameHeight);
