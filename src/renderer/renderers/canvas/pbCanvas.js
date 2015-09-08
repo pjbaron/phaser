@@ -94,7 +94,7 @@ pbCanvas.prototype.drawImageWithTransform = function(_textureNumber, _image, _tr
 		h = pbPhaserRender.height;
 		// a single stretched image, use 5 parameter drawImage call
 		this.ctx.drawImage(srcImageData,
-			e - w * _image.anchorX, f - h * _image.anchorY,
+			e - w * _image.anchor.x, f - h * _image.anchor.y,
 			w, h);
 	}
 	else if (srf.cellsWide === 1 && srf.cellsHigh === 1)
@@ -112,7 +112,7 @@ pbCanvas.prototype.drawImageWithTransform = function(_textureNumber, _image, _tr
 		this.ctx.transform(a, b, c, d, e, f);
 		// a single image, use 3 parameter drawImage call
 		this.ctx.drawImage(srcImageData,
-			-w * _image.anchorX, -h * _image.anchorY);
+			-w * _image.anchor.x, -h * _image.anchor.y);
 
 		this.ctx.restore();
 	}
@@ -137,7 +137,7 @@ pbCanvas.prototype.drawImageWithTransform = function(_textureNumber, _image, _tr
 		this.ctx.drawImage(srcImageData,
 			rect.x * srcImageData.width, rect.y * srcImageData.height,
 			rect.width * srcImageData.width, rect.height * srcImageData.height,
-			-w * _image.anchorX, -h * _image.anchorY,
+			-w * _image.anchor.x, -h * _image.anchor.y,
 			w, h);
 		this.ctx.restore();
 	}

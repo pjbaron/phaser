@@ -641,9 +641,9 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 		// l, t,		11,12
 		// r, b,		22,23
 		// r, t,		33,34
-		var l = -oWide * img.anchorX + off.x;
+		var l = -oWide * img.anchor.x + off.x;
 		var r = wide + l;
-		var t = -oHigh * img.anchorY + off.y;
+		var t = -oHigh * img.anchor.y + off.y;
 		var b = high + t;
 		if (img.corners)
 		{
@@ -786,9 +786,9 @@ pbWebGl.prototype.rawBatchDrawTextures = function( _list )
 		if (img.corners)
 		{
 			var cnr = img.corners;
-			l = -wide * img.anchorX;
+			l = -wide * img.anchor.x;
 			r = wide + l;
-			t = -high * img.anchorY;
+			t = -high * img.anchor.y;
 			b = high + t;
 			// object has corner offets (skewing/perspective etc)
 			buffer[ c     ] = cnr.lbx * l; buffer[ c + 1 ] = cnr.lby * b;
@@ -798,9 +798,9 @@ pbWebGl.prototype.rawBatchDrawTextures = function( _list )
 		}
 		else
 		{
-			l = -wide * img.anchorX;
+			l = -wide * img.anchor.x;
 			r = wide + l;
-			t = -high * img.anchorY;
+			t = -high * img.anchor.y;
 			b = high + t;
 			buffer[ c     ] = l; buffer[ c + 1 ] = b;
 			buffer[ c + 11] = l; buffer[ c + 12] = t;

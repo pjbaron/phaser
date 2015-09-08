@@ -53,9 +53,9 @@ pbWebGl.prototype.drawImageWithTransform = function( _srcTextureRegister, _image
 	// l, t,		4,5
 	// r, b,		8,9
 	// r, t,		12,13
-	var l = -oWide * _image.anchorX + off.x;
+	var l = -oWide * _image.anchor.x + off.x;
 	var r = wide + l;
-	var t = -oHigh * _image.anchorY + off.y;
+	var t = -oHigh * _image.anchor.y + off.y;
 	var b = high + t;
 	if (_image.corners)
 	{
@@ -142,12 +142,13 @@ pbWebGl.prototype.drawModeZ = function( _textureNumber, _image, _transform, _z )
 	// l, t,		4,5
 	// r, b,		8,9
 	// r, t,		12,13
+	var l, r, t, b;
 	if (_image.corners)
 	{
 		var cnr = _image.corners;
-		l = -wide * _image.anchorX;
+		l = -wide * _image.anchor.x;
 		r = wide + l;
-		t = -high * _image.anchorY;
+		t = -high * _image.anchor.y;
 		b = high + t;
 		// object has corner offets (skewing/perspective etc)
 		buffer[ 0 ] = cnr.lbx * l; buffer[ 1 ] = cnr.lby * b;
@@ -157,9 +158,9 @@ pbWebGl.prototype.drawModeZ = function( _textureNumber, _image, _transform, _z )
 	}
 	else
 	{
-		l = -wide * _image.anchorX;
+		l = -wide * _image.anchor.x;
 		r = wide + l;
-		t = -high * _image.anchorY;
+		t = -high * _image.anchor.y;
 		b = high + t;
 		buffer[ 0 ] = buffer[ 4 ] = l;
 		buffer[ 1 ] = buffer[ 9 ] = b;
@@ -224,8 +225,8 @@ pbWebGl.prototype.drawImageWithTransform3D = function( _textureNumber, _image, _
 	// l, t,		4,5
 	// r, b,		8,9
 	// r, t,		12,13
-	var l = -wide * _image.anchorX;
-	var t = -high * _image.anchorY;
+	var l = -wide * _image.anchor.x;
+	var t = -high * _image.anchor.y;
 	buffer[ 0 ] = buffer[ 4 ] = l;
 	buffer[ 1 ] = buffer[ 9 ] = high + t;
 	buffer[ 8 ] = buffer[ 12] = wide + l;
