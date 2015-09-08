@@ -13,6 +13,8 @@ function pbSprite()
 	this.surface = null;
 	this.image = null;
     this.transform = new pbTransformObject();
+    this.anchor = null;
+    this.scale = null;
 }
 
 
@@ -36,9 +38,15 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	// create a transform object for the image
 	this.transform.create(this.image, _x, _y);
 
+	// create references so that classes that extend pbSprite can access properties of my member objects
+	this.anchor = this.image.anchor;
+	this.scale = this.transform.scale;
+
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
+	{
 		this.layer.addChild(this.transform);
+	}
 };
 
 
@@ -55,9 +63,15 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 	// create a transform object for the image
 	this.transform.create(this.image, _x, _y);
 
+	// create references so that classes that extend pbSprite can access properties of my member objects
+	this.anchor = this.image.anchor;
+	this.scale = this.transform.scale;
+
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
+	{
 		this.layer.addChild(this.transform);
+	}
 };
 
 
@@ -84,18 +98,31 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 
 pbSprite.prototype.destroy = function()
 {
-	if (this.layer) this.layer.removeChild(this.transform);
+	if (this.layer)
+	{
+		this.layer.removeChild(this.transform);
+	}
 	this.layer = null;
 
 	this.textureObject = null;
 
 	this.surface = null;
 
-	if (this.image) this.image.destroy();
+	if (this.image)
+	{
+		this.image.destroy();
+	}
 	this.image = null;
 	
-	if (this.transform) this.transform.destroy();
+	if (this.transform)
+	{
+		this.transform.destroy();
+	}
 	this.transform = null;
+
+	// break references so they can be garbage collected
+	this.anchor = null;
+	this.scale = null;
 };
 
 
@@ -142,41 +169,6 @@ Object.defineProperties(pbSprite.prototype, {
 		},
 		set: function (value) {
 			this.transform.angleInRadians = value;
-		}
-	},
-
-	scaleX: {
-		get: function () {
-			return this.transform.scaleX;
-		},
-		set: function (value) {
-			this.transform.scaleX = value;
-		}
-	},
-	scaleY: {
-		get: function () {
-			return this.transform.scaleY;
-		},
-		set: function (value) {
-			this.transform.scaleY = value;
-		}
-	},
-
-	anchorX: {
-		get: function () {
-			return this.image.anchorX;
-		},
-		set: function (value) {
-			this.image.anchorX = value;
-		}
-	},
-
-	anchorY: {
-		get: function () {
-			return this.image.anchorY;
-		},
-		set: function (value) {
-			this.image.anchorY = value;
 		}
 	},
 
