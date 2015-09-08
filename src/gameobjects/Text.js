@@ -598,10 +598,11 @@ Object.defineProperty(Phaser.Text.prototype, 'text', {
             this._text = value.toString() || ' ';
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+// PJBNOTE: PIXI base class reference... I should probably merge with 2.4.x because Text no longer extends from PIXI
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
@@ -626,10 +627,11 @@ Object.defineProperty(Phaser.Text.prototype, 'font', {
             this.style.font = this._fontWeight + ' ' + this._fontSize + "px '" + this._font + "'";
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+// PJBNOTE: PIXI base class reference... I should probably merge with 2.4.x because Text no longer extends from PIXI
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
@@ -656,10 +658,11 @@ Object.defineProperty(Phaser.Text.prototype, 'fontSize', {
             this.style.font = this._fontWeight + ' ' + this._fontSize + "px '" + this._font + "'";
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+// PJBNOTE: PIXI base class reference... I should probably merge with 2.4.x because Text no longer extends from PIXI
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
@@ -684,10 +687,11 @@ Object.defineProperty(Phaser.Text.prototype, 'fontWeight', {
             this.style.font = this._fontWeight + ' ' + this._fontSize + "px '" + this._font + "'";
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+// PJBNOTE: PIXI base class reference... I should probably merge with 2.4.x because Text no longer extends from PIXI
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
@@ -843,10 +847,11 @@ Object.defineProperty(Phaser.Text.prototype, 'lineSpacing', {
             this._lineSpacing = parseFloat(value);
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+// PJBNOTE: PIXI base class reference... I should probably merge with 2.4.x because Text no longer extends from PIXI
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
