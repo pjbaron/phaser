@@ -15,8 +15,7 @@ function pbTransformObject()
 	this.rx = 0;
 	this.ry = 0;
 	this.rz = this.angleInRadians = 0;
-	this.scaleX = 0;
-	this.scaleY = 0;
+	this.scale = null;
 	this.scaleZ = 0;
 	this.image = null;
 	this.children = null;
@@ -60,8 +59,7 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 	this.y = _y;
 	this.z = _z;
 	this.angleInRadians = _angleInRadians;
-	this.scaleX = _scaleX;
-	this.scaleY = _scaleY;
+	this.scale = new Phaser.Point(_scaleX, _scaleY);
 
 	this.transform = pbMatrix3.makeTransform(_x, _y, _angleInRadians, _scaleX, _scaleY);
 };
@@ -141,7 +139,7 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	if (!this.alive)
 		return true;
 
-	pbMatrix3.setTransform(this.transform, this.x, this.y, this.angleInRadians, this.scaleX, this.scaleY);
+	pbMatrix3.setTransform(this.transform, this.x, this.y, this.angleInRadians, this.scale.x, this.scale.y);
 
 	// multiply with the transform matrix from my parent
 	if (this.parent && this.parent.transform)
@@ -191,7 +189,7 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 		return true;
 
 	// set my own transform matrix
-	pbMatrix4.setTransform(this.transform, this.x, this.y, this.z, this.rx, this.ry, this.rz, this.scaleX, this.scaleY, this.scaleZ);
+	pbMatrix4.setTransform(this.transform, this.x, this.y, this.z, this.rx, this.ry, this.rz, this.scale.x, this.scale.y, this.scaleZ);
 	// multiply with the transform matrix from my parent
 	if (this.parent && this.parent.transform)
 	{
