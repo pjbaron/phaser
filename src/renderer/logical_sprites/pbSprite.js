@@ -15,6 +15,7 @@ function pbSprite()
     this.transform = new pbTransformObject();
     this.anchor = null;
     this.scale = null;
+    this.children = null;
 }
 
 
@@ -41,6 +42,7 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	// create references so that classes that extend pbSprite can access properties of my member objects
 	this.anchor = this.image.anchor;
 	this.scale = this.transform.scale;
+	this.children = this.transform.children;
 
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
@@ -66,6 +68,7 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 	// create references so that classes that extend pbSprite can access properties of my member objects
 	this.anchor = this.image.anchor;
 	this.scale = this.transform.scale;
+	this.children = this.transform.children;
 
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
@@ -123,6 +126,7 @@ pbSprite.prototype.destroy = function()
 	// break references so they can be garbage collected
 	this.anchor = null;
 	this.scale = null;
+	this.children = null;
 };
 
 
