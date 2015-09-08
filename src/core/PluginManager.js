@@ -2,7 +2,7 @@
 
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -21,7 +21,7 @@ Phaser.PluginManager = function(game) {
     this.game = game;
 
     /**
-    * @property {array} plugins - An array of all the plugins being managed by this PluginManager.
+    * @property {Phaser.Plugin[]} plugins - An array of all the plugins being managed by this PluginManager.
     */
     this.plugins = [];
 
@@ -47,12 +47,12 @@ Phaser.PluginManager.prototype = {
     *
     * @method Phaser.PluginManager#add
     * @param {object|Phaser.Plugin} plugin - The Plugin to add into the PluginManager. This can be a function or an existing object.
-    * @param {...*} parameter - Additional parameters that will be passed to the Plugin.init method.
+    * @param {...*} parameter - Additional arguments that will be passed to the Plugin.init method.
     * @return {Phaser.Plugin} The Plugin that was added to the manager.
     */
     add: function (plugin) {
 
-        var args = Array.prototype.splice.call(arguments, 1);
+        var args = Array.prototype.slice.call(arguments, 1);
         var result = false;
 
         //  Prototype?
