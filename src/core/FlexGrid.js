@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -26,7 +26,7 @@ Phaser.FlexGrid = function (manager, width, height) {
     this.game = manager.game;
 
     /**
-    * @property {Phaser.ScaleManager} scale - A reference to the ScaleManager.
+    * @property {Phaser.ScaleManager} manager - A reference to the ScaleManager.
     */
     this.manager = manager;
 
@@ -77,7 +77,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * Sets the core game size. This resets the w/h parameters and bounds.
      *
-     * @method setSize
+     * @method Phaser.FlexGrid#setSize
      * @param {number} width - The new dimensions.
      * @param {number} height - The new dimensions.
      */
@@ -104,16 +104,16 @@ Phaser.FlexGrid.prototype = {
     /**
      * A custom layer is centered on the game and maintains its aspect ratio as it scales up and down.
      *
-     * @method createCustomLayer
+     * @method Phaser.FlexGrid#createCustomLayer
      * @param {number} width - Width of this layer in pixels.
      * @param {number} height - Height of this layer in pixels.
 // PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
-     * @param {array} [children] - An array of children that are used to populate the FlexLayer.
+     * @param {PIXI.DisplayObject[]} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
     createCustomLayer: function (width, height, children, addToWorld) {
 
-        if (typeof addToWorld === 'undefined') { addToWorld = true; }
+        if (addToWorld === undefined) { addToWorld = true; }
 
         this.customWidth = width;
         this.customHeight = height;
@@ -142,13 +142,13 @@ Phaser.FlexGrid.prototype = {
     /**
      * A fluid layer is centered on the game and maintains its aspect ratio as it scales up and down.
      *
-     * @method createFluidLayer
+     * @method Phaser.FlexGrid#createFluidLayer
      * @param {array} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
     createFluidLayer: function (children, addToWorld) {
 
-        if (typeof addToWorld === 'undefined') { addToWorld = true; }
+        if (addToWorld === undefined) { addToWorld = true; }
 
         var layer = new Phaser.FlexLayer(this, this.positionFluid, this.boundsFluid, this.scaleFluid);
 
@@ -171,7 +171,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * A full layer is placed at 0,0 and extends to the full size of the game. Children are scaled according to the fluid ratios.
      *
-     * @method createFullLayer
+     * @method Phaser.FlexGrid#createFullLayer
      * @param {array} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
@@ -195,9 +195,9 @@ Phaser.FlexGrid.prototype = {
     /**
      * A fixed layer is centered on the game and is the size of the required dimensions and is never scaled.
      *
-     * @method createFixedLayer
+     * @method Phaser.FlexGrid#createFixedLayer
 // PJBNOTE: children here can probably be replaced with new renderer sprites but all accessors will need to be traced to ensure parameter consistency afterwards.
-     * @param {array} [children] - An array of children that are used to populate the FlexLayer.
+     * @param {PIXI.DisplayObject[]} [children] - An array of children that are used to populate the FlexLayer.
      * @return {Phaser.FlexLayer} The Layer object.
      */
     createFixedLayer: function (children) {
@@ -220,7 +220,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * Resets the layer children references
      *
-     * @method reset
+     * @method Phaser.FlexGrid#reset
      */
     reset: function () {
 
@@ -242,7 +242,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * Called when the game container changes dimensions.
      *
-     * @method onResize
+     * @method Phaser.FlexGrid#onResize
      * @param {number} width - The new width of the game container.
      * @param {number} height - The new height of the game container.
      */
@@ -258,7 +258,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * Updates all internal vars such as the bounds and scale values.
      *
-     * @method refresh
+     * @method Phaser.FlexGrid#refresh
      */
     refresh: function () {
 
@@ -283,6 +283,12 @@ Phaser.FlexGrid.prototype = {
 
     },
 
+    /**
+     * Fits a sprites width to the bounds.
+     *
+     * @method Phaser.FlexGrid#fitSprite
+     * @param {Phaser.Sprite} sprite - The Sprite to fit.
+     */
     fitSprite: function (sprite) {
 
         this.manager.scaleSprite(sprite);
@@ -295,7 +301,7 @@ Phaser.FlexGrid.prototype = {
     /**
      * Call in the render function to output the bounds rects.
      *
-     * @method debug
+     * @method Phaser.FlexGrid#debug
      */
     debug: function () {
 

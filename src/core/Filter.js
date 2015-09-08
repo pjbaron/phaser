@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -10,8 +10,8 @@
 * @class Phaser.Filter
 * @constructor
 * @param {Phaser.Game} game - A reference to the currently running game.
-* @param {Object} uniforms - Uniform mappings object
-* @param {Array} fragmentSrc - The fragment shader code.
+* @param {object} uniforms - Uniform mappings object
+* @param {Array|string} fragmentSrc - The fragment shader code. Either an array, one element per line of code, or a string.
 */
 Phaser.Filter = function (game, uniforms, fragmentSrc) {
 
@@ -91,9 +91,9 @@ Phaser.Filter = function (game, uniforms, fragmentSrc) {
     }
 
     /**
-    * @property {array} fragmentSrc - The fragment shader code.
+    * @property {array|string} fragmentSrc - The fragment shader code.
     */
-    this.fragmentSrc = fragmentSrc || [];
+    this.fragmentSrc = fragmentSrc || '';
 
 };
 
@@ -141,6 +141,60 @@ Phaser.Filter.prototype = {
         }
 
         this.uniforms.time.value = this.game.time.totalElapsedSeconds();
+
+    },
+
+    /**
+    * Creates a new Phaser.Image object using a blank texture and assigns 
+    * this Filter to it. The image is then added to the world.
+    *
+    * If you don't provide width and height values then Filter.width and Filter.height are used.
+    *
+    * If you do provide width and height values then this filter will be resized to match those
+    * values.
+    *
+    * @method Phaser.Filter#addToWorld
+    * @param {number} [x=0] - The x coordinate to place the Image at.
+    * @param {number} [y=0] - The y coordinate to place the Image at.
+    * @param {number} [width] - The width of the Image. If not specified (or null) it will use Filter.width. If specified Filter.width will be set to this value.
+    * @param {number} [height] - The height of the Image. If not specified (or null) it will use Filter.height. If specified Filter.height will be set to this value.
+    * @param {number} [anchorX=0] - Set the x anchor point of the Image. A value between 0 and 1, where 0 is the top-left and 1 is bottom-right.
+    * @param {number} [anchorY=0] - Set the y anchor point of the Image. A value between 0 and 1, where 0 is the top-left and 1 is bottom-right.
+    * @return {Phaser.Image} The newly added Image object.
+    */
+    addToWorld: function (x, y, width, height, anchorX, anchorY) {
+
+        if (anchorX === undefined) { anchorX = 0; }
+        if (anchorY === undefined) { anchorY = 0; }
+
+        if (width !== undefined && width !== null)
+        {
+            this.width = width;
+        }
+        else
+        {
+            width = this.width;
+        }
+
+        if (height !== undefined && height !== null)
+        {
+            this.height = height;
+        }
+        else
+        {
+            height = this.height;
+        }
+
+        var image = this.game.add.image(x, y, '__default');
+
+        image.width = width;
+        image.height = height;
+
+        image.anchor.set(anchorX, anchorY);
+
+        image.filters = [ this ];
+
+        return image;
 
     },
 
