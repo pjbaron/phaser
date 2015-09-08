@@ -257,8 +257,11 @@ Phaser.Camera.prototype = {
         this._targetPosition
             .copyFrom(this.target)
             .multiply(
-                this.target.parent ? this.target.parent.worldTransform.a : 1,
-                this.target.parent ? this.target.parent.worldTransform.d : 1
+                // PJBNOTE: worldTransform is a PIXI property
+                // this.target.parent ? this.target.parent.worldTransform.a : 1,
+                // this.target.parent ? this.target.parent.worldTransform.d : 1
+                this.target.parent ? this.target.parent.transform.x : 1,
+                this.target.parent ? this.target.parent.transform.y : 1
             );
 
         if (this.deadzone)

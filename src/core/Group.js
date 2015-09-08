@@ -1812,6 +1812,10 @@ Object.defineProperty(Phaser.Group.prototype, "length", {
 /**
 * The angle of rotation of the Group container. This will adjust the Group container itself by modifying its rotation.
 * This will have no impact on the rotation value of its children, but it will update their worldTransform and on-screen position.
+* 
+* PJBNOTE: pbLayer and pbTransformObject simply propagate all transform properties (including rotation) through the draw stack... not sure if
+* this is different to the previous behaviour or not...  Regardless, worldTransform was deprecated with PIXI
+* 
 * @name Phaser.Group#angle
 * @property {number} angle - The angle of rotation given in degrees, where 0 degrees = to the right.
 */
@@ -1864,6 +1868,10 @@ Object.defineProperty(Phaser.Group.prototype, "fixedToCamera", {
 /**
 * The x coordinate of the Group container. You can adjust the Group container itself by modifying its coordinates.
 * This will have no impact on the x/y coordinates of its children, but it will update their worldTransform and on-screen position.
+* 
+* PJBNOTE: pbLayer and pbTransformObject simply propagate all transform properties (including rotation) through the draw stack... not sure if
+* this is different to the previous behaviour or not...  Regardless, worldTransform was deprecated with PIXI
+* 
 * @name Phaser.Group#x
 * @property {number} x - The x coordinate of the Group container.
 */
@@ -1871,6 +1879,10 @@ Object.defineProperty(Phaser.Group.prototype, "fixedToCamera", {
 /**
 * The y coordinate of the Group container. You can adjust the Group container itself by modifying its coordinates.
 * This will have no impact on the x/y coordinates of its children, but it will update their worldTransform and on-screen position.
+* 
+* PJBNOTE: pbLayer and pbTransformObject simply propagate all transform properties (including rotation) through the draw stack... not sure if
+* this is different to the previous behaviour or not...  Regardless, worldTransform was deprecated with PIXI
+* 
 * @name Phaser.Group#y
 * @property {number} y - The y coordinate of the Group container.
 */
@@ -1878,6 +1890,10 @@ Object.defineProperty(Phaser.Group.prototype, "fixedToCamera", {
 /**
 * The angle of rotation of the Group container. This will adjust the Group container itself by modifying its rotation.
 * This will have no impact on the rotation value of its children, but it will update their worldTransform and on-screen position.
+* 
+* PJBNOTE: pbLayer and pbTransformObject simply propagate all transform properties (including rotation) through the draw stack... not sure if
+* this is different to the previous behaviour or not...  Regardless, worldTransform was deprecated with PIXI
+* 
 * @name Phaser.Group#rotation
 * @property {number} rotation - The angle of rotation given in radians.
 */

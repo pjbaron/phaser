@@ -799,14 +799,17 @@ Phaser.Input.prototype = {
 
         if (typeof output === 'undefined') { output = new Phaser.Point(); }
 
-        var wt = displayObject.worldTransform;
-        var id = 1 / (wt.a * wt.d + wt.c * -wt.b);
+// PJBNOTE: PIXI properties
+        // var wt = displayObject.worldTransform;
+        // var id = 1 / (wt.a * wt.d + wt.c * -wt.b);
 
-        return output.setTo(
-            wt.d * id * pointer.x + -wt.c * id * pointer.y + (wt.ty * wt.c - wt.tx * wt.d) * id,
-            wt.a * id * pointer.y + -wt.b * id * pointer.x + (-wt.ty * wt.a + wt.tx * wt.b) * id
-        );
+        // return output.setTo(
+        //     wt.d * id * pointer.x + -wt.c * id * pointer.y + (wt.ty * wt.c - wt.tx * wt.d) * id,
+        //     wt.a * id * pointer.y + -wt.b * id * pointer.x + (-wt.ty * wt.a + wt.tx * wt.b) * id
+        // );
 
+// PJBNOTE: I'm not sure exactly how 'local' these coordinates need to be... these might need to incorporate more factors
+        return output.setTo(displayObject.transform.x, displayObject.transform.y);
     },
 
     /**
