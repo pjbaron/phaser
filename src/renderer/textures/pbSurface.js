@@ -282,5 +282,5 @@ pbSurface.prototype.isPowerOfTwo = function(x)
 
 pbSurface.prototype.dirty = function()
 {
-	_isDirty = true;
+	this._isDirty = true;
 };
