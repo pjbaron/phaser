@@ -145,7 +145,7 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	if (this.parent && this.parent.transform)
 		pbMatrix3.setFastMultiply(this.transform, this.parent.transform);
 	
-	// draw if this transform objects has an image
+	// draw if this transform object has an image
 	if (this.image && this.visible)
 		this.image.draw(_drawDictionary, this.transform, this.z);
 
@@ -291,3 +291,26 @@ pbTransformObject.prototype.superCall = function(clazz, functionName)
 	clazz.prototype.__super__.prototype[functionName].apply(this, args);
 };
 
+
+pbTransformObject.prototype.contains = function(_point)
+{
+	if (this.image)
+	{
+		var px = _point.x - this.x;
+		var py = _point.y - this.y;
+
+		var size = this.image.getSize();
+		var x1 = -size.wide * this.image.anchor.x;
+
+		if (px >= x1 && px < x1 + size.wide)
+		{
+		    var y1 = -size.high * this.image.anchor.y;
+
+		    if (py >= y1 && py < y1 + size.high)
+		    {
+		        return true;
+		    }
+		}
+	}
+	return false;
+};

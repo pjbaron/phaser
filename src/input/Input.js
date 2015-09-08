@@ -829,14 +829,20 @@ Phaser.Input.prototype = {
         // }
 
         this.getLocalPosition(displayObject, pointer, this._localPoint);
-
         localPoint.copyFrom(this._localPoint);
 
         if (displayObject.hitArea && displayObject.hitArea.contains)
         {
             return (displayObject.hitArea.contains(this._localPoint.x, this._localPoint.y));
         }
-// PJBNOTE: change to pbSprite, unless we merge Phaser.Sprite with pbSprite in which case most of these branches shouldn't be needed at all
+        else if (displayObject instanceof pbSprite)
+        {
+            // PJBNOTE: TODO: pointer doesn't take into account world scroll offset (camera) yet
+            if (displayObject.contains(pointer))
+            {
+                return true;
+            }
+        }
         // else if (displayObject instanceof PIXI.Sprite)
         // {
         //     var width = displayObject.texture.frame.width;

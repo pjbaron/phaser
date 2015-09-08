@@ -16,6 +16,7 @@ function pbSprite()
     this.anchor = null;
     this.scale = null;
     this.children = null;
+    this.contains = null;
 }
 
 
@@ -43,6 +44,7 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	this.anchor = this.image.anchor;
 	this.scale = this.transform.scale;
 	this.children = this.transform.children;
+	this.contains = this.transform.contains;
 
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
@@ -69,6 +71,7 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 	this.anchor = this.image.anchor;
 	this.scale = this.transform.scale;
 	this.children = this.transform.children;
+	this.contains = this.transform.contains;
 
 	// if a layer is specified, add the new object as a child of it
 	if (this.layer !== null)
@@ -127,6 +130,7 @@ pbSprite.prototype.destroy = function()
 	this.anchor = null;
 	this.scale = null;
 	this.children = null;
+	this.contains = null;
 };
 
 
