@@ -856,7 +856,7 @@ Phaser.Game.prototype = {
                 this.updateLogic(1.0 / this.time.desiredFps);
 
                 //  Sync the scene graph after _every_ logic update to account for moved game objects
-// PJBNOTE: removed stage...
+// PJBNOTE: stage is now rootLayer
                 //this.stage.updateTransform();
 
                 count++;
@@ -908,11 +908,11 @@ Phaser.Game.prototype = {
             this.physics.preUpdate();
             this.state.preUpdate(timeStep);
             this.plugins.preUpdate(timeStep);
-// PJBNOTE: removed stage
+// PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.preUpdate();
 
             this.state.update();
-// PJBNOTE: removed stage
+// PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.update();
             this.tweens.update(timeStep);
             this.sound.update();
@@ -921,7 +921,7 @@ Phaser.Game.prototype = {
             this.particles.update();
             this.plugins.update();
 
-// PJBNOTE: removed stage
+// PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.postUpdate();
             this.plugins.postUpdate();
         }
