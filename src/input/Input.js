@@ -819,10 +819,11 @@ Phaser.Input.prototype = {
     */
     hitTest: function (displayObject, pointer, localPoint) {
 
-        if (!displayObject.worldVisible)
-        {
-            return false;
-        }
+// PJBNOTE: this was a very well hidden PIXI property, and is unused anywhere else in the whole of Phaser
+        // if (!displayObject.worldVisible)
+        // {
+        //     return false;
+        // }
 
         this.getLocalPosition(displayObject, pointer, this._localPoint);
 
