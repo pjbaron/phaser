@@ -52,6 +52,7 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 	this.image = _image;
 
 	this.parent = null;
+	this.children = [];
 	this.alive = true;
 	this.visible = true;
 
@@ -74,6 +75,7 @@ pbTransformObject.prototype.create3D = function(_image, _x, _y, _z, _rx, _ry, _r
 	this.image = _image;
 
 	this.parent = null;
+	this.children = [];
 	this.alive = true;
 	this.visible = true;
 
@@ -98,15 +100,13 @@ pbTransformObject.prototype.destroy = function( destroyChildren )
 	if ( destroyChildren )
 	{
 		// destroy all my children too
-		if (this.children)
-			for(c = this.children.length - 1; c >= 0; --c)
-				this.children[c].destroy();
+		for(c = this.children.length - 1; c >= 0; --c)
+			this.children[c].destroy();
 	}
 	else
 	{
-		if (this.children)
-			while(this.children.length)
-				this.removeChild(this.children[this.children.length - 1]);
+		while(this.children.length)
+			this.removeChild(this.children[this.children.length - 1]);
 	}
 	this.children = null;
 
@@ -149,30 +149,27 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	if (this.image && this.visible)
 		this.image.draw(_drawDictionary, this.transform, this.z);
 
-	if (this.children)
+	// for all of my child transform objects
+	var c = this.children.length;
+	while(c--)
 	{
-		// for all of my child transform objects
-		var c = this.children.length;
-		while(c--)
-		{
-			var child = this.children[c];
+		var child = this.children[c];
 
-			// update this child
-			if (child instanceof pbTransformObject)
+		// update this child
+		if (child instanceof pbTransformObject)
+		{
+			if (!child.update(_drawDictionary))
 			{
-				if (!child.update(_drawDictionary))
-				{
-					child.destroy();
-					this.removeChildAt(c);
-				}
+				child.destroy();
+				this.removeChildAt(c);
 			}
-			else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite))
+		}
+		else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite))
+		{
+			if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
 			{
-				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
-				{
-					pbTransformObject.prototype.destroy.call(child.transform);
-					pbTransformObject.prototype.removeChildAt.call(child);
-				}
+				pbTransformObject.prototype.destroy.call(child.transform);
+				pbTransformObject.prototype.removeChildAt.call(child);
 			}
 		}
 	}
@@ -204,30 +201,27 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 	if (this.image)
 		this.image.draw(_drawDictionary, this.transform, this.z);
 
-	if (this.children)
+	// for all of my child transform objects
+	var c = this.children.length;
+	while(c--)
 	{
-		// for all of my child transform objects
-		var c = this.children.length;
-		while(c--)
-		{
-			var child = this.children[c];
+		var child = this.children[c];
 
-			// update this child
-			if (child instanceof pbTransformObject)
+		// update this child
+		if (child instanceof pbTransformObject)
+		{
+			if (!child.update(_drawDictionary))
 			{
-				if (!child.update(_drawDictionary))
-				{
-					child.destroy();
-					this.removeChildAt(c);
-				}
+				child.destroy();
+				this.removeChildAt(c);
 			}
-			else if (child instanceof Phaser.Image)
+		}
+		else if (child instanceof Phaser.Image)
+		{
+			if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
 			{
-				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
-				{
-					pbTransformObject.prototype.destroy.call(child.transform);
-					pbTransformObject.prototype.removeChildAt.call(child);
-				}
+				pbTransformObject.prototype.destroy.call(child.transform);
+				pbTransformObject.prototype.removeChildAt.call(child);
 			}
 		}
 	}
@@ -250,9 +244,6 @@ pbTransformObject.prototype.revive = function()
 
 pbTransformObject.prototype.addChild = function(_child)
 {
-	if (!this.children)
-		this.children = [];
-
 	// console.log("pbTransformObject.addChild", this.children.length);
 	
 	this.children.push(_child);
@@ -262,8 +253,6 @@ pbTransformObject.prototype.addChild = function(_child)
 
 pbTransformObject.prototype.addChildAt = function(_child, _index)
 {
-	if (!this.children)
-		this.children = [];
 	if (_index <= this.children.length)
 	{
 		this.children.splice(_index, 0, _child);
@@ -275,7 +264,6 @@ pbTransformObject.prototype.addChildAt = function(_child, _index)
 
 pbTransformObject.prototype.removeChild = function(_child)
 {
-	if (!this.children) return;
 	var index = this.children.indexOf(_child);
 	if (index != -1)
 	{
@@ -287,7 +275,6 @@ pbTransformObject.prototype.removeChild = function(_child)
 
 pbTransformObject.prototype.removeChildAt = function(_index)
 {
-	if (!this.children) return;
 	if (this.children.length <= _index) return;
 	this.children[_index].parent = null;
 	this.children.splice(_index, 1);
