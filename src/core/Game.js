@@ -970,7 +970,7 @@ Phaser.Game.prototype = {
 
             this.plugins.postRender();
             this.renderer.postRender(this.stage);
-
+        }
 
     },
 
