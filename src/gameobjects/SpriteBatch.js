@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -13,6 +13,8 @@
 * 1000 sprites that all share the same texture (or texture atlas). It's also useful if running in Canvas mode and you have a lot of un-rotated or un-scaled
 * Sprites as it skips all of the Canvas setTransform calls, which helps performance, especially on mobile devices.
 *
+* Please note that any Sprite that is part of a SpriteBatch will not have its bounds updated, so will fail checks such as outOfBounds.
+*
 * @class Phaser.SpriteBatch
 * @extends Phaser.Group
 * @constructor
@@ -23,7 +25,7 @@
 */
 Phaser.SpriteBatch = function (game, parent, name, addToStage) {
 
-    if (typeof parent === 'undefined' || parent === null) { parent = game.world; }
+    if (parent === undefined || parent === null) { parent = game.world; }
 
 // PJBNOTE: call super or merge features as discussed at the top of this class
 //    PIXI.SpriteBatch.call(this);
