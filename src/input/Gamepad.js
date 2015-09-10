@@ -1,6 +1,6 @@
 /**
 * @author       @karlmacklin <tacklemcclean@gmail.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -26,7 +26,7 @@ Phaser.Gamepad = function (game) {
     this.game = game;
 
     /**
-    * @property {Object} _gamepadIndexMap - Maps the browsers gamepad indices to our Phaser Gamepads
+    * @property {object} _gamepadIndexMap - Maps the browsers gamepad indices to our Phaser Gamepads
     * @private
     */
     this._gamepadIndexMap = {};
@@ -75,7 +75,7 @@ Phaser.Gamepad = function (game) {
     this._prevTimestamps = [];
 
     /**
-    * @property {Object} callbackContext - The context under which the callbacks are run.
+    * @property {object} callbackContext - The context under which the callbacks are run.
     */
     this.callbackContext = this;
 
@@ -140,8 +140,8 @@ Phaser.Gamepad.prototype = {
     * Add callbacks to the main Gamepad handler to handle connect/disconnect/button down/button up/axis change/float value buttons.
     * 
     * @method Phaser.Gamepad#addCallbacks
-    * @param {Object} context - The context under which the callbacks are run.
-    * @param {Object} callbacks - Object that takes six different callback methods:
+    * @param {object} context - The context under which the callbacks are run.
+    * @param {object} callbacks - Object that takes six different callback methods:
     * onConnectCallback, onDisconnectCallback, onDownCallback, onUpCallback, onAxisCallback, onFloatCallback
     */
     addCallbacks: function (context, callbacks) {
@@ -466,7 +466,7 @@ Phaser.Gamepad.prototype = {
     /**
      * Destroys this object and the associated event listeners.
      *
-     * @method destroy
+     * @method Phaser.Gamepad#destroy
      */
     destroy: function () {
 
@@ -482,24 +482,6 @@ Phaser.Gamepad.prototype = {
 };
 
 Phaser.Gamepad.prototype.constructor = Phaser.Gamepad;
-
-/**
-* If disabled all Gamepad input will be ignored.
-* @property {boolean} disabled
-* @memberof Phaser.Gamepad
-* @default false
-* @deprecated Use {@link Phaser.Gamepad#enabled} instead
-*/
-Object.defineProperty(Phaser.Gamepad.prototype, "disabled", {
-
-    get: function () {
-        return !this.enabled;
-    },
-    set: function (value) {
-        this.enabled = !value;
-    }
-
-});
 
 /**
 * If the gamepad input is active or not - if not active it should not be updated from Input.js
