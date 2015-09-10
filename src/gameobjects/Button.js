@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -50,6 +50,12 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     this.type = Phaser.BUTTON;
 
     /**
+    * @property {number} physicsType - The const physics body type of this object.
+    * @readonly
+    */
+    this.physicsType = Phaser.SPRITE;
+
+    /**
     * The name or ID of the Over state frame.
     * @property {string|integer} onOverFrame
     * @private
@@ -80,7 +86,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound to be played when this Buttons Over state is activated.
     * @property {Phaser.Sound|Phaser.AudioSprite|null} onOverSound
-    * @deprecated
     * @readonly
     */
     this.onOverSound = null;
@@ -88,7 +93,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound to be played when this Buttons Out state is activated.
     * @property {Phaser.Sound|Phaser.AudioSprite|null} onOutSound
-    * @deprecated
     * @readonly
     */
     this.onOutSound = null;
@@ -96,7 +100,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound to be played when this Buttons Down state is activated.
     * @property {Phaser.Sound|Phaser.AudioSprite|null} onDownSound
-    * @deprecated
     * @readonly
     */
     this.onDownSound = null;
@@ -104,7 +107,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound to be played when this Buttons Up state is activated.
     * @property {Phaser.Sound|Phaser.AudioSprite|null} onUpSound
-    * @deprecated
     * @readonly
     */
     this.onUpSound = null;
@@ -112,7 +114,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound Marker used in conjunction with the onOverSound.
     * @property {string} onOverSoundMarker
-    * @deprecated
     * @readonly
     */
     this.onOverSoundMarker = '';
@@ -120,7 +121,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound Marker used in conjunction with the onOutSound.
     * @property {string} onOutSoundMarker
-    * @deprecated
     * @readonly
     */
     this.onOutSoundMarker = '';
@@ -128,7 +128,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound Marker used in conjunction with the onDownSound.
     * @property {string} onDownSoundMarker
-    * @deprecated
     * @readonly
     */
     this.onDownSoundMarker = '';
@@ -136,7 +135,6 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
     /**
     * The Sound Marker used in conjunction with the onUpSound.
     * @property {string} onUpSoundMarker
-    * @deprecated
     * @readonly
     */
     this.onUpSoundMarker = '';
@@ -191,6 +189,8 @@ Phaser.Button = function (game, x, y, key, callback, callbackContext, overFrame,
 
     this.input.start(0, true);
 
+    this.input.useHandCursor = true;
+
     this.setFrames(overFrame, outFrame, downFrame, upFrame);
 
     if (callback !== null)
@@ -216,7 +216,6 @@ var STATE_OVER = 'Over';
 var STATE_OUT = 'Out';
 var STATE_DOWN = 'Down';
 var STATE_UP = 'Up';
-
 
 /**
 * Clears all of the frames set on this Button.
@@ -252,10 +251,9 @@ Phaser.Button.prototype.removedFromWorld = function () {
 */
 Phaser.Button.prototype.setStateFrame = function (state, frame, switchImmediately)
 {
-    
     var frameKey = '_on' + state + 'Frame';
 
-    if (frame != null) // not null or undefined
+    if (frame !== null) // not null or undefined
     {
         this[frameKey] = frame;
 
@@ -469,7 +467,7 @@ Phaser.Button.prototype.setUpSound = function (sound, marker) {
 *
 * @method Phaser.Button#onInputOverHandler
 * @protected
-* @param {Phaser.Button} sprite - The Button that the event occured on.
+* @param {Phaser.Button} sprite - The Button that the event occurred on.
 * @param {Phaser.Pointer} pointer - The Pointer that activated the Button.
 */
 Phaser.Button.prototype.onInputOverHandler = function (sprite, pointer) {
@@ -501,7 +499,7 @@ Phaser.Button.prototype.onInputOverHandler = function (sprite, pointer) {
 *
 * @method Phaser.Button#onInputOutHandler
 * @protected
-* @param {Phaser.Button} sprite - The Button that the event occured on.
+* @param {Phaser.Button} sprite - The Button that the event occurred on.
 * @param {Phaser.Pointer} pointer - The Pointer that activated the Button.
 */
 Phaser.Button.prototype.onInputOutHandler = function (sprite, pointer) {
@@ -521,7 +519,7 @@ Phaser.Button.prototype.onInputOutHandler = function (sprite, pointer) {
 *
 * @method Phaser.Button#onInputDownHandler
 * @protected
-* @param {Phaser.Button} sprite - The Button that the event occured on.
+* @param {Phaser.Button} sprite - The Button that the event occurred on.
 * @param {Phaser.Pointer} pointer - The Pointer that activated the Button.
 */
 Phaser.Button.prototype.onInputDownHandler = function (sprite, pointer) {
@@ -541,7 +539,7 @@ Phaser.Button.prototype.onInputDownHandler = function (sprite, pointer) {
 *
 * @method Phaser.Button#onInputUpHandler
 * @protected
-* @param {Phaser.Button} sprite - The Button that the event occured on.
+* @param {Phaser.Button} sprite - The Button that the event occurred on.
 * @param {Phaser.Pointer} pointer - The Pointer that activated the Button.
 */
 Phaser.Button.prototype.onInputUpHandler = function (sprite, pointer, isOver) {
