@@ -37,7 +37,7 @@ Phaser.Tile = function (layer, index, x, y, width, height) {
     * @property {number} y - The y map coordinate of this tile.
     */
     this.y = y;
-
+    
     /**
     * @property {number} rotation - The rotation angle of this tile.
     */

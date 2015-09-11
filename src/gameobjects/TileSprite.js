@@ -191,7 +191,7 @@ Phaser.TileSprite.prototype.destroy = function(destroyChildren) {
 
     Phaser.Component.Destroy.prototype.destroy.call(this, destroyChildren);
 
-// PJBNOTE: fix this
+// PJBNOTE: fix this to clean up new system
     // PIXI.TilingSprite.prototype.destroy.call(this);
 
 };

@@ -4,7 +4,7 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: directly equivalent to pbText (as at 21st July 2015)... deprecate or extend that class
+// PJBNOTE: directly equivalent to pbText (as at 11th August 2015)... deprecate or extend that class
 
 /**
 * A Retro Font is similar to a BitmapFont, in that it uses a texture to render the text. However unlike a BitmapFont every character in a RetroFont

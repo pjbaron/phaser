@@ -160,7 +160,7 @@ Phaser.Text = function (game, x, y, text, style) {
     */
     this._height = 0;
 
-// PJBNOTE: critical fix!
+// PJBNOTE: critical fix! Need replacement for PIXI.Texture.fromCanvas(this.canvas)
     //Phaser.Sprite.call(this, game, x, y, PIXI.Texture.fromCanvas(this.canvas));
 
     this.setStyle(style);
@@ -212,7 +212,7 @@ Phaser.Text.prototype.destroy = function (destroyChildren) {
 
     this.texture.destroy(true);
 
-// PJBNOTE: fix this
+// PJBNOTE: fix this to remove the non-PIXI canvas
     //PIXI.CanvasPool.remove(this);
 
     // if (this.canvas && this.canvas.parentNode)

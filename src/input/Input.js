@@ -854,7 +854,7 @@ Phaser.Input.prototype = {
     */
     getLocalPosition: function (displayObject, pointer, output) {
 
-        if (typeof output === 'undefined') { output = new Phaser.Point(); }
+        if (output === undefined) { output = new Phaser.Point(); }
 
 // PJBNOTE: PIXI properties.. what are .a, .b, .c and .d in pbTransformObject terms?  Bits of the transform matrix I suspect...
         // var wt = displayObject.worldTransform;

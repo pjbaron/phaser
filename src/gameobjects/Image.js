@@ -49,7 +49,7 @@ Phaser.Image = function (game, x, y, key, frame) {
     // call super constructor
     pbSprite.call(this);
     
-    // pbSprite.create
+// PJBNOTE: new Core.init function probably supercedes this.createWithKey
     this.createWithKey(game, x, y, key);
 
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
