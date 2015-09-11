@@ -1818,7 +1818,8 @@ Phaser.BitmapData.prototype = {
     */
     destroy: function () {
 
-        PIXI.CanvasPool.remove(this);
+// PJBNOTE: destroy the Phaser canvas here instead
+//        PIXI.CanvasPool.remove(this);
 
     },
 

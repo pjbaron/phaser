@@ -160,7 +160,8 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
 
                 var letter = bitmapFontData.chars[charCode];
 
-                letter.texture = new PIXI.Texture(baseTexture, new Phaser.Rectangle(letter.x, letter.y, letter.width, letter.height));
+// PJBNOTE: critical fix, need to use a new renderer texture
+//              letter.texture = new PIXI.Texture(baseTexture, new Phaser.Rectangle(letter.x, letter.y, letter.width, letter.height));
 
             }
 

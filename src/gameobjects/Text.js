@@ -1183,7 +1183,8 @@ Phaser.Text.prototype._renderWebGL = function (renderSession) {
         this.dirty = false;
     }
 
-    PIXI.Sprite.prototype._renderWebGL.call(this, renderSession);
+// PJBNOTE: does the new renderer need support functions like this?
+    //PIXI.Sprite.prototype._renderWebGL.call(this, renderSession);
 
 };
 
@@ -1202,7 +1203,8 @@ Phaser.Text.prototype._renderCanvas = function (renderSession) {
         this.dirty = false;
     }
      
-    PIXI.Sprite.prototype._renderCanvas.call(this, renderSession);
+// PJBNOTE: does the new renderer need support functions like this?
+    //PIXI.Sprite.prototype._renderCanvas.call(this, renderSession);
 
 };
 
@@ -1341,7 +1343,9 @@ Phaser.Text.prototype.getBounds = function (matrix) {
         this.dirty = false;
     }
 
-    return PIXI.Sprite.prototype.getBounds.call(this, matrix);
+// PJBNOTE:
+//    return PIXI.Sprite.prototype.getBounds.call(this, matrix);
+    return null;  // PJBNOTE: critical fix!
 
 };
 
@@ -1985,5 +1989,6 @@ Object.defineProperty(Phaser.Text.prototype, 'height', {
 
 Phaser.Text.fontPropertiesCache = {};
 
-Phaser.Text.fontPropertiesCanvas = PIXI.CanvasPool.create(Phaser.Text.fontPropertiesCanvas);
+//PJBNOTE: CRITICAL CHANGE - extend from a new renderer canvas of some sort
+//Phaser.Text.fontPropertiesCanvas = PIXI.CanvasPool.create(Phaser.Text.fontPropertiesCanvas);
 Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext('2d');

@@ -111,11 +111,12 @@ Phaser.RenderTexture.prototype.renderRawXY = function (displayObject, x, y, clea
 
     this._tempMatrix.identity().translate(x, y);
 
-    if (this.renderer.type === PIXI.WEBGL_RENDERER)
-    {
-        this.renderWebGL(displayObject, this._tempMatrix, clear);
-    }
-    else
+// PJBNOTE: does new renderer require this sort of check?  I hope not...
+//    if (this.renderer.type === PIXI.WEBGL_RENDERER)
+//    {
+//        this.renderWebGL(displayObject, this._tempMatrix, clear);
+//    }
+//    else
     {
         this.renderCanvas(displayObject, this._tempMatrix, clear);
     }

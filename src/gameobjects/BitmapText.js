@@ -381,7 +381,8 @@ Phaser.BitmapText.prototype.updateText = function () {
             else
             {
                 //  We need a new sprite as the pool is empty or exhausted
-                g = new PIXI.Sprite(charData.texture);
+// PJBNOTE: create new pbSprite here
+//                g = new PIXI.Sprite(charData.texture);
                 g.name = line.text[c];
                 this._glyphs.push(g);
             }
@@ -464,8 +465,8 @@ Phaser.BitmapText.prototype.updateTransform = function () {
         this.dirty = false;
         this._prevAnchor.copyFrom(this.anchor);
     }
-
-    PIXI.DisplayObjectContainer.prototype.updateTransform.call(this);
+// PJBNOTE: is updateTransform required with the new renderer?
+//    PIXI.DisplayObjectContainer.prototype.updateTransform.call(this);
 
 };
 

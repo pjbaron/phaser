@@ -193,12 +193,12 @@ Phaser.Polygon.prototype = {
             {
                 if (typeof points[i] === 'number')
                 {
-                    var p = new PIXI.Point(points[i], points[i + 1]);
+                    var p = new Phaser.Point(points[i], points[i + 1]);
                     i++;
                 }
                 else
                 {
-                    var p = new PIXI.Point(points[i].x, points[i].y);
+                    var p = new Phaser.Point(points[i].x, points[i].y);
                 }
 
                 this._points.push(p);
