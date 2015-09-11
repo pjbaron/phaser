@@ -21,10 +21,10 @@
 */
 Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, properties) {
 
-    if (typeof width === 'undefined' || width <= 0) { width = 32; }
-    if (typeof height === 'undefined' || height <= 0) { height = 32; }
-    if (typeof margin === 'undefined') { margin = 0; }
-    if (typeof spacing === 'undefined') { spacing = 0; }
+    if (width === undefined || width <= 0) { width = 32; }
+    if (height === undefined || height <= 0) { height = 32; }
+    if (margin === undefined) { margin = 0; }
+    if (spacing === undefined) { spacing = 0; }
 
     /**
     * The name of the Tileset.
@@ -66,6 +66,7 @@ Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, prope
     * The spacing between each tile in the sheet (in pixels).
     * Use `setSpacing` to change.
     * @property {integer} tileSpacing
+    * @readonly
     */
     this.tileSpacing = spacing | 0;
 
@@ -76,7 +77,7 @@ Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, prope
     this.properties = properties || {};
 
     /**
-    * The cached image that contains the individual tiles. Use `setImage` to set.
+    * The cached image that contains the individual tiles. Use {@link Phaser.Tileset.setImage setImage} to set.
     * @property {?object} image
     * @readonly
     */
@@ -84,7 +85,7 @@ Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, prope
     this.image = null;
 
     /**
-    * The number of rows in the tile sheet.
+    * The number of tile rows in the the tileset.
     * @property {integer}
     * @readonly
     */
@@ -92,7 +93,7 @@ Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, prope
     this.rows = 0;
 
     /**
-    * The number of columns in the sheet.
+    * The number of tile columns in the tileset.
     * @property {integer} columns
     * @readonly
     */
@@ -100,7 +101,7 @@ Phaser.Tileset = function (name, firstgid, width, height, margin, spacing, prope
     this.columns = 0;
 
     /**
-    * The total number of tiles in the sheet.
+    * The total number of tiles in the tileset.
     * @property {integer} total
     * @readonly
     */
@@ -158,8 +159,7 @@ Phaser.Tileset.prototype = {
     * @public
     * @return {boolean} True if this tileset contains the given index.
     */
-    containsTileIndex: function (tileIndex)
-    {
+    containsTileIndex: function (tileIndex) {
 
         return (
             tileIndex >= this.firstgid &&
@@ -178,7 +178,7 @@ Phaser.Tileset.prototype = {
     setImage: function (image) {
 
         this.image = image;
-        this.updateTileData();
+        this.updateTileData(image.width, image.height);
        
     },
 
@@ -187,15 +187,18 @@ Phaser.Tileset.prototype = {
     *
     * @method Phaser.Tileset#setSpacing
     * @public
-    * @param {integer} tileMargin - The margin around the tiles in the sheet (in pixels).
-    * @param {integer} tileSpacing - The spacing between the tiles in the sheet (in pixels).
+    * @param {integer} [margin=0] - The margin around the tiles in the sheet (in pixels).
+    * @param {integer} [spacing=0] - The spacing between the tiles in the sheet (in pixels).
     */
     setSpacing: function (margin, spacing) {
 
         this.tileMargin = margin | 0;
         this.tileSpacing = spacing | 0;
 
-        this.updateTileData();
+        if (this.image)
+        {
+            this.updateTileData(this.image.width, this.image.height);
+        }
 
     },
 
@@ -204,13 +207,33 @@ Phaser.Tileset.prototype = {
     *
     * @method Phaser.Tileset#updateTileData
     * @private
+    * @param {integer} imageWidth - The (expected) width of the image to slice.
+    * @param {integer} imageHeight - The (expected) height of the image to slice.
     */
-    updateTileData: function () {
+    updateTileData: function (imageWidth, imageHeight) {
 
-        var image = this.image;
-        this.rows = Math.round((image.height - this.tileMargin) / (this.tileHeight + this.tileSpacing));
-        this.columns = Math.round((image.width - this.tileMargin) / (this.tileWidth + this.tileSpacing));
-        this.total = this.rows * this.columns;
+        // May be fractional values
+        var rowCount = (imageHeight - this.tileMargin * 2 + this.tileSpacing) / (this.tileHeight + this.tileSpacing);
+        var colCount = (imageWidth - this.tileMargin * 2 + this.tileSpacing) / (this.tileWidth + this.tileSpacing);
+
+        if (rowCount % 1 !== 0 || colCount % 1 !== 0)
+        {
+            console.warn("Phaser.Tileset - image tile area is not an even multiple of tile size");
+        }
+
+        // In Tiled a tileset image that is not an even multiple of the tile dimensions
+        // is truncated - hence the floor when calculating the rows/columns.
+        rowCount = Math.floor(rowCount);
+        colCount = Math.floor(colCount);
+
+        if ((this.rows && this.rows !== rowCount) || (this.columns && this.columns !== colCount))
+        {
+            console.warn("Phaser.Tileset - actual and expected number of tile rows and columns differ");
+        }
+
+        this.rows = rowCount;
+        this.columns = colCount;
+        this.total = rowCount * colCount;
 
         this.drawCoords.length = 0;
 

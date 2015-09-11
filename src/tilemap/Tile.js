@@ -39,6 +39,16 @@ Phaser.Tile = function (layer, index, x, y, width, height) {
     this.y = y;
 
     /**
+    * @property {number} rotation - The rotation angle of this tile.
+    */
+    this.rotation = 0;
+
+    /**
+    * @property {boolean} flipped - Whether this tile is flipped (mirrored) or not.
+    */
+    this.flipped = false;
+    
+    /**
     * @property {number} x - The x map coordinate of this tile.
     */
     this.worldX = x * width;
