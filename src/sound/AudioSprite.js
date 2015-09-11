@@ -57,16 +57,9 @@ Phaser.AudioSprite = function (game, key) {
     {
         var marker = this.config.spritemap[k];
         var sound = this.game.add.sound(this.key);
-
-        if (marker.loop)
-        {
-            sound.addMarker(k, marker.start, (marker.end - marker.start), null, true);
-        }
-        else
-        {
-            sound.addMarker(k, marker.start, (marker.end - marker.start), null, false);
-        }
-
+        
+        sound.addMarker(k, marker.start, (marker.end - marker.start), null, marker.loop);
+        
         this.sounds[k] = sound;
     }
 
@@ -91,7 +84,7 @@ Phaser.AudioSprite.prototype = {
      */
     play: function (marker, volume) {
 
-        if (typeof volume === 'undefined') { volume = 1; }
+        if (volume === undefined) { volume = 1; }
 
         return this.sounds[marker].play(marker, null, volume);
 
