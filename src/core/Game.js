@@ -534,7 +534,8 @@ Phaser.Game.prototype = {
         this.math = Phaser.Math;
 
         this.scale = new Phaser.ScaleManager(this, this._width, this._height);
-        this.stage = pbPhaserRender.rootLayer; //new Phaser.Stage(this);
+        this.stage = pbPhaserRender.rootLayer;
+//        this.stage = new Phaser.Stage(this);
 
         this.setUpRenderer();
 
@@ -957,20 +958,17 @@ Phaser.Game.prototype = {
             return;
         }
 
-        if (this.renderType != Phaser.HEADLESS)
-        {
-            this.state.preRender(elapsedTime);
-            this.renderer.preRender(this.stage);
+        this.state.preRender(elapsedTime);
+        this.renderer.preRender(this.stage);
 
-            this.plugins.render(elapsedTime);
-            this.state.render(elapsedTime);
+        this.plugins.render(elapsedTime);
+        this.state.render(elapsedTime);
 
 // PJBNOTE: TODO: this.stage parameter is currently ignored, renderer is probably using rootLayer global still...
-            this.renderer.render(this); //this.stage);
+        this.renderer.render(this); //this.stage);
 
-            this.plugins.postRender();
-            this.renderer.postRender(this.stage);
-        }
+        this.plugins.postRender();
+        this.renderer.postRender(this.stage);
 
     },
 

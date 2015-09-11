@@ -522,6 +522,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
         if (this.currentFrame)
         {
             return this._frameIndex;
+//            return this.currentFrame.index;
         }
 
     },
@@ -536,6 +537,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
             {
                 this._frameIndex = value;
                 this.sprite.cellFrame = this._frameIndex;
+//                this.sprite.setFrame(this.currentFrame);
             }
         }
 
@@ -569,6 +571,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frameName', {
                 this._frameIndex = this.currentFrame.index;
 
                 this.sprite.cellFrame = this._frameIndex;
+//                this.sprite.setFrame(this.currentFrame);
             }
         }
         else
