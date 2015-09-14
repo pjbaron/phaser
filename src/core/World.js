@@ -74,7 +74,7 @@ Phaser.World.prototype.boot = function () {
     this.game.camera = this.camera;
 
     // PJBNOTE: Stage is now using pbPhaserRender.rootLayer but I believe addChild will still function (pbBaseLayer extends pbTransformObject)
-    this.game.stage.addChild(this);
+    //this.game.stage.addChild(this);
 
 };
 

@@ -190,7 +190,7 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     /**
     * @property {Phaser.Stage} stage - Reference to the stage.
     */
-    this.stage = null;
+    //this.stage = null;
 
     /**
     * @property {Phaser.Time} time - Reference to the core game clock.
@@ -534,7 +534,7 @@ Phaser.Game.prototype = {
         this.math = Phaser.Math;
 
         this.scale = new Phaser.ScaleManager(this, this._width, this._height);
-        this.stage = pbPhaserRender.rootLayer;
+//        this.stage = pbPhaserRender.rootLayer;
 //        this.stage = new Phaser.Stage(this);
 
         this.setUpRenderer();
@@ -800,7 +800,7 @@ Phaser.Game.prototype = {
             this.updateLogic(1.0 / this.time.desiredFps);
 
             //  Sync the scene graph after _every_ logic update to account for moved game objects                
-            this.stage.updateTransform();
+            //this.world.updateTransform();
 
             // call the game render update exactly once every frame
             this.updateRender(this.time.slowMotion * this.time.desiredFps);
@@ -915,6 +915,7 @@ Phaser.Game.prototype = {
             this.state.update();
 // PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.update();
+            this.world.update();
             this.tweens.update(timeStep);
             this.sound.update();
             this.input.update();
@@ -959,16 +960,16 @@ Phaser.Game.prototype = {
         }
 
         this.state.preRender(elapsedTime);
-        this.renderer.preRender(this.stage);
+        this.renderer.preRender(this.world);
 
         this.plugins.render(elapsedTime);
         this.state.render(elapsedTime);
 
-// PJBNOTE: TODO: this.stage parameter is currently ignored, renderer is probably using rootLayer global still...
-        this.renderer.render(this); //this.stage);
+
+        this.renderer.render(this);
 
         this.plugins.postRender();
-        this.renderer.postRender(this.stage);
+        this.renderer.postRender(this.world);
 
     },
 
@@ -1024,7 +1025,8 @@ Phaser.Game.prototype = {
         this.sound.destroy();
 
         this.scale.destroy();
-        this.stage.destroy();
+        //this.stage.destroy();
+        this.world.destroy();
         this.input.destroy();
         this.physics.destroy();
 
@@ -1033,7 +1035,7 @@ Phaser.Game.prototype = {
         this.input = null;
         this.load = null;
         this.sound = null;
-        this.stage = null;
+        //this.stage = null;
         this.time = null;
         this.world = null;
         this.isBooted = false;
@@ -1109,7 +1111,7 @@ Phaser.Game.prototype = {
 
         this.onBlur.dispatch(event);
 
-        if (!this.stage.disableVisibilityChange)
+        if (!this.world.disableVisibilityChange)
         {
             this.gamePaused(event);
         }
@@ -1127,7 +1129,7 @@ Phaser.Game.prototype = {
 
         this.onFocus.dispatch(event);
 
-        if (!this.stage.disableVisibilityChange)
+        if (!this.world.disableVisibilityChange)
         {
             this.gameResumed(event);
         }

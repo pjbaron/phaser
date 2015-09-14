@@ -26,11 +26,6 @@
 */
 Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBodyType) {
 
-    pbTransformObject.call(this);
-    // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
-    pbTransformObject.prototype.create.call(this);
-    
-
     if (addToStage === undefined) { addToStage = false; }
     if (enableBody === undefined) { enableBody = false; }
     if (physicsBodyType === undefined) { physicsBodyType = Phaser.Physics.ARCADE; }
@@ -62,11 +57,16 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
 //    PIXI.DisplayObjectContainer.call(this);
+    pbTransformObject.call(this);
+    // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
+    pbTransformObject.prototype.create.call(this, null, 0, 0, 0, 0, 1, 1);
+    
+
 
     if (addToStage)
     {
-        this.game.stage.addChild(this);
-        this.z = this.game.stage.children.length;
+        this.game.world.addChild(this);
+        this.z = this.game.world.children.length;
     }
     else
     {
