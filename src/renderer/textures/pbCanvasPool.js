@@ -14,7 +14,7 @@
 * @class pbCanvasPool
 * @static
 */
-Phaser.pbCanvasPool = {
+var pbCanvasPool = {
 
     /**
     * Creates a new Canvas DOM element, or pulls one from the pool if free.
@@ -28,7 +28,7 @@ Phaser.pbCanvasPool = {
     */
     create: function (parent, width, height) {
 
-        var idx = Phaser.pbCanvasPool.getFirst();
+        var idx = pbCanvasPool.getFirst();
         var canvas;
 
         if (idx === -1)
@@ -38,15 +38,15 @@ Phaser.pbCanvasPool = {
                 canvas: document.createElement('canvas')
             };
 
-            Phaser.pbCanvasPool.pool.push(container);
+            pbCanvasPool.pool.push(container);
 
             canvas = container.canvas;
         }
         else
         {
-            Phaser.pbCanvasPool.pool[idx].parent = parent;
+            pbCanvasPool.pool[idx].parent = parent;
 
-            canvas = Phaser.pbCanvasPool.pool[idx].canvas;
+            canvas = pbCanvasPool.pool[idx].canvas;
         }
 
         if (width !== undefined)
@@ -68,7 +68,7 @@ Phaser.pbCanvasPool = {
     */
     getFirst: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -91,7 +91,7 @@ Phaser.pbCanvasPool = {
     */
     remove: function (parent) {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -112,7 +112,7 @@ Phaser.pbCanvasPool = {
     */
     removeByCanvas: function (canvas) {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -133,7 +133,7 @@ Phaser.pbCanvasPool = {
     */
     getTotal: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
         var c = 0;
 
         for (var i = 0; i < pool.length; i++)
@@ -157,7 +157,7 @@ Phaser.pbCanvasPool = {
     */
     getFree: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
         var c = 0;
 
         for (var i = 0; i < pool.length; i++)
@@ -181,4 +181,4 @@ Phaser.pbCanvasPool = {
  * @type Array
  * @static
  */
-Phaser.pbCanvasPool.pool = [];
+pbCanvasPool.pool = [];
