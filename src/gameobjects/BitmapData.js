@@ -45,7 +45,7 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @property {HTMLCanvasElement} canvas - The canvas to which this BitmapData draws.
     * @default
     */
-    // PJBNOTE: 2.4.4 changed this to this.canvas = PIXI.CanvasPool.create(this, width, height);
+    // PJBNOTE: 2.4.4 changed this to this.canvas = Phaser.pbCanvasPool.create(this, width, height);
     this.canvas = Phaser.Canvas.create(width, height, '', true);
 
     /**
@@ -221,7 +221,7 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @property {HTMLCanvasElement} _swapCanvas - A swap canvas.
     * @private
     */
-    this._swapCanvas = PIXI.CanvasPool.create(this, width, height);
+    this._swapCanvas = Phaser.pbCanvasPool.create(this, width, height);
 
 };
 
@@ -1821,7 +1821,7 @@ Phaser.BitmapData.prototype = {
     destroy: function () {
 
 // PJBNOTE: destroy the Phaser canvas here instead
-//        PIXI.CanvasPool.remove(this);
+//        Phaser.pbCanvasPool.remove(this);
 
     },
 

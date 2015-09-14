@@ -83,7 +83,7 @@ Phaser.Text = function (game, x, y, text, style) {
      * @property {HTMLCanvasElement} canvas - The canvas element that the text is rendered.
      */
 // PJBNOTE: critical fix!
-    //this.canvas = PIXI.CanvasPool.create(this);
+    //this.canvas = Phaser.pbCanvasPool.create(this);
 
     /**
      * @property {HTMLCanvasElement} context - The context of the canvas element that the text is rendered to.
@@ -213,7 +213,7 @@ Phaser.Text.prototype.destroy = function (destroyChildren) {
     this.texture.destroy(true);
 
 // PJBNOTE: fix this to remove the non-PIXI canvas
-    //PIXI.CanvasPool.remove(this);
+    //Phaser.pbCanvasPool.remove(this);
 
     // if (this.canvas && this.canvas.parentNode)
     // {
@@ -1990,5 +1990,5 @@ Object.defineProperty(Phaser.Text.prototype, 'height', {
 Phaser.Text.fontPropertiesCache = {};
 
 //PJBNOTE: CRITICAL CHANGE - extend from a new renderer canvas of some sort
-//Phaser.Text.fontPropertiesCanvas = PIXI.CanvasPool.create(Phaser.Text.fontPropertiesCanvas);
+//Phaser.Text.fontPropertiesCanvas = Phaser.pbCanvasPool.create(Phaser.Text.fontPropertiesCanvas);
 Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext('2d');

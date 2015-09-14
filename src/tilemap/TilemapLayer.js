@@ -60,7 +60,7 @@ Phaser.TilemapLayer = function (game, tilemap, index, width, height) {
     * @protected
     */
 // PJBNOTE: revert change made between 2.2.0 and 2.4.4
-//    this.canvas = PIXI.CanvasPool.create(this, width, height);
+//    this.canvas = Phaser.pbCanvasPool.create(this, width, height);
     this.canvas = Phaser.Canvas.create(width, height, '', true);
 
     /**
@@ -315,7 +315,7 @@ Phaser.TilemapLayer.prototype.postUpdate = function () {
 Phaser.TilemapLayer.prototype.destroy = function() {
 
 // PJBNOTE: TODO: new renderer equivalent of CanvasPool?
-//    PIXI.CanvasPool.remove(this);
+//    Phaser.pbCanvasPool.remove(this);
 
     Phaser.Component.Destroy.prototype.destroy.call(this);
 

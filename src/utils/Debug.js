@@ -109,7 +109,7 @@ Phaser.Utils.Debug.prototype = {
             this.game.stage.addChild(this.sprite);
 
 // PJBNOTE: equivalent?
-//            this.canvas = PIXI.CanvasPool.create(this, this.game.width, this.game.height);
+//            this.canvas = Phaser.pbCanvasPool.create(this, this.game.width, this.game.height);
             this.canvas = Phaser.Canvas.create(this.game.width, this.game.height, '', true);
             this.context = this.canvas.getContext('2d');
         }
@@ -822,7 +822,7 @@ Phaser.Utils.Debug.prototype = {
     destroy: function () {
   
 // PJBNOTE: TODO: find a Phaser/new renderer equivalent  
-//        PIXI.CanvasPool.remove(this);
+//        Phaser.pbCanvasPool.remove(this);
 
     }
 

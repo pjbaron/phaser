@@ -454,7 +454,7 @@ Phaser.Input.prototype = {
         this.moveCallbacks = [];
 
 // PJBNOTE: remove canvas
-//      PIXI.CanvasPool.remove(this);
+//      Phaser.pbCanvasPool.remove(this);
         this.game.canvas.removeEventListener('click', this._onClickTrampoline);
 
     },

@@ -1132,7 +1132,7 @@ Phaser.Device._initialize = function () {
 
 // PJBNOTE: is this equivalent?
         var elem = document.createElement('canvas');
-//        var elem = PIXI.CanvasPool.create(this, 1, 1);
+//        var elem = Phaser.pbCanvasPool.create(this, 1, 1);
         var ctx = elem.getContext('2d');
 
         if (!ctx)
@@ -1143,7 +1143,7 @@ Phaser.Device._initialize = function () {
         var image = ctx.createImageData(1, 1);
 
 // PJBNOTE: can we remove the document canvas now?
-//        PIXI.CanvasPool.remove(this);
+//        Phaser.pbCanvasPool.remove(this);
 
         return image.data instanceof Uint8ClampedArray;
 

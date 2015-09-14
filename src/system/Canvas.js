@@ -32,7 +32,7 @@ Phaser.Canvas = {
         // PJBNOTE: new renderer probably needs a canvaspool
         // if (skipPool === undefined)
         // {
-        //     var canvas = PIXI.CanvasPool.create(parent, width, height);
+        //     var canvas = Phaser.pbCanvasPool.create(parent, width, height);
         // }
         // else
         {
