@@ -794,40 +794,6 @@ Object.defineProperty(Phaser.Physics.Arcade.Body.prototype, "right", {
 
 });
 
-/**
-* @name Phaser.Physics.Arcade.Body#x
-* @property {number} x - The x position.
-*/
-Object.defineProperty(Phaser.Physics.Arcade.Body.prototype, "x", {
-
-    get: function () {
-        return this.x;
-    },
-
-    set: function (value) {
-
-        this.x = value;
-    }
-
-});
-
-/**
-* @name Phaser.Physics.Arcade.Body#y
-* @property {number} y - The y position.
-*/
-Object.defineProperty(Phaser.Physics.Arcade.Body.prototype, "y", {
-
-    get: function () {
-        return this.y;
-    },
-
-    set: function (value) {
-
-        this.y = value;
-
-    }
-
-});
 
 /**
 * Render Sprite Body.
