@@ -1001,8 +1001,3 @@ Phaser.Rectangle.aabb = function(points, out) {
     return out;
 };
 
-//   Because PIXI uses its own Rectangle, we'll replace it with ours to avoid duplicating code or confusion.
-// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
-//PIXI.Rectangle = Phaser.Rectangle;
-// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
-//PIXI.EmptyRectangle = new Phaser.Rectangle(0, 0, 0, 0);

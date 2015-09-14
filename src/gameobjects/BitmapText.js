@@ -61,7 +61,8 @@ Phaser.BitmapText = function (game, x, y, font, text, size, align) {
     size = size || 32;
     align = align || 'left';
 
-    PIXI.DisplayObjectContainer.call(this);
+// PJBNOTE: call new super class constructor for BitmapText
+    // PIXI.DisplayObjectContainer.call(this);
 
     /**
     * @property {number} type - The const type of this object.

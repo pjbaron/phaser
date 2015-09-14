@@ -199,7 +199,9 @@ Phaser.Matrix.prototype = {
     */
     toArray: function (transpose, array) {
 
-        if (array === undefined) { array = new PIXI.Float32Array(9); }
+        // PJBNOTE: check if this will work - did PIXI.Float32Array do anything clever?
+        // if (array === undefined) { array = new PIXI.Float32Array(9); }
+        if (array === undefined) { array = new Float32Array(9); }
 
         if (transpose)
         {
@@ -383,7 +385,3 @@ Phaser.Matrix.prototype = {
 };
 
 Phaser.identityMatrix = new Phaser.Matrix();
-
-//  Because PIXI uses its own type, we'll replace it with ours to avoid duplicating code or confusion.
-PIXI.Matrix = Phaser.Matrix;
-PIXI.identityMatrix = Phaser.identityMatrix;

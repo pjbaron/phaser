@@ -232,12 +232,14 @@ Phaser.Video = function (game, key, url) {
     */
     if (this.video && !url)
     {
-        this.baseTexture = new PIXI.BaseTexture(this.video);
+        // PJBNOTE: new renderer needs texture
+        // this.baseTexture = new PIXI.BaseTexture(this.video);
         this.baseTexture.forceLoaded(this.width, this.height);
     }
     else
     {
-        this.baseTexture = new PIXI.BaseTexture(PIXI.TextureCache['__default'].baseTexture.source);
+        // PJBNOTE: new renderer needs texture
+        // this.baseTexture = new PIXI.BaseTexture(PIXI.TextureCache['__default'].baseTexture.source);
         this.baseTexture.forceLoaded(this.width, this.height);
     }
 
@@ -245,7 +247,8 @@ Phaser.Video = function (game, key, url) {
     * @property {PIXI.Texture} texture - The PIXI.Texture.
     * @default
     */
-    this.texture = new PIXI.Texture(this.baseTexture);
+    // PJBNOTE: new renderer needs texture
+    // this.texture = new PIXI.Texture(this.baseTexture);
 
     /**
     * @property {Phaser.Frame} textureFrame - The Frame this video uses for rendering.

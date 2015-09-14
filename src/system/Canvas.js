@@ -29,11 +29,12 @@ Phaser.Canvas = {
         width = width || 256;
         height = height || 256;
 
-        if (skipPool === undefined)
-        {
-            var canvas = PIXI.CanvasPool.create(parent, width, height);
-        }
-        else
+        // PJBNOTE: new renderer probably needs a canvaspool
+        // if (skipPool === undefined)
+        // {
+        //     var canvas = PIXI.CanvasPool.create(parent, width, height);
+        // }
+        // else
         {
             var canvas = document.createElement('canvas');
         }

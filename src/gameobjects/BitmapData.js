@@ -522,8 +522,9 @@ Phaser.BitmapData.prototype = {
 
         var obj = this.game.cache.addImage(key, '', image);
 
-        return new PIXI.Texture(obj.base);
-
+// PJBNOTE: critical fix, need new renderer texture
+//        return new PIXI.Texture(obj.base);
+        return null;
     },
 
     /**
@@ -1476,7 +1477,8 @@ Phaser.BitmapData.prototype = {
                 var bounds = parent.getBounds();
                 this.ctx.save();
                 this.ctx.translate(bounds.x, bounds.y);
-                PIXI.CanvasGraphics.renderGraphics(parent, this.ctx);
+                // PJBNOTE: new renderer alternative to CanvasGraphics.renderGraphics?
+                // PIXI.CanvasGraphics.renderGraphics(parent, this.ctx);
                 this.ctx.restore();
             }
             else

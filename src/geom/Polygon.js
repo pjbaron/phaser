@@ -289,6 +289,3 @@ Object.defineProperty(Phaser.Polygon.prototype, 'points', {
 
 });
 
-// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
-//  Because PIXI uses its own type, we'll replace it with ours to avoid duplicating code or confusion.
-//PIXI.Polygon = Phaser.Polygon;

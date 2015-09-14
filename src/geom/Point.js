@@ -902,6 +902,3 @@ Phaser.Point.parse = function(obj, xProp, yProp) {
 
 };
 
-//   Because PIXI uses its own Point, we'll replace it with ours to avoid duplicating code or confusion.
-// PJBNOTE: probably not required with new renderer, I'll avoid namespace clashes so this sort of thing shouldn't happen ever
-//PIXI.Point = Phaser.Point;

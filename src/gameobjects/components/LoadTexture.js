@@ -82,16 +82,18 @@ Phaser.Component.LoadTexture.prototype = {
             key.onChangeSource.add(this.resizeFrame, this);
             this.texture.valid = valid;
         }
-        else if (key instanceof PIXI.Texture)
-        {
-            this.setTexture(key);
-        }
+        // PJBNOTE: new renderer texture check
+        // else if (key instanceof PIXI.Texture)
+        // {
+        //     this.setTexture(key);
+        // }
         else
         {
             var img = cache.getImage(key, true);
 
             this.key = img.key;
-            this.setTexture(new PIXI.Texture(img.base));
+            // PJBNOTE: new renderer texture required
+            //this.setTexture(new PIXI.Texture(img.base));
 
             setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }

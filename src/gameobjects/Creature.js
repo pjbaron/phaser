@@ -81,7 +81,8 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
 
     if (typeof key === 'string')
     {
-        var texture = game.cache.getPixiTexture(key);
+        // PJBNOTE: cache needs replacement for getPixiTexture to be used here
+        // var texture = game.cache.getPixiTexture(key);
     }
     else
     {
@@ -93,10 +94,13 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
     */
     this.texture = texture;
 
-    PIXI.DisplayObjectContainer.call(this);
+    // PJBNOTE: is pbTransformObject the correct base class now?
+    // PIXI.DisplayObjectContainer.call(this);
+    pbTransformObject.call(this);
 
     this.dirty = true;
-    this.blendMode = PIXI.blendModes.NORMAL;
+    // PJBNOTE: blendMode replacement needed
+    // this.blendMode = PIXI.blendModes.NORMAL;
 
     /**
     * @property {Phaser.Point} creatureBoundsMin - The minimum bounds point.
@@ -116,19 +120,22 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
     * @property {PIXI.Float32Array} vertices - The vertices data.
     * @protected
     */
-    this.vertices = new PIXI.Float32Array(target.total_num_pts * 2);
+    // PJBNOTE: need replacment for PIXI.Float32Array, probably the standard JS one will do
+    // this.vertices = new PIXI.Float32Array(target.total_num_pts * 2);
 
     /**
     * @property {PIXI.Float32Array} uvs - The UV data.
     * @protected
     */
-    this.uvs = new PIXI.Float32Array(target.total_num_pts * 2);
+    // PJBNOTE: need replacment for PIXI.Float32Array, probably the standard JS one will do
+    // this.uvs = new PIXI.Float32Array(target.total_num_pts * 2);
     
     /**
     * @property {PIXI.Uint16Array} indices
     * @protected
     */
-    this.indices = new PIXI.Uint16Array(target.global_indices.length);
+    // PJBNOTE: need replacment for PIXI.Uint16Array, probably the standard JS one will do
+    // this.indices = new PIXI.Uint16Array(target.global_indices.length);
 
     for (var i = 0; i < this.indices.length; i++)
     {
@@ -139,7 +146,8 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
     * @property {PIXI.Uint16Array} colors - The vertices colors
     * @protected
     */
-    this.colors = new PIXI.Float32Array([1, 1, 1, 1]);
+    // PJBNOTE: need replacment for PIXI.Float32Array, probably the standard JS one will do
+    // this.colors = new PIXI.Float32Array([1, 1, 1, 1]);
 
     this.updateRenderData(target.global_pts, target.global_uvs);
 
@@ -150,7 +158,9 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
 
 };
 
-Phaser.Creature.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+// Phaser.Creature.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+// PJBNOTE: is pbTransformObject the correct class for this?
+Phaser.Creature.prototype = Object.create(pbTransformObject.prototype);
 Phaser.Creature.prototype.constructor = Phaser.Creature;
 
 Phaser.Component.Core.install.call(Phaser.Creature.prototype, [
