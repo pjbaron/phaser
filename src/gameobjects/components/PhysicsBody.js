@@ -22,9 +22,10 @@ Phaser.Component.PhysicsBody.preUpdate = function () {
 
     if (this.fresh && this.exists)
     {
-        this.world.setTo(this.parent.position.x + this.position.x, this.parent.position.y + this.position.y);
-        this.worldTransform.tx = this.world.x;
-        this.worldTransform.ty = this.world.y;
+        this.world.setTo(this.parent.x + this.x, this.parent.y + this.y);
+        // PJBNOTE: worldTransform was a PIXI property
+        //this.worldTransform.tx = this.world.x;
+        //this.worldTransform.ty = this.world.y;
 
         this.previousPosition.set(this.world.x, this.world.y);
         this.previousRotation = this.rotation;
@@ -99,13 +100,13 @@ Phaser.Component.PhysicsBody.prototype = {
 
         get: function () {
 
-            return this.position.x;
+            return this.x;
 
         },
 
         set: function (value) {
 
-            this.position.x = value;
+            this.x = value;
 
             if (this.body && !this.body.dirty)
             {
@@ -125,13 +126,13 @@ Phaser.Component.PhysicsBody.prototype = {
 
         get: function () {
 
-            return this.position.y;
+            return this.y;
 
         },
 
         set: function (value) {
 
-            this.position.y = value;
+            this.y = value;
 
             if (this.body && !this.body.dirty)
             {
