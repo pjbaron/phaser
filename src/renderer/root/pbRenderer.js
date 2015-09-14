@@ -5,7 +5,8 @@
  */
 
 
-
+var layerClass;
+var imageClass;
 
 
 function pbRenderer( _parent )
