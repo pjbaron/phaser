@@ -23,8 +23,6 @@
             'box2d' => false,
             'creature' => false,
             'video' => true,
-            'rope' => true,
-            'tilesprite' => true
         );
     }
 
@@ -59,6 +57,7 @@
     <script src="$path/src/renderer/root/pbRenderer.js"></script>
     <script src="$path/src/renderer/root/pbRootTimer.js"></script>
 
+    <script src="$path/src/renderer/textures/pbCanvasPool.js"></script>
     <script src="$path/src/renderer/textures/pbSurface.js"></script>
     <script src="$path/src/renderer/textures/pbTextures.js"></script>
     <script src="$path/src/renderer/textures/webgl/pbWebGlTextures.js"></script>
@@ -112,8 +111,6 @@
     <script src="$path/src/core/Create.js"></script>
     <script src="$path/src/core/State.js"></script>
     <script src="$path/src/core/StateManager.js"></script>
-    <script src="$path/src/core/ArrayList.js"></script>
-    <script src="$path/src/core/LinkedList.js"></script>
     <script src="$path/src/core/Signal.js"></script>
     <script src="$path/src/core/SignalBinding.js"></script>
     <script src="$path/src/core/Filter.js"></script>
@@ -193,24 +190,6 @@ EOL;
 
 
 EOL;
-
-    if ($modules['rope'])
-    {
-        echo <<<EOL
-    <script src="$path/src/gameobjects/Rope.js"></script>
-
-
-EOL;
-    }
-
-    if ($modules['tilesprite'])
-    {
-        echo <<<EOL
-    <script src="$path/src/gameobjects/TileSprite.js"></script>
-
-
-EOL;
-    }
 
     if ($modules['creature'])
     {
@@ -440,6 +419,8 @@ EOL;
     <script src="$path/src/physics/p2/LockConstraint.js"></script>
     <script src="$path/src/physics/p2/PrismaticConstraint.js"></script>
     <script src="$path/src/physics/p2/RevoluteConstraint.js"></script>
+
+
 EOL;
     }
 
@@ -451,6 +432,8 @@ EOL;
     <script src="$path/src/physics/ninja/AABB.js"></script>
     <script src="$path/src/physics/ninja/Tile.js"></script>
     <script src="$path/src/physics/ninja/Circle.js"></script>
+
+
 EOL;
     }
 
@@ -463,6 +446,8 @@ EOL;
     <script src="$box2dpath/DefaultDebugDraw.js"></script>
     <script src="$box2dpath/DefaultContactListener.js"></script>
     <script src="$box2dpath/Polygon.js"></script>
+
+
 EOL;
     }
 
