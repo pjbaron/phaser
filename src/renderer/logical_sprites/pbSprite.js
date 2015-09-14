@@ -171,6 +171,24 @@ Object.defineProperties(pbSprite.prototype, {
 		}
 	},
 
+	width: {
+		get: function() {
+			return this.transform.width;
+		},
+		set: function(value) {
+			this.transform.width = value;
+		}
+	},
+
+	height: {
+		get: function() {
+			return this.transform.height;
+		},
+		set: function(value) {
+			this.transform.height = value;
+		}
+	},
+
 	angleInRadians: {
 		get: function () {
 			return this.transform.angleInRadians;

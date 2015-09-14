@@ -21,6 +21,8 @@ function pbTransformObject()
 	this.children = null;
 	this.parent = null;
 	this.transform = null;
+	this.width = 0;
+	this.height = 0;
 }
 
 
@@ -61,6 +63,11 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 	this.z = _z;
 	this.angleInRadians = _angleInRadians;
 	this.scale = new Phaser.Point(_scaleX, _scaleY);
+	if (this.image)
+	{
+		this.width = this.image.surface.cellSourceSize[this.image.cellFrame].wide;
+		this.height = this.image.surface.cellSourceSize[this.image.cellFrame].high;
+	}
 
 	this.transform = pbMatrix3.makeTransform(_x, _y, _angleInRadians, _scaleX, _scaleY);
 };
