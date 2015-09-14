@@ -57,9 +57,9 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 // PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
 //    PIXI.DisplayObjectContainer.call(this);
-    pbTransformObject.call(this);
+    layerClass.call(this);
     // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
-    pbTransformObject.prototype.create.call(this, null, 0, 0, 0, 0, 1, 1);
+    layerClass.prototype.create.call(this, null, 0, 0, 0, 0, 1, 1);
     
 
 
@@ -236,7 +236,7 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 };
 
-Phaser.Group.prototype = Object.create(pbTransformObject.prototype);
+Phaser.Group.prototype = Object.create(pbBaseLayer.prototype);
 Phaser.Group.prototype.constructor = Phaser.Group;
 
 /**
@@ -2203,6 +2203,14 @@ Phaser.Group.prototype.destroy = function (destroyChildren, soft) {
     pbTransformObject.destroy( destroyChildren );
 
 };
+
+
+Phaser.Group.prototype.update = function()
+{
+    // PJBNOTE: redirect update calls from pbBaseLayer to the selected 'layerClass'
+    layerClass.prototype.update.call(this);
+};
+
 
 /**
 * Total number of existing children in the group.
