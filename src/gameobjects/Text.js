@@ -160,7 +160,8 @@ Phaser.Text = function (game, x, y, text, style) {
     this._height = 0;
 
 // PJBNOTE: critical fix! Need replacement for PIXI.Texture.fromCanvas(this.canvas)
-    //Phaser.Sprite.call(this, game, x, y, PIXI.Texture.fromCanvas(this.canvas));
+//    Phaser.Sprite.call(this, game, x, y, PIXI.Texture.fromCanvas(this.canvas));
+    Phaser.Sprite.call(this, game, x, y, this.canvas);
 
     this.setStyle(style);
 
@@ -1368,10 +1369,11 @@ Object.defineProperty(Phaser.Text.prototype, 'text', {
             this._text = value.toString() || ' ';
             this.dirty = true;
 
-            if (this.parent)
-            {
-                this.updateTransform();
-            }
+            // PJBNOTE: I don't think this is required with the new renderer, transforms should be automatically updated
+            // if (this.parent)
+            // {
+            //     this.updateTransform();
+            // }
         }
 
     }
