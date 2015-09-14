@@ -45,8 +45,7 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @property {HTMLCanvasElement} canvas - The canvas to which this BitmapData draws.
     * @default
     */
-    // PJBNOTE: 2.4.4 changed this to this.canvas = Phaser.pbCanvasPool.create(this, width, height);
-    this.canvas = Phaser.Canvas.create(width, height, '', true);
+    this.canvas = Phaser.pbCanvasPool.create(this, width, height);
 
     /**
     * @property {CanvasRenderingContext2D} context - The 2d context of the canvas.
@@ -1820,8 +1819,7 @@ Phaser.BitmapData.prototype = {
     */
     destroy: function () {
 
-// PJBNOTE: destroy the Phaser canvas here instead
-//        Phaser.pbCanvasPool.remove(this);
+        Phaser.pbCanvasPool.remove(this);
 
     },
 
