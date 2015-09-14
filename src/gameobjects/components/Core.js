@@ -57,7 +57,8 @@ Phaser.Component.Core.init = function (game, x, y, key, frame) {
 
     this.key = key;
 
-    this.position.set(x, y);
+    this.x = x;
+    this.y = y;
     this.world = new Phaser.Point(x, y);
     this.previousPosition = new Phaser.Point(x, y);
 
@@ -195,7 +196,7 @@ Phaser.Component.Core.prototype = {
 
     /**
     * The world coordinates of this Game Object in pixels.
-    * Depending on where in the display list this Game Object is placed this value can differ from `position`, 
+    * Depending on where in the display list this Game Object is placed this value can differ from this.x and this.y, 
     * which contains the x/y coordinates relative to the Game Objects parent.
     * @property {Phaser.Point} world
     */
