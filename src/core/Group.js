@@ -1353,7 +1353,7 @@ Phaser.Group.prototype.preUpdate = function () {
         return false;
     }
 
-    if (!this.exists || !this.parent.exists)
+    if (!this.exists || !this.parent || !this.parent.exists)
     {
         this.renderOrderID = -1;
         return false;
