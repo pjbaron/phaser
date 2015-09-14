@@ -53,7 +53,8 @@ Phaser.Component.LoadTexture.prototype = {
         var cache = this.game.cache;
 
         var setFrame = true;
-        var smoothed = !this.texture.baseTexture.scaleMode;
+        // PJBNOTE: smoothing not supported in the new renderer yet
+        //var smoothed = !this.texture.baseTexture.scaleMode;
 
         if (Phaser.RenderTexture && key instanceof Phaser.RenderTexture)
         {
@@ -103,10 +104,11 @@ Phaser.Component.LoadTexture.prototype = {
             this._frame = Phaser.Rectangle.clone(this.texture.frame);
         }
 
-        if (!smoothed)
-        {
-            this.texture.baseTexture.scaleMode = 1;
-        }
+        // PJBNOTE: smoothing not supported in the new renderer yet
+        // if (!smoothed)
+        // {
+        //     this.texture.baseTexture.scaleMode = 1;
+        // }
 
     },
 
