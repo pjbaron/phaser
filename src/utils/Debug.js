@@ -108,7 +108,7 @@ Phaser.Utils.Debug.prototype = {
             this.sprite = this.game.make.image(0, 0, this.bmd);
             this.game.stage.addChild(this.sprite);
 
-            this.canvas = Phaser.pbCanvasPool.create(this, this.game.width, this.game.height);
+            this.canvas = pbCanvasPool.create(this, this.game.width, this.game.height);
             this.context = this.canvas.getContext('2d');
         }
 
@@ -819,7 +819,7 @@ Phaser.Utils.Debug.prototype = {
     */
     destroy: function () {
   
-        Phaser.pbCanvasPool.remove(this);
+        pbCanvasPool.remove(this);
 
     }
 

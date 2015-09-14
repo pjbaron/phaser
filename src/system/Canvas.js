@@ -31,7 +31,7 @@ Phaser.Canvas = {
 
         if (skipPool === undefined)
         {
-            var canvas = Phaser.pbCanvasPool.create(parent, width, height);
+            var canvas = pbCanvasPool.create(parent, width, height);
         }
         else
         {
