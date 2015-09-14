@@ -2228,7 +2228,7 @@ PIXI.canUseNewCanvasBlendModes = function()
     var yellow = new Image();
     yellow.src = pngHead + '/wCKxvRF' + pngEnd;
 
-    var canvas = Phaser.pbCanvasPool.create(this, 6, 1);
+    var canvas = pbCanvasPool.create(this, 6, 1);
     var context = canvas.getContext('2d');
     context.globalCompositeOperation = 'multiply';
     context.drawImage(magenta, 0, 0);
@@ -2241,7 +2241,7 @@ PIXI.canUseNewCanvasBlendModes = function()
 
     var data = context.getImageData(2,0,1,1).data;
 
-    Phaser.pbCanvasPool.remove(this);
+    pbCanvasPool.remove(this);
 
     return (data[0] === 255 && data[1] === 0 && data[2] === 0);
 
@@ -2458,15 +2458,15 @@ PIXI.PolyK._convex = function(ax, ay, bx, by, cx, cy, sign)
 /**
 * The CanvasPool is a global static object that allows Pixi and Phaser to pool
 *
-* @class Phaser.pbCanvasPool
+* @class pbCanvasPool
 * @static
 */
-Phaser.pbCanvasPool = {
+pbCanvasPool = {
 
     /**
     * 
     * 
-    * @method Phaser.pbCanvasPool.create
+    * @method pbCanvasPool.create
     * @static
     * @param {any} parent - The parent of the canvas element.
     * @param {number} width - The width of the canvas element.
@@ -2475,7 +2475,7 @@ Phaser.pbCanvasPool = {
     */
     create: function (parent, width, height) {
 
-        var idx = Phaser.pbCanvasPool.getFirst();
+        var idx = pbCanvasPool.getFirst();
         var canvas;
 
         if (idx === -1)
@@ -2485,17 +2485,17 @@ Phaser.pbCanvasPool = {
                 canvas: document.createElement('canvas')
             }
 
-            Phaser.pbCanvasPool.pool.push(container);
+            pbCanvasPool.pool.push(container);
 
             canvas = container.canvas;
 
-            // console.log('CanvasPool created', Phaser.pbCanvasPool.pool.length);
+            // console.log('CanvasPool created', pbCanvasPool.pool.length);
         }
         else
         {
-            Phaser.pbCanvasPool.pool[idx].parent = parent;
+            pbCanvasPool.pool[idx].parent = parent;
 
-            canvas = Phaser.pbCanvasPool.pool[idx].canvas;
+            canvas = pbCanvasPool.pool[idx].canvas;
 
             // console.log('CanvasPool recycled', idx);
         }
@@ -2512,7 +2512,7 @@ Phaser.pbCanvasPool = {
 
     getFirst: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -2528,7 +2528,7 @@ Phaser.pbCanvasPool = {
 
     remove: function (parent) {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -2544,7 +2544,7 @@ Phaser.pbCanvasPool = {
 
     removeByCanvas: function (canvas) {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
 
         for (var i = 0; i < pool.length; i++)
         {
@@ -2558,7 +2558,7 @@ Phaser.pbCanvasPool = {
 
     getTotal: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
         var c = 0;
 
         for (var i = 0; i < pool.length; i++)
@@ -2575,7 +2575,7 @@ Phaser.pbCanvasPool = {
 
     getFree: function () {
 
-        var pool = Phaser.pbCanvasPool.pool;
+        var pool = pbCanvasPool.pool;
         var c = 0;
 
         for (var i = 0; i < pool.length; i++)
@@ -2592,7 +2592,7 @@ Phaser.pbCanvasPool = {
 
 };
 
-Phaser.pbCanvasPool.pool = [];
+pbCanvasPool.pool = [];
 
 /**
  * @author Mat Groves http://matgroves.com/ @Doormat23
@@ -4943,7 +4943,7 @@ PIXI.WebGLRenderer.prototype.destroy = function()
     this.gl = null;
     this.renderSession = null;
 
-    Phaser.pbCanvasPool.remove(this);
+    pbCanvasPool.remove(this);
 
     PIXI.instances[this.glContextId] = null;
 
@@ -7266,7 +7266,7 @@ PIXI.CanvasBuffer = function(width, height)
      * @property canvas
      * @type HTMLCanvasElement
      */
-    this.canvas = Phaser.pbCanvasPool.create(this, this.width, this.height);
+    this.canvas = pbCanvasPool.create(this, this.width, this.height);
 
     /**
      * A CanvasRenderingContext2D object representing a two-dimensional rendering context.
@@ -7314,7 +7314,7 @@ PIXI.CanvasBuffer.prototype.resize = function(width, height)
  */
 PIXI.CanvasBuffer.prototype.destroy = function()
 {
-    Phaser.pbCanvasPool.remove(this);
+    pbCanvasPool.remove(this);
 };
 
 /**
@@ -7399,7 +7399,7 @@ PIXI.CanvasTinter = function() {};
  */
 PIXI.CanvasTinter.getTintedTexture = function(sprite, color)
 {
-    var canvas = sprite.tintedTexture || Phaser.pbCanvasPool.create(this);
+    var canvas = sprite.tintedTexture || pbCanvasPool.create(this);
     
     PIXI.CanvasTinter.tintMethod(sprite.texture, color, canvas);
 
@@ -7657,7 +7657,7 @@ PIXI.CanvasRenderer = function(width, height, options)
      * @property view
      * @type HTMLCanvasElement
      */
-    this.view = options.view || Phaser.pbCanvasPool.create(this, this.width, this.height);
+    this.view = options.view || pbCanvasPool.create(this, this.width, this.height);
 
     /**
      * The canvas 2d context that everything is drawn with
@@ -8409,7 +8409,7 @@ PIXI.BaseTexture.prototype.destroy = function()
     }
     else if (this.source && this.source._pixiId)
     {
-        Phaser.pbCanvasPool.removeByCanvas(this.source);
+        pbCanvasPool.removeByCanvas(this.source);
 
         delete PIXI.BaseTextureCache[this.source._pixiId];
     }
@@ -26067,7 +26067,7 @@ Phaser.Input.prototype = {
 
         this.activePointer = this.mousePointer;
 
-        this.hitCanvas = Phaser.pbCanvasPool.create(this, 1, 1);
+        this.hitCanvas = pbCanvasPool.create(this, 1, 1);
         this.hitContext = this.hitCanvas.getContext('2d');
 
         this.mouse.start();
@@ -26113,7 +26113,7 @@ Phaser.Input.prototype = {
 
         this.moveCallbacks = [];
 
-        Phaser.pbCanvasPool.remove(this);
+        pbCanvasPool.remove(this);
 
         this.game.canvas.removeEventListener('click', this._onClickTrampoline);
 
@@ -38681,7 +38681,7 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @default
     */
     // this.canvas = Phaser.Canvas.create(width, height, '', true);
-    this.canvas = Phaser.pbCanvasPool.create(this, width, height);
+    this.canvas = pbCanvasPool.create(this, width, height);
 
     /**
     * @property {CanvasRenderingContext2D} context - The 2d context of the canvas.
@@ -38851,7 +38851,7 @@ Phaser.BitmapData = function (game, key, width, height) {
     * @property {HTMLCanvasElement} _swapCanvas - A swap canvas.
     * @private
     */
-    this._swapCanvas = Phaser.pbCanvasPool.create(this, width, height);
+    this._swapCanvas = pbCanvasPool.create(this, width, height);
 
 };
 
@@ -40425,7 +40425,7 @@ Phaser.BitmapData.prototype = {
     */
     destroy: function () {
 
-        Phaser.pbCanvasPool.remove(this);
+        pbCanvasPool.remove(this);
 
     },
 
@@ -42597,7 +42597,7 @@ Phaser.Text = function (game, x, y, text, style) {
     /**
      * @property {HTMLCanvasElement} canvas - The canvas element that the text is rendered.
      */
-    this.canvas = Phaser.pbCanvasPool.create(this);
+    this.canvas = pbCanvasPool.create(this);
 
     /**
      * @property {HTMLCanvasElement} context - The context of the canvas element that the text is rendered to.
@@ -42725,7 +42725,7 @@ Phaser.Text.prototype.destroy = function (destroyChildren) {
 
     this.texture.destroy(true);
 
-    Phaser.pbCanvasPool.remove(this);
+    pbCanvasPool.remove(this);
 
     // if (this.canvas && this.canvas.parentNode)
     // {
@@ -44499,7 +44499,7 @@ Object.defineProperty(Phaser.Text.prototype, 'height', {
 
 Phaser.Text.fontPropertiesCache = {};
 
-Phaser.Text.fontPropertiesCanvas = Phaser.pbCanvasPool.create(Phaser.Text.fontPropertiesCanvas);
+Phaser.Text.fontPropertiesCanvas = pbCanvasPool.create(Phaser.Text.fontPropertiesCanvas);
 Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext('2d');
 
 /**
@@ -47331,7 +47331,7 @@ Phaser.Device._initialize = function () {
             return false;
         }
 
-        var elem = Phaser.pbCanvasPool.create(this, 1, 1);
+        var elem = pbCanvasPool.create(this, 1, 1);
         var ctx = elem.getContext('2d');
 
         if (!ctx)
@@ -47341,7 +47341,7 @@ Phaser.Device._initialize = function () {
 
         var image = ctx.createImageData(1, 1);
 
-        Phaser.pbCanvasPool.remove(this);
+        pbCanvasPool.remove(this);
 
         return image.data instanceof Uint8ClampedArray;
 
@@ -47982,7 +47982,7 @@ Phaser.Canvas = {
 
         if (skipPool === undefined)
         {
-            var canvas = Phaser.pbCanvasPool.create(parent, width, height);
+            var canvas = pbCanvasPool.create(parent, width, height);
         }
         else
         {
@@ -63659,7 +63659,7 @@ Phaser.Utils.Debug.prototype = {
             this.sprite = this.game.make.image(0, 0, this.bmd);
             this.game.stage.addChild(this.sprite);
 
-            this.canvas = Phaser.pbCanvasPool.create(this, this.game.width, this.game.height);
+            this.canvas = pbCanvasPool.create(this, this.game.width, this.game.height);
             this.context = this.canvas.getContext('2d');
         }
 
@@ -64372,7 +64372,7 @@ Phaser.Utils.Debug.prototype = {
     */
     destroy: function () {
     
-        Phaser.pbCanvasPool.remove(this);
+        pbCanvasPool.remove(this);
 
     }
 
