@@ -94,8 +94,10 @@ pbCreatureAssist.prototype.create = function()
 	// add a top layer for ui text messages
 	this.uiLayer = new layerClass();
 	// _parent, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY
-	this.uiLayer.create(pbPhaserRender.rootLayer, this.phaserRender, 0, 0, 0, 0, 1, 1);
-	pbPhaserRender.rootLayer.addChild(this.uiLayer);
+	// PJBNOTE: rootLayer has been replaced with game.world... we'll need a 'game' reference here
+	//this.uiLayer.create(pbPhaserRender.rootLayer, this.phaserRender, 0, 0, 0, 0, 1, 1);
+	// PJBNOTE: rootLayer has been replaced with game.world... we'll need a 'game' reference here
+	//pbPhaserRender.rootLayer.addChild(this.uiLayer);
 
 	// prepare the text strings
 	this.text = new pbText();
