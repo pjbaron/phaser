@@ -166,11 +166,16 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 		}
 		else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite))
 		{
+			// call all three component Core.update functions
+			child.preUpdate();
+			// recurse the display hierarchy
 			if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
 			{
 				pbTransformObject.prototype.destroy.call(child.transform);
 				pbTransformObject.prototype.removeChildAt.call(child);
 			}
+			child.update();
+			child.postUpdate();
 		}
 	}
 
