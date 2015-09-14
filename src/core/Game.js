@@ -36,6 +36,11 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     this.config = null;
 
     /**
+    * @property {number} currentRenderOrderID - Reset each frame, copied to renderOrderID for each drawable so that input can detect the top one.
+    */
+    this.currentRenderOrderID = 0;
+
+    /**
     * @property {object} physicsConfig - The Phaser.Physics.World configuration object.
     */
     this.physicsConfig = physicsConfig;
@@ -794,6 +799,8 @@ Phaser.Game.prototype = {
     update: function (time) {
 
         this.time.update(time);
+
+        this.currentRenderOrderID = 0;
 
         if (this._kickstart)
         {

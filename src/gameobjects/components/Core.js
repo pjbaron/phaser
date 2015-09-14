@@ -112,7 +112,7 @@ Phaser.Component.Core.preUpdate = function () {
 
     if (this.visible)
     {
-        this.renderOrderID = this.game.stage.currentRenderOrderID++;
+        this.renderOrderID = this.game.currentRenderOrderID++;
     }
 
     if (this.texture)
