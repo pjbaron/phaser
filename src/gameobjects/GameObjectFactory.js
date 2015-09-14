@@ -255,13 +255,13 @@ Phaser.GameObjectFactory.prototype = {
     * @param {Phaser.Group} [group] - Optional Group to add the object to. If not specified it will be added to the World group.
     * @return {Phaser.TileSprite} The newly created TileSprite object.
     */
-    tileSprite: function (x, y, width, height, key, frame, group) {
+    // tileSprite: function (x, y, width, height, key, frame, group) {
 
-        if (group === undefined) { group = this.world; }
+    //     if (group === undefined) { group = this.world; }
 
-        return group.add(new Phaser.TileSprite(this.game, x, y, width, height, key, frame));
+    //     return group.add(new Phaser.TileSprite(this.game, x, y, width, height, key, frame));
 
-    },
+    // },
 
     /**
     * Creates a new Rope object.

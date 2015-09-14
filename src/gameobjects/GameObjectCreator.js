@@ -172,11 +172,11 @@ Phaser.GameObjectCreator.prototype = {
     * @param {string|number} frame - If this TileSprite is using part of a sprite sheet or texture atlas you can specify the exact frame to use by giving a string or numeric index.
     * @return {Phaser.TileSprite} The newly created tileSprite object.
     */
-    tileSprite: function (x, y, width, height, key, frame) {
+    // tileSprite: function (x, y, width, height, key, frame) {
 
-        return new Phaser.TileSprite(this.game, x, y, width, height, key, frame);
+    //     return new Phaser.TileSprite(this.game, x, y, width, height, key, frame);
 
-    },
+    // },
 
     /**
     * Creates a new Rope object.

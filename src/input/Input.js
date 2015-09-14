@@ -892,22 +892,22 @@ Phaser.Input.prototype = {
             return (displayObject.hitArea.contains(this._localPoint.x, this._localPoint.y));
         }
 // PJBNOTE: see TileSprite.js for comments about removing that class
-        else if (displayObject instanceof Phaser.TileSprite)
-        {
-            var width = displayObject.width;
-            var height = displayObject.height;
-            var x1 = -width * displayObject.anchor.x;
+        // else if (displayObject instanceof Phaser.TileSprite)
+        // {
+        //     var width = displayObject.width;
+        //     var height = displayObject.height;
+        //     var x1 = -width * displayObject.anchor.x;
 
-            if (this._localPoint.x >= x1 && this._localPoint.x < x1 + width)
-            {
-                var y1 = -height * displayObject.anchor.y;
+        //     if (this._localPoint.x >= x1 && this._localPoint.x < x1 + width)
+        //     {
+        //         var y1 = -height * displayObject.anchor.y;
 
-                if (this._localPoint.y >= y1 && this._localPoint.y < y1 + height)
-                {
-                    return true;
-                }
-            }
-        }
+        //         if (this._localPoint.y >= y1 && this._localPoint.y < y1 + height)
+        //         {
+        //             return true;
+        //         }
+        //     }
+        // }
         else if (displayObject instanceof pbSprite)
         {
             // PJBNOTE: TODO: pointer doesn't take into account world scroll offset (camera) yet
