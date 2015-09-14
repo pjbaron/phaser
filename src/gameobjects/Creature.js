@@ -273,7 +273,8 @@ Phaser.Creature.prototype._renderCreature = function (renderSession) {
     renderSession.blendModeManager.setBlendMode(this.blendMode);
 
     //  Set uniforms
-    gl.uniformMatrix3fv(shader.translationMatrix, false, this.worldTransform.toArray(true));
+    // PJBNOTE: worldTransform was a PIXI property, critical fix needed here
+//    gl.uniformMatrix3fv(shader.translationMatrix, false, this.worldTransform.toArray(true));
     gl.uniform2f(shader.projectionVector, projection.x, -projection.y);
     gl.uniform2f(shader.offsetVector, -offset.x, -offset.y);
     gl.uniform1f(shader.alpha, this.worldAlpha);
@@ -353,8 +354,9 @@ Phaser.Creature.prototype.updateCreatureBounds = function () {
     this.creatureBoundsMin.set(target.boundary_min[0], -target.boundary_min[1]);
     this.creatureBoundsMax.set(target.boundary_max[0], -target.boundary_max[1]);
     
-    this.worldTransform.apply(this.creatureBoundsMin, this.creatureBoundsMin);  
-    this.worldTransform.apply(this.creatureBoundsMax, this.creatureBoundsMax);              
+    // PJBNOTE: worldTransform was a PIXI property, critical fix needed here
+    // this.worldTransform.apply(this.creatureBoundsMin, this.creatureBoundsMin);  
+    // this.worldTransform.apply(this.creatureBoundsMax, this.creatureBoundsMax);              
 
 };
 

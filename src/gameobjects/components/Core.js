@@ -106,7 +106,9 @@ Phaser.Component.Core.preUpdate = function () {
         return false;
     }
 
-    this.world.setTo(this.game.camera.x + this.worldTransform.tx, this.game.camera.y + this.worldTransform.ty);
+// PJBNOTE: worldTransform was a PIXI variable
+//    this.world.setTo(this.game.camera.x + this.worldTransform.tx, this.game.camera.y + this.worldTransform.ty);
+    this.world.setTo(this.game.camera.x + this.x, this.game.camera.y + this.y);
 
     if (this.visible)
     {

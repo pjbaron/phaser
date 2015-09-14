@@ -78,9 +78,10 @@ Phaser.RenderTexture.prototype.renderXY = function (displayObject, x, y, clear) 
 
     displayObject.updateTransform();
 
-    this._tempMatrix.copyFrom(displayObject.worldTransform);
-    this._tempMatrix.tx = x;
-    this._tempMatrix.ty = y;
+    // PJBNOTE: worldTransform was a PIXI property, critical fix needed here
+    // this._tempMatrix.copyFrom(displayObject.worldTransform);
+    // this._tempMatrix.tx = x;
+    // this._tempMatrix.ty = y;
 
 // PJBNOTE: deprecated class?  even if not, the new renderer redirects such drawing calls through an intermediary layer automatically
     // if (this.renderer.type === PIXI.WEBGL_RENDERER)
@@ -142,7 +143,8 @@ Phaser.RenderTexture.prototype.render = function (displayObject, matrix, clear) 
 
     if (matrix === undefined || matrix === null)
     {
-        this._tempMatrix.copyFrom(displayObject.worldTransform);
+    // PJBNOTE: worldTransform was a PIXI property, critical fix needed here
+        // this._tempMatrix.copyFrom(displayObject.worldTransform);
     }
     else
     {
