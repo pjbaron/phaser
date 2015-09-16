@@ -613,10 +613,7 @@ Phaser.Cache.prototype = {
     addTextureAtlas: function (key, url, data, atlasData, format) {
 
         var base = new pbSurface();
-        // PJBNOTE: TODO: what size is the texture atlas?
-//        base.create(frameWidth, frameHeight);
-        // PJBNOTE: TODO: look at PIXI source and find out what the extra 'data' object can contain, for now I'll just stick it in here so it isn't lost!
-        base.data = data;
+        base.createAtlas(atlasData, data);
 
         var obj = {
             key: key,

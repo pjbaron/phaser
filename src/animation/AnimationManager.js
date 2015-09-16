@@ -59,6 +59,13 @@ Phaser.AnimationManager = function (sprite) {
     this._frameData = null;
 
     /**
+    * @property {Number} _frameIndex - A temp. var for holding the currently playing Animations frame index
+    * @private
+    * @default
+    */
+    this._frameIndex = 0;
+
+    /**
     * @property {object} _anims - An internal object that stores all of the Animation instances.
     * @private
     */
@@ -435,7 +442,6 @@ Phaser.AnimationManager.prototype = {
         this._anims = {};
         this._outputFrames = [];
         this._frameData = null;
-        this._frameIndex = 0;
         this.currentAnim = null;
         this.currentFrame = null;
         this.sprite = null;
@@ -521,6 +527,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
 
         if (this.currentFrame)
         {
+            // PJBNOTE: the new renderer uses an integer index to access cells on the pbSurface, store it in a private variable on this class
             return this._frameIndex;
 //            return this.currentFrame.index;
         }
@@ -536,6 +543,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
             if (this.currentFrame)
             {
                 this._frameIndex = value;
+                // PJBNOTE: pbBaseImage uses 'cellFrame' (integer) to access the pbSurface cell, the cell bounds are stored in pbSurface
                 this.sprite.cellFrame = this._frameIndex;
 //                this.sprite.setFrame(this.currentFrame);
             }

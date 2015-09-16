@@ -4,6 +4,9 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
+
+// PJBNOTE: pbBaseImage uses 'cellFrame' (integer) to access the pbSurface cell, the cell bounds are stored in pbSurface.  It's not yet clear how best to combine that system with this one.
+
 /**
 * A Frame is a single frame of an animation and is part of a FrameData collection.
 *

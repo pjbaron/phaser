@@ -9,7 +9,6 @@
 function pbSprite()
 {
 	this.layer = null;
-	this.textureObject = null;
 	this.surface = null;
 	this.image = null;
     this.transform = new pbTransformObject();
@@ -28,10 +27,17 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	this.layer = _layer || null;
 
 	// get the texture object from the textures dictionary using 'key'
-	this.textureObject = game.cache.getImage(_key);
-	this.surface = new pbSurface();
-	this.surface.createGrid(0, 0, 1, 1, this.textureObject);
-	//this.textureObject = textures.getFirst(_key);
+	var textureObject = game.cache.getImage(_key, true);
+	if (textureObject.base instanceof pbSurface)
+	{
+		this.surface = textureObject.base;
+	}
+	else
+	{
+		this.surface = new pbSurface();
+	}
+	this.surface.createGrid(0, 0, 1, 1, textureObject.data);
+	//textureObject = textures.getFirst(_key);
 	
 	// create an image holder and attach the surface
 	this.image = new imageClass();
@@ -109,8 +115,6 @@ pbSprite.prototype.destroy = function()
 		this.layer.removeChild(this.transform);
 	}
 	this.layer = null;
-
-	this.textureObject = null;
 
 	this.surface = null;
 

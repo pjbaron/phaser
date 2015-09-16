@@ -23,7 +23,8 @@ Phaser.Component.LoadTexture.prototype = {
     * @property {Phaser.Rectangle} _frame - Internal cache var.
     * @private
     */
-    _frame: null,
+    // PJBNOTE: can't see the need for a local cache of the texture boundary
+    // _frame: null,
 
     /**
     * Changes the base texture the Game Object is using. The old texture is removed and the new one is referenced or fetched from the Cache.
@@ -81,7 +82,8 @@ Phaser.Component.LoadTexture.prototype = {
             this.setTexture(key.texture);
             this.setFrame(key.texture.frame.clone());
             key.onChangeSource.add(this.resizeFrame, this);
-            this.texture.valid = valid;
+            // PJBNOTE: pbSurface doesn't have a 'valid' boolean, is it needed?
+            //this.texture.valid = valid;
         }
         // PJBNOTE: new renderer texture check
         // else if (key instanceof PIXI.Texture)
@@ -94,15 +96,18 @@ Phaser.Component.LoadTexture.prototype = {
 
             this.key = img.key;
             // PJBNOTE: new renderer texture required
-            //this.setTexture(new PIXI.Texture(img.base));
+            // this.setTexture(new PIXI.Texture(img.base));
+            // PJBNOTE: experiment, let's use pbSurface to replace PIXI.Texture
+            this.texture = img.base;
 
             setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }
         
-        if (setFrame)
-        {
-            this._frame = Phaser.Rectangle.clone(this.texture.frame);
-        }
+        // PJBNOTE: can't see the need for a local cache of the texture boundary
+        // if (setFrame)
+        // {
+        //     this._frame = Phaser.Rectangle.clone(this.texture.frame);
+        // }
 
         // PJBNOTE: smoothing not supported in the new renderer yet
         // if (!smoothed)
@@ -122,55 +127,59 @@ Phaser.Component.LoadTexture.prototype = {
     */
     setFrame: function (frame) {
 
-        this._frame = frame;
+        // this._frame = frame;
 
-        this.texture.frame.x = frame.x;
-        this.texture.frame.y = frame.y;
-        this.texture.frame.width = frame.width;
-        this.texture.frame.height = frame.height;
+        // PJBNOTE: pbSurface.create variants should already have set all it's internals
+        // this.texture.frame.x = frame.x;
+        // this.texture.frame.y = frame.y;
+        // this.texture.frame.width = frame.width;
+        // this.texture.frame.height = frame.height;
 
-        this.texture.crop.x = frame.x;
-        this.texture.crop.y = frame.y;
-        this.texture.crop.width = frame.width;
-        this.texture.crop.height = frame.height;
+        // this.texture.crop.x = frame.x;
+        // this.texture.crop.y = frame.y;
+        // this.texture.crop.width = frame.width;
+        // this.texture.crop.height = frame.height;
 
-        if (frame.trimmed)
-        {
-            if (this.texture.trim)
-            {
-                this.texture.trim.x = frame.spriteSourceSizeX;
-                this.texture.trim.y = frame.spriteSourceSizeY;
-                this.texture.trim.width = frame.sourceSizeW;
-                this.texture.trim.height = frame.sourceSizeH;
-            }
-            else
-            {
-                this.texture.trim = { x: frame.spriteSourceSizeX, y: frame.spriteSourceSizeY, width: frame.sourceSizeW, height: frame.sourceSizeH };
-            }
+        // PJBNOTE: TODO: pbSurface does not yet support 'trimmed'
+        // if (frame.trimmed)
+        // {
+        //     if (this.texture.trim)
+        //     {
+        //         this.texture.trim.x = frame.spriteSourceSizeX;
+        //         this.texture.trim.y = frame.spriteSourceSizeY;
+        //         this.texture.trim.width = frame.sourceSizeW;
+        //         this.texture.trim.height = frame.sourceSizeH;
+        //     }
+        //     else
+        //     {
+        //         this.texture.trim = { x: frame.spriteSourceSizeX, y: frame.spriteSourceSizeY, width: frame.sourceSizeW, height: frame.sourceSizeH };
+        //     }
 
-            this.texture.width = frame.sourceSizeW;
-            this.texture.height = frame.sourceSizeH;
-            this.texture.frame.width = frame.sourceSizeW;
-            this.texture.frame.height = frame.sourceSizeH;
-        }
-        else if (!frame.trimmed && this.texture.trim)
-        {
-            this.texture.trim = null;
-        }
+        //     this.texture.width = frame.sourceSizeW;
+        //     this.texture.height = frame.sourceSizeH;
+        //     this.texture.frame.width = frame.sourceSizeW;
+        //     this.texture.frame.height = frame.sourceSizeH;
+        // }
+        // else if (!frame.trimmed && this.texture.trim)
+        // {
+        //     this.texture.trim = null;
+        // }
 
         if (this.cropRect)
         {
             this.updateCrop();
         }
 
-        this.texture.requiresReTint = true;
+        // PJBNOTE: TODO: pbSurface does not yet support tint
+        // this.texture.requiresReTint = true;
         
-        this.texture._updateUvs();
+        // PJBNOTE: pbSurface should already have correct UV values
+        // this.texture._updateUvs();
 
-        if (this.tilingTexture)
-        {
-            this.refreshTexture = true;
-        }
+        // if (this.tilingTexture)
+        // {
+        //     this.refreshTexture = true;
+        // }
 
     },
 
@@ -185,26 +194,28 @@ Phaser.Component.LoadTexture.prototype = {
     * @param {integer} width - The new width of the texture.
     * @param {integer} height - The new height of the texture.
     */
-    resizeFrame: function (parent, width, height) {
+    // PJBNOTE: this is why a local cache of the texture boundary was required... look for a better solution than modifying the texture's internals & restoring them later
+    // resizeFrame: function (parent, width, height) {
 
-        this.texture.frame.resize(width, height);
-        this.texture.setFrame(this.texture.frame);
+    //     this.texture.frame.resize(width, height);
+    //     this.texture.setFrame(this.texture.frame);
 
-    },
+    // },
 
     /**
     * Resets the texture frame dimensions that the Game Object uses for rendering.
     *
     * @method
     */
-    resetFrame: function () {
+    // PJBNOTE: can't see the need for a local cache of the texture boundary
+    // resetFrame: function () {
 
-        if (this._frame)
-        {
-            this.setFrame(this._frame);
-        }
+        // if (this._frame)
+        // {
+        //     this.setFrame(this._frame);
+        // }
 
-    },
+    // },
 
     /**
     * Gets or sets the current frame index of the texture being used to render this Game Object.

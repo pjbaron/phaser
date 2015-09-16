@@ -2,6 +2,9 @@
 * @author       Richard Davey <rich@photonstorm.com>
 * @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
+*
+* PJBNOTE: this looks like it'll need significant changes to fit with the new renderer, I'll try to maintain the external interface as much as possible though
+* 
 */
 
 /**
