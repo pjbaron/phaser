@@ -223,16 +223,15 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
 
 
 /**
- * createAtlas - create a surface and specify the cell positions using a JSON data structure
+ * createAtlas - create a surface and specify the cell positions using texture atlas data
  * I have tested this with the dragon_atlas.json file used in Phaser demos previously, which was
  * created with TexturePacker.
  *
- * @param  {[type]} _JSON               [description]
+ * @param  {[type]} data               [description]
  * @param  {[type]} _imageData          [description]
  */
-pbSurface.prototype.createAtlas = function(_JSON, _imageData)
+pbSurface.prototype.createAtlas = function(data, _imageData)
 {
-	var data = JSON.parse(_JSON);
 	var w = data.meta.size.w;
 	var h = data.meta.size.h;
 	this.isNPOT = !(this.isPowerOfTwo(w) && this.isPowerOfTwo(h));
@@ -263,6 +262,21 @@ pbSurface.prototype.createAtlas = function(_JSON, _imageData)
 			this.cellOffsets[i] = { x: f.spriteSourceSize.x, y: f.spriteSourceSize.y };
 		}
 	}
+};
+
+
+/**
+ * createAtlasFromJSON - create a surface and specify the cell positions using a JSON data structure
+ * I have tested this with the dragon_atlas.json file used in Phaser demos previously, which was
+ * created with TexturePacker.
+ *
+ * @param  {[type]} _JSON               [description]
+ * @param  {[type]} _imageData          [description]
+ */
+pbSurface.prototype.createAtlasFromJSON = function(_JSON, _imageData)
+{
+	var data = JSON.parse(_JSON);
+	this.createAtlas(data, _imageData);
 };
 
 
