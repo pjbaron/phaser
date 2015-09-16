@@ -96,10 +96,11 @@ Phaser.Physics.Arcade.Body = function (sprite) {
     */
     this.sourceHeight = sprite.height;
 
-    if (sprite.texture)
+    // set sourceWidth and height for the currently selected animation cell if there is a list
+    if (sprite.surface && sprite.surface.cellSourceSize)
     {
-        this.sourceWidth = sprite.texture.frame.width;
-        this.sourceHeight = sprite.texture.frame.height;
+        this.sourceWidth = sprite.texture.cellSourceSize[sprite.image.cellFrame].wide;
+        this.sourceHeight = sprite.texture.cellSourceSize[sprite.image.cellFrame].high;
     }
 
     /**
