@@ -170,6 +170,8 @@ Phaser.Component.LoadTexture.prototype = {
             this.updateCrop();
         }
 
+        this.image.cellFrame = frame.index;
+
         // PJBNOTE: TODO: pbSurface does not yet support tint
         // this.texture.requiresReTint = true;
         

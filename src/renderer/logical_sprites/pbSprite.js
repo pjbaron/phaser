@@ -35,8 +35,8 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	else
 	{
 		this.surface = new pbSurface();
+		this.surface.createGrid(0, 0, 1, 1, textureObject.data);
 	}
-	this.surface.createGrid(0, 0, 1, 1, textureObject.data);
 	//textureObject = textures.getFirst(_key);
 	
 	// create an image holder and attach the surface

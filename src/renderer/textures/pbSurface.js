@@ -170,7 +170,7 @@ pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _ima
 	this.rttTextureRegister = _rttTextureRegister;
 	this.imageData = _imageData;
 	
-	console.log("pbSurface.create " + srcWide +  "x" + srcHigh + " " + this.cellsWide + "x" + this.cellsHigh + " isNPOT = " + (this.isNPOT ? "true" : "false"));
+	console.log("pbSurface.createGrid " + srcWide +  "x" + srcHigh + " " + this.cellsWide + "x" + this.cellsHigh + " isNPOT = " + (this.isNPOT ? "true" : "false"));
 
 	// dimensions of one cell in texture coordinates (0 = left/top, 1 = right/bottom)
 	var texWide, texHigh;
