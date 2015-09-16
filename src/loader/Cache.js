@@ -236,7 +236,7 @@ Phaser.Cache.prototype = {
     * @method Phaser.Cache#addImage
     * @param {string} key - The key that this asset will be stored in the cache under. This should be unique within this cache.
     * @param {string} url - The URL the asset was loaded from. If the asset was not loaded externally set to `null`.
-    * @param {object} data - Extra image data.
+    * @param {ImageData} data - Extra image data.
     * @return {object} The full image object that was added to the cache.
     */
     addImage: function (key, url, data) {
@@ -246,9 +246,10 @@ Phaser.Cache.prototype = {
             this.removeImage(key);
         }
 
+        // create a surface to hold the ImageData
         var base = new pbSurface();
-        // PJBNOTE: TODO: what size is the Image texture?
-//        base.create(frameWidth, frameHeight);
+        base.createSingle(data);
+
         // PJBNOTE: TODO: look at PIXI source and find out what the extra 'data' object can contain, for now I'll just stick it in here so it isn't lost!
         base.data = data;
 
