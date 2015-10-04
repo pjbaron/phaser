@@ -121,7 +121,8 @@ Phaser.Text = function (game, x, y, text, style) {
      * @property {number} _res - Internal canvas resolution var.
      * @private
      */
-    this._res = game.renderer.resolution;
+    // PJBNOTE: TODO: 'resolution' is not supported by the new renderer yet
+    //this._res = game.renderer.resolution;
 
     /**
     * @property {string} _text - Internal cache var.
@@ -350,7 +351,8 @@ Phaser.Text.prototype.setStyle = function (style) {
 */
 Phaser.Text.prototype.updateText = function () {
 
-    this.texture.baseTexture.resolution = this._res;
+    // PJBNOTE: TODO: 'resolution' is not supported by the new renderer yet
+    // this.texture.imageData.resolution = this._res;
 
     this.context.font = this.style.font;
 
@@ -1108,8 +1110,9 @@ Phaser.Text.prototype.setTextBounds = function (x, y, width, height) {
  */
 Phaser.Text.prototype.updateTexture = function () {
 
-    var base = this.texture.baseTexture;
-    var crop = this.texture.crop;
+    var base = this.texture.imageData;
+    // PJBNOTE: TODO: pbSurface doesn't support crop yet
+    // var crop = this.texture.crop;
     var frame = this.texture.frame;
 
     var w = this.canvas.width;
@@ -1118,11 +1121,13 @@ Phaser.Text.prototype.updateTexture = function () {
     base.width = w;
     base.height = h;
 
-    crop.width = w;
-    crop.height = h;
+    // PJBNOTE: TODO: pbSurface doesn't support crop yet
+    // crop.width = w;
+    // crop.height = h;
 
-    frame.width = w;
-    frame.height = h;
+    // PJBNOTE: new renderer is not using Frame class currently, the frame is simply stored in pbBaseImage.cellFrame as an integer
+    // frame.width = w;
+    // frame.height = h;
 
     this.texture.width = w;
     this.texture.height = h;
@@ -1161,9 +1166,11 @@ Phaser.Text.prototype.updateTexture = function () {
     //  Can't render something with a zero sized dimension
     this.renderable = (w !== 0 && h !== 0);
 
-    this.texture.requiresReTint = true;
+    // PJBNOTE: TODO: new renderer doesn't support tint yet
+    // this.texture.requiresReTint = true;
 
-    this.texture.baseTexture.dirty();
+    // PJBNOTE: may not be required for new renderer, it redraws everything
+    // this.texture.baseTexture.dirty();
 
 };
 
@@ -1602,16 +1609,19 @@ Object.defineProperty(Phaser.Text.prototype, 'align', {
 Object.defineProperty(Phaser.Text.prototype, 'resolution', {
 
     get: function() {
-        return this._res;
+        // PJBNOTE: TODO: 'resolution' is not supported by the new renderer yet
+        // return this._res;
+        return 1;
     },
 
     set: function(value) {
 
-        if (value !== this._res)
-        {
-            this._res = value;
-            this.dirty = true;
-        }
+        // PJBNOTE: TODO: 'resolution' is not supported by the new renderer yet
+        // if (value !== this._res)
+        // {
+        //     this._res = value;
+        //     this.dirty = true;
+        // }
 
     }
 

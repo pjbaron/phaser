@@ -27,16 +27,30 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	this.layer = _layer || null;
 
 	// get the texture object from the textures dictionary using 'key'
-	var textureObject = game.cache.getImage(_key, true);
-	if (textureObject.base instanceof pbSurface)
+	if (_key instanceof String || typeof _key == "string")
 	{
-		this.surface = textureObject.base;
+		var textureObject = game.cache.getImage(_key, true);
+		if (textureObject.base instanceof pbSurface)
+		{
+			this.surface = textureObject.base;
+		}
+		else
+		{
+			this.surface = new pbSurface();
+			this.surface.createGrid(0, 0, 1, 1, textureObject.data);
+		}
 	}
 	else
 	{
+		// _key is a new canvas, create a surface the same size
+// TODO: need to wrap the canvas with a pbSurface so it's accessible to everything else... try adding the canvas contents to the Cache so that LoadTexture (from Core.init) can see it
+		var ctx = _key.getContext("2d");
+		var imageData = ctx.getImageData(0, 0, _key.width, _key.height);
+
 		this.surface = new pbSurface();
-		this.surface.createGrid(0, 0, 1, 1, textureObject.data);
+		this.surface.createSingle(imageData);
 	}
+
 	//textureObject = textures.getFirst(_key);
 	
 	// create an image holder and attach the surface
