@@ -90,6 +90,11 @@ Phaser.Component.LoadTexture.prototype = {
         // {
         //     this.setTexture(key);
         // }
+        else if (key instanceof HTMLCanvasElement)
+        {
+            // PJBNOTE: TODO: probably need to handle keys which are already 'canvas' objects
+            // PJBNOTE: so far however, this seems to happen with a new canvas and seems like unneccessary overhead (eg. Examples, Basic, Text)
+        }
         else
         {
             var img = cache.getImage(key, true);
