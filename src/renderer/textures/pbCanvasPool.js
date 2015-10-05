@@ -54,6 +54,19 @@ var pbCanvasPool = {
             canvas.width = width;
             canvas.height = height;
         }
+        else
+        {
+            // default canvas, put something on it so it's obvious...
+            var ctx = canvas.getContext("2d");
+            ctx.beginPath();
+            ctx.strokeStyle = "#ff0000";
+            ctx.lineWidth = 3;
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.moveTo(canvas.width, 0);
+            ctx.lineTo(0, canvas.height);
+            ctx.stroke();
+        }
 
         return canvas;
 
