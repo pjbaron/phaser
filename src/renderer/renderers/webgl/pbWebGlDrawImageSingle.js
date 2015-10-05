@@ -328,7 +328,7 @@ pbWebGl.prototype.drawImage = function( _textureNumber, _x, _y, _z, _surface, _c
 
 
 // pbCanvasToGlDemo and pbGlToCanvasDemo.  Uses imageShaderProgram to draw after transfering the canvas data to gl.
-pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transform, _z )
+pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transform, _z, _anchor )
 {
 	this.shaders.setProgram(this.shaders.imageShaderProgram);
 
@@ -354,8 +354,17 @@ pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transfor
 	wide = _canvas.width;
 	high = _canvas.height;
 
-	var anchorX = 0.5;
-	var anchorY = 0.5;
+	var anchorX, anchorY;
+	if (_anchor)
+	{
+		anchorX = _anchor.x;
+		anchorY = _anchor.y;
+	}
+	else
+	{
+		anchorX = 0.5;
+		anchorY = 0.5;
+	}
 
 	// screen destination position
 	// l, b,		0,1
