@@ -39,6 +39,10 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 			this.surface = new pbSurface();
 			this.surface.createGrid(0, 0, 1, 1, textureObject.data);
 		}
+
+		// create an image holder and attach the surface
+		this.image = new imageClass();
+		this.image.create(this.surface);
 	}
 	else
 	{
@@ -49,13 +53,12 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 
 		this.surface = new pbSurface();
 		this.surface.createSingle(imageData);
-	}
 
-	//textureObject = textures.getFirst(_key);
-	
-	// create an image holder and attach the surface
-	this.image = new imageClass();
-	this.image.create(this.surface);
+		// create an image holder and attach the surface
+		this.image = new imageClass();
+		this.image.create(this.surface);
+		this.image.fromCanvas = _key;
+	}
 
 	// create a transform object for the image
 	this.transform.create(this.image, _x, _y);
@@ -149,6 +152,27 @@ pbSprite.prototype.destroy = function()
 	this.scale = null;
 	this.children = null;
 	this.contains = null;
+};
+
+
+pbSprite.prototype.resize = function( _key )
+{
+	if (_key instanceof HTMLCanvasElement)
+	{
+		if (this.width != _key.width || this.height != _key.height)
+		{
+			console.log("pbSprite.resize to " + _key.width + "x" + _key.height);
+
+			var ctx = _key.getContext("2d");
+			var imageData = ctx.getImageData(0, 0, _key.width, _key.height);
+
+			this.surface = new pbSurface();
+			this.surface.createSingle(imageData);
+
+			// update the surface reference held in the image too
+			this.image.surface = this.surface;
+		}
+	}
 };
 
 
