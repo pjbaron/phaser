@@ -80,7 +80,7 @@ Phaser.Text = function (game, x, y, text, style) {
     this.textBounds = null;
 
     /**
-     * @property {HTMLCanvasElement} canvas - The canvas element that the text is rendered.
+     * @property {HTMLCanvasElement} canvas - The canvas element to which the text is rendered.
      */
     this.canvas = pbCanvasPool.create(this);
 
@@ -122,7 +122,7 @@ Phaser.Text = function (game, x, y, text, style) {
      * @private
      */
     // PJBNOTE: TODO: 'resolution' is not supported by the new renderer yet
-    //this._res = game.renderer.resolution;
+    this._res = 1.0;    //game.renderer.resolution;
 
     /**
     * @property {string} _text - Internal cache var.
@@ -160,8 +160,6 @@ Phaser.Text = function (game, x, y, text, style) {
     */
     this._height = 0;
 
-// PJBNOTE: critical fix! Need replacement for PIXI.Texture.fromCanvas(this.canvas)
-//    Phaser.Sprite.call(this, game, x, y, PIXI.Texture.fromCanvas(this.canvas));
     Phaser.Sprite.call(this, game, x, y, this.canvas);
 
     this.setStyle(style);
@@ -183,6 +181,16 @@ Phaser.Text.prototype.constructor = Phaser.Text;
 * @protected
 */
 Phaser.Text.prototype.preUpdate = function () {
+
+    // update the text texture if this has been marked as dirty
+    if (this.dirty)
+    {
+        if (this.text !== '')
+        {
+            this.updateText();
+        }
+        this.dirty = false;
+    }
 
     if (!this.preUpdatePhysics() || !this.preUpdateLifeSpan() || !this.preUpdateInWorld())
     {
@@ -344,7 +352,7 @@ Phaser.Text.prototype.setStyle = function (style) {
 };
 
 /**
-* Renders text. This replaces the Pixi.Text.updateText function as we need a few extra bits in here.
+* Renders text.
 *
 * @method Phaser.Text#updateText
 * @private
@@ -532,7 +540,6 @@ Phaser.Text.prototype.updateText = function () {
     }
 
     this.updateTexture();
-
 };
 
 /**
@@ -877,11 +884,6 @@ Phaser.Text.prototype.updateFont = function (components) {
     {
         this.style.font = font;
         this.dirty = true;
-
-        if (this.parent)
-        {
-            this.updateTransform();
-        }
     }
 
 };
@@ -975,10 +977,11 @@ Phaser.Text.prototype.componentsToFont = function (components) {
 Phaser.Text.prototype.setText = function (text) {
 
     this.text = text.toString() || '';
-    this.dirty = true;
+
+    // PJBNOTE: property 'text' will set this.dirty to true
+    //this.dirty = true;
 
     return this;
-
 };
 
 /**
@@ -1036,7 +1039,9 @@ Phaser.Text.prototype.parseList = function (list) {
     }
 
     this.text = s;
-    this.dirty = true;
+
+    // PJBNOTE: property 'text' will set this.dirty to true
+    //this.dirty = true;
 
     return this;
 
@@ -1110,16 +1115,19 @@ Phaser.Text.prototype.setTextBounds = function (x, y, width, height) {
  */
 Phaser.Text.prototype.updateTexture = function () {
 
-    var base = this.texture.imageData;
+    //var base = this.texture.imageData;
+    var base = this.surface.imageData;
     // PJBNOTE: TODO: pbSurface doesn't support crop yet
     // var crop = this.texture.crop;
-    var frame = this.texture.frame;
+    // var frame = this.texture.frame;
 
     var w = this.canvas.width;
     var h = this.canvas.height;
 
-    base.width = w;
-    base.height = h;
+    // PJBNOTE: can't adjust an ImageData size by changing the width and height, need to recreate it
+    // base.width = w;
+    // base.height = h;
+    this.resize( this.canvas );
 
     // PJBNOTE: TODO: pbSurface doesn't support crop yet
     // crop.width = w;
@@ -1129,8 +1137,8 @@ Phaser.Text.prototype.updateTexture = function () {
     // frame.width = w;
     // frame.height = h;
 
-    this.texture.width = w;
-    this.texture.height = h;
+    // this.texture.width = w;
+    // this.texture.height = h;
 
     this._width = w;
     this._height = h;
@@ -1171,48 +1179,10 @@ Phaser.Text.prototype.updateTexture = function () {
 
     // PJBNOTE: may not be required for new renderer, it redraws everything
     // this.texture.baseTexture.dirty();
+    this.surface.dirty();
 
 };
 
-/**
-* Renders the object using the WebGL renderer
-*
-* @method Phaser.Text#_renderWebGL
-* @private
-* @param {RenderSession} renderSession - The Render Session to render the Text on.
-*/
-Phaser.Text.prototype._renderWebGL = function (renderSession) {
-
-    if (this.dirty)
-    {
-        this.updateText();
-        this.dirty = false;
-    }
-
-// PJBNOTE: does the new renderer need support functions like this?
-    //PIXI.Sprite.prototype._renderWebGL.call(this, renderSession);
-
-};
-
-/**
-* Renders the object using the Canvas renderer.
-*
-* @method Phaser.Text#_renderCanvas
-* @private
-* @param {RenderSession} renderSession - The Render Session to render the Text on.
-*/
-Phaser.Text.prototype._renderCanvas = function (renderSession) {
-
-    if (this.dirty)
-    {
-        this.updateText();
-        this.dirty = false;
-    }
-     
-// PJBNOTE: does the new renderer need support functions like this?
-    //PIXI.Sprite.prototype._renderCanvas.call(this, renderSession);
-
-};
 
 /**
 * Calculates the ascent, descent and fontSize of a given font style.
@@ -1346,7 +1316,6 @@ Phaser.Text.prototype.getBounds = function (matrix) {
     if (this.dirty)
     {
         this.updateText();
-        this.dirty = false;
     }
 
 // PJBNOTE:
@@ -1375,12 +1344,6 @@ Object.defineProperty(Phaser.Text.prototype, 'text', {
         {
             this._text = value.toString() || ' ';
             this.dirty = true;
-
-            // PJBNOTE: I don't think this is required with the new renderer, transforms should be automatically updated
-            // if (this.parent)
-            // {
-            //     this.updateTransform();
-            // }
         }
 
     }
