@@ -25,6 +25,7 @@ function pbWebGlImage()
 	this.isModeZ = false;
 	this.toTexture = -1;		// -1 = false, or texture number (offset from gl.TEXTURE0)
 	this.onGPU = null;			// gpu texture (as created by pbWebGlTextures.initTexture)
+	this.fromCanvas = null;		// draw the texture directly from this canvas
 }
 
 

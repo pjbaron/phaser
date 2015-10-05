@@ -107,6 +107,10 @@ pbBaseLayer.prototype.draw = function(_list)
 			// TODO: fix hard-wired width,height
 			pbPhaserRender.renderer.graphics.drawImageToTextureWithTransform( 0, obj.image.toTexture, 256, 256, obj.image, obj.transform, obj.z_order );
 		}
+		else if (obj.image.fromCanvas)
+		{
+			pbPhaserRender.renderer.graphics.drawCanvasWithTransform( obj.image.fromCanvas, true, obj.transform, obj.z_order, obj.image.anchor );
+		}
 		else
 		{
 			// NOTE: use of TEXTURE0 is hard-wired for general sprite drawing
