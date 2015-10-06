@@ -296,7 +296,10 @@ Phaser.Group.prototype.add = function (child, silent) {
     {
         this.addChild(child);
 
-        child.z = this.children.length;
+        // PJBNOTE: z is used by webgl and needs to be floating point 0..1 (maximum)
+        // PJBNOTE: CRITICAL FIX: TODO: horrible hack to give temporary z values for webgl new renderer... work out a better system!
+        child.z = this.children.length / 100000.0;
+        //child.z = this.children.length;
 
         if (this.enableBody && child.body === null)
         {

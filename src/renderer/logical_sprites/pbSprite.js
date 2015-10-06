@@ -159,18 +159,29 @@ pbSprite.prototype.resize = function( _key )
 {
 	if (_key instanceof HTMLCanvasElement)
 	{
-		if (this.width != _key.width || this.height != _key.height)
+		if (this.transform.width != _key.width || this.transform.height != _key.height)
 		{
+			// bullet-proofing, getImageData will crash if presented with a zero dimension
+			if (_key.width === 0) _key.width = 1;
+			if (_key.height === 0) _key.height = 1;
+
+			// debug only
 			console.log("pbSprite.resize to " + _key.width + "x" + _key.height);
 
+			// get the image data from the canvas
 			var ctx = _key.getContext("2d");
 			var imageData = ctx.getImageData(0, 0, _key.width, _key.height);
 
+			// create a new pbSurface using the new imageData
 			this.surface = new pbSurface();
 			this.surface.createSingle(imageData);
 
-			// update the surface reference held in the image too
-			this.image.surface = this.surface;
+			// update the canvas reference held in the image
+			this.image.fromCanvas = _key;
+
+			// make sure the transform object has the correct dimensions for the new surface
+			this.transform.width = this.image.surface.cellSourceSize[this.image.cellFrame].wide;
+			this.transform.height = this.image.surface.cellSourceSize[this.image.cellFrame].high;
 		}
 	}
 };
