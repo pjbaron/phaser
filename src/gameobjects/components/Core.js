@@ -130,9 +130,12 @@ Phaser.Component.Core.preUpdate = function () {
         this.body.preUpdate();
     }
 
-    for (var i = 0; i < this.children.length; i++)
+    if (this.children)
     {
-        this.children[i].preUpdate();
+        for (var i = 0; i < this.children.length; i++)
+        {
+            this.children[i].preUpdate();
+        }
     }
 
     return true;
@@ -346,9 +349,12 @@ Phaser.Component.Core.prototype = {
             Phaser.Component.FixedToCamera.postUpdate.call(this);
         }
 
-        for (var i = 0; i < this.children.length; i++)
+        if (this.children)
         {
-            this.children[i].postUpdate();
+            for (var i = 0; i < this.children.length; i++)
+            {
+                this.children[i].postUpdate();
+            }
         }
 
     }
