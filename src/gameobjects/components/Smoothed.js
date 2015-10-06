@@ -26,7 +26,9 @@ Phaser.Component.Smoothed.prototype = {
 
         get: function () {
 
-            return !this.texture.baseTexture.scaleMode;
+            // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+            return 0;
+            //return !this.texture.baseTexture.scaleMode;
 
         },
 
@@ -36,14 +38,16 @@ Phaser.Component.Smoothed.prototype = {
             {
                 if (this.texture)
                 {
-                    this.texture.baseTexture.scaleMode = 0;
+                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+                    // this.texture.baseTexture.scaleMode = 0;
                 }
             }
             else
             {
                 if (this.texture)
                 {
-                    this.texture.baseTexture.scaleMode = 1;
+                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+                    // this.texture.baseTexture.scaleMode = 1;
                 }
             }
         }
