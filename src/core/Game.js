@@ -574,7 +574,7 @@ Phaser.Game.prototype = {
         }
         else
         {
-            this.debug = { preUpdate: function () {}, update: function () {}, reset: function () {}, inputInfo: function () {}, body: function() {} };
+            this.debug = { preUpdate: function () {}, update: function () {}, reset: function () {}, inputInfo: function () {}, body: function() {}, text: function(_msg) { console.log("debug.text:" + _msg); } };
         }
 
         this.showDebugHeader();
