@@ -66,9 +66,7 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     // call super constructor
     pbSprite.call(this);
 
-    // pbSprite.create
-    this.createWithKey(game, x, y, key);
-
+    // Core.init calls pbSprite.createWithKey from LoadTexture.loadTexture
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
 };

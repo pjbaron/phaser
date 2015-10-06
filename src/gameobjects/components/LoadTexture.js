@@ -92,19 +92,16 @@ Phaser.Component.LoadTexture.prototype = {
         // }
         else if (key instanceof HTMLCanvasElement)
         {
-            // PJBNOTE: TODO: probably need to handle keys which are already 'canvas' objects
-            // PJBNOTE: so far however, this seems to happen with a new canvas and seems like unneccessary overhead (eg. Examples, Basic, Text)
+            // handle keys which are 'canvas' objects
+            this.createWithKey(game, this.x, this.y, this.key, this.layer);
         }
         else
         {
             var img = cache.getImage(key, true);
 
             this.key = img.key;
-            // PJBNOTE: new renderer texture required
-            // this.setTexture(new PIXI.Texture(img.base));
-            // PJBNOTE: experiment, let's use pbSurface to replace PIXI.Texture
+            // create new renderer texture
             this.createWithKey(game, this.x, this.y, this.key, this.layer);
-            //this.texture = img.base;
 
             setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }
