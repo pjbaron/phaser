@@ -66,14 +66,20 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
     if (addToStage)
     {
         this.game.world.addChild(this);
-        this.z = this.game.world.children.length;
+        // PJBNOTE: z is used by webgl and needs to be floating point 0..1 (maximum)
+        // PJBNOTE: CRITICAL FIX: TODO: horrible hack to give temporary z values for webgl new renderer... work out a better system!
+        this.z = this.game.world.children.length / 100000.0;
+        //this.z = this.game.world.children.length;
     }
     else
     {
         if (parent)
         {
             parent.addChild(this);
-            this.z = parent.children.length;
+            // PJBNOTE: z is used by webgl and needs to be floating point 0..1 (maximum)
+            // PJBNOTE: CRITICAL FIX: TODO: horrible hack to give temporary z values for webgl new renderer... work out a better system!
+            this.z = parent.children.length / 100000.0;
+            //this.z = parent.children.length;            
         }
     }
 
@@ -496,7 +502,11 @@ Phaser.Group.prototype.create = function (x, y, key, frame, exists) {
 
     this.addChild(child);
 
-    child.z = this.children.length;
+    // PJBNOTE: z is used by webgl and needs to be floating point 0..1 (maximum)
+    // PJBNOTE: CRITICAL FIX: TODO: horrible hack to give temporary z values for webgl new renderer... work out a better system!
+    child.z = this.children.length / 100000.0;
+    //child.z = this.children.length;
+    
 
     if (this.enableBody)
     {
@@ -556,7 +566,10 @@ Phaser.Group.prototype.updateZ = function () {
 
     while (i--)
     {
-        this.children[i].z = i;
+        // PJBNOTE: z is used by webgl and needs to be floating point 0..1 (maximum)
+        // PJBNOTE: CRITICAL FIX: TODO: horrible hack to give temporary z values for webgl new renderer... work out a better system!
+        this.children[i].z = i / 100000.0;
+        //this.children[i].z = i;
     }
 
 };
