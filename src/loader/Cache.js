@@ -566,8 +566,8 @@ Phaser.Cache.prototype = {
     * @param {string} key - The key that this asset will be stored in the cache under. This should be unique within this cache.
     * @param {string} url - The URL the asset was loaded from. If the asset was not loaded externally set to `null`.
     * @param {object} data - Extra sprite sheet data.
-    * @param {number} frameWidth - Width of the sprite sheet.
-    * @param {number} frameHeight - Height of the sprite sheet.
+    * @param {number} frameWidth - Width of the individual sprites.
+    * @param {number} frameHeight - Height of the individual sprites.
     * @param {number} [frameMax=-1] - How many frames stored in the sprite sheet. If -1 then it divides the whole sheet evenly.
     * @param {number} [margin=0] - If the frames have been drawn with a margin, specify the amount here.
     * @param {number} [spacing=0] - If the frames have been drawn with spacing between them, specify the amount here.
@@ -579,8 +579,10 @@ Phaser.Cache.prototype = {
         if (spacing === undefined) { spacing = 0; }
 
         var base = new pbSurface();
-        base.create(frameWidth, frameHeight);
-        // PJBNOTE: TODO: look at PIXI source and find out what the extra 'data' object can contain, for now I'll just stick it in here so it isn't lost!
+        //pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _imageData, _rttTexture, _rttTextureRegister, _trimmedFrom, _offsets)
+        base.createGrid(frameWidth, frameHeight, Math.floor(data.width / frameWidth), Math.floor(data.height / frameHeight), data);
+
+        // PJBNOTE: TODO: data appears to be the actual img object, is this still needed here?
         base.data = data;
 
         var obj = {
