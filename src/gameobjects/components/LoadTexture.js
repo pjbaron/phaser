@@ -103,7 +103,8 @@ Phaser.Component.LoadTexture.prototype = {
             // PJBNOTE: new renderer texture required
             // this.setTexture(new PIXI.Texture(img.base));
             // PJBNOTE: experiment, let's use pbSurface to replace PIXI.Texture
-            this.texture = img.base;
+            this.createWithKey(game, this.x, this.y, this.key, this.layer);
+            //this.texture = img.base;
 
             setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }
