@@ -2215,16 +2215,14 @@ Phaser.Group.prototype.destroy = function (destroyChildren, soft) {
         this.game = null;
         this.exists = false;
     }
-
-    pbTransformObject.destroy( destroyChildren );
-
+    
 };
 
 
 Phaser.Group.prototype.update = function()
 {
     // PJBNOTE: redirect update calls from pbBaseLayer to the selected 'layerClass'
-    layerClass.prototype.update.call(this);
+    return layerClass.prototype.update.call(this);
 };
 
 
