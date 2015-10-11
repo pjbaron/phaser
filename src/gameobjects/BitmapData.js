@@ -1213,35 +1213,34 @@ Phaser.BitmapData.prototype = {
         if (source instanceof Phaser.Sprite || source instanceof Phaser.Image || source instanceof Phaser.Text)
         {
             //  Copy over sprite values
-            this._pos.set(source.texture.crop.x, source.texture.crop.y);
-            this._size.set(source.texture.crop.width, source.texture.crop.height);
+            this._pos.set(source.x, source.y);
+            this._size.set(source.width, source.height);
             this._scale.set(source.scale.x, source.scale.y);
             this._anchor.set(source.anchor.x, source.anchor.y);
-            this._rotate = source.rotation;
+            this._rotate = source.angleInRadians;
             this._alpha.current = source.alpha;
-            this._image = source.texture.baseTexture.source;
+            this._image = source.surface.imageData;   //texture.baseTexture.source;
 
             if (tx === undefined || tx === null) { tx = source.x; }
             if (ty === undefined || ty === null) { ty = source.y; }
 
-            if (source.texture.trim)
+            if (source.surface.trim)
             {
                 //  Offset the translation coordinates by the trim amount
                 tx += source.texture.trim.x - source.anchor.x * source.texture.trim.width;
                 ty += source.texture.trim.y - source.anchor.y * source.texture.trim.height;
             }
 
-            if (source.tint !== 0xFFFFFF)
-            {
-                if (source.cachedTint !== source.tint)
-                {
-                    source.cachedTint = source.tint;
 // PJBNOTE: new renderer does not yet support tinted canvas
-//                    source.tintedTexture = PIXI.CanvasTinter.getTintedTexture(source, source.tint);
-                }
-
-                this._image = source.tintedTexture;
-            }
+            // if (source.tint !== 0xFFFFFF)
+            // {
+            //     if (source.cachedTint !== source.tint)
+            //     {
+            //         source.cachedTint = source.tint;
+            //         source.tintedTexture = PIXI.CanvasTinter.getTintedTexture(source, source.tint);
+            //     }
+            //     this._image = source.tintedTexture;
+            // }
         }
         else
         {
@@ -1804,7 +1803,8 @@ Phaser.BitmapData.prototype = {
 
         if (!this.disableTextureUpload && this.dirty)
         {
-            this.baseTexture.dirty();
+            //this.baseTexture.dirty();
+            this.texture.dirty();
             this.dirty = false;
         }
 

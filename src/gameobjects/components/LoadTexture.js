@@ -66,7 +66,10 @@ Phaser.Component.LoadTexture.prototype = {
         {
             this.customRender = true;
 
-            this.setTexture(key.texture);
+//          this.setTexture(key.texture);
+            // create new renderer texture
+            this.createWithKey(this.game, this.x, this.y, this.key, this.layer);
+
 
             if (cache.hasFrameData(key.key, Phaser.Cache.BITMAPDATA))
             {

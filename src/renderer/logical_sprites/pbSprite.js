@@ -44,6 +44,19 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 		this.image = new imageClass();
 		this.image.create(this.surface);
 	}
+	else if (_key instanceof Phaser.BitmapData)
+	{
+		var ctx = _key.context;
+		var imageData = ctx.getImageData(0, 0, _key.width, _key.height);
+
+		this.surface = new pbSurface();
+		this.surface.createSingle(imageData);
+
+		// create an image holder and attach the surface
+		this.image = new imageClass();
+		this.image.create(this.surface);
+		this.image.fromCanvas = _key.canvas;
+	}
 	else
 	{
 		// _key is a new canvas, create a surface the same size
