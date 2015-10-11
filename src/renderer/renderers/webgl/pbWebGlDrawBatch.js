@@ -16,9 +16,9 @@
 // requires _list to be alternately x and y coordinate values
 pbWebGl.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface, _textureNumber )
 {
-	this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	var prepFlag =this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -98,9 +98,9 @@ pbWebGl.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface,
 // infers width and height for all by using the first cell of the surface (they must all be the same sizes)
 pbWebGl.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surface, _textureNumber )
 {
-	this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	var prepFlag = this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -192,9 +192,9 @@ pbWebGl.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surf
 // _list contains objects with an .x and .y property
 pbWebGl.prototype.blitListDirect = function( _list, _listLength, _surface, _textureNumber )
 {
-	this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT, _textureNumber ))
+	var prepFlag = this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT, _textureNumber );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -273,9 +273,9 @@ pbWebGl.prototype.blitListDirect = function( _list, _listLength, _surface, _text
 // TODO: don't need u,v stream if it's always 0 & 1 values??
 pbWebGl.prototype.blitDrawImages = function( _textureNumber, _list, _surface )
 {
-	this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	var prepFlag = this.shaders.setProgram(this.shaders.blitShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -356,9 +356,10 @@ pbWebGl.prototype.blitDrawImages = function( _textureNumber, _list, _surface )
 // draws the whole of _surface at the point locations, extremely quickly
 pbWebGl.prototype.blitDrawImagesPoint = function( _list, _listLength, _surface, _textureNumber )
 {
-	this.shaders.setProgram(this.shaders.blitShaderPointProgram, _textureNumber);
+	var prepFlag = this.shaders.setProgram(this.shaders.blitShaderPointProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
 
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -394,9 +395,9 @@ pbWebGl.prototype.blitDrawImagesPoint = function( _list, _listLength, _surface, 
 // _list contains x,y,u,v values, repeated for each point sprite
 pbWebGl.prototype.blitDrawImagesPointAnim = function(_list, _listLength, _surface, _textureNumber )
 {
-	this.shaders.setProgram(this.shaders.blitShaderPointAnimProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	var prepFlag = this.shaders.setProgram(this.shaders.blitShaderPointAnimProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -439,9 +440,9 @@ pbWebGl.prototype.blitDrawImagesPointAnim = function(_list, _listLength, _surfac
 // unused.  Sends tx,ty,sin,cos,sx,sy and u,v to gl.
 pbWebGl.prototype.batchDrawImages = function( _textureNumber, _list, _surface )
 {
-	this.shaders.setProgram(this.shaders.batchImageShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( _surface.imageData, null, _surface.isNPOT ))
+	var prepFlag = this.shaders.setProgram(this.shaders.batchImageShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( _surface.imageData, null, _surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -576,13 +577,9 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 {
 	var surface = _list[0].image.surface;
 
-	if (this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, _textureNumber))
-	{
-		this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT );
-		this.prepareBuffer();
-		this.shaders.prepare(_textureNumber);
-	}
-	else if (this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT ))
+	var prepFlag = this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, _textureNumber);
+	prepFlag |= this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT );
+	if (prepFlag)
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
@@ -727,9 +724,9 @@ pbWebGl.prototype.rawBatchDrawTextures = function( _list )
 	var srcTexture = surface.rttTexture;
 	var srcTextureRegister = surface.rttTextureRegister;
 
-	this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, srcTextureRegister);
+	var prepFlag = this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, srcTextureRegister);
 
-	if (!this.positionBuffer)
+	if (!this.positionBuffer || prepFlag)
 		this.prepareBuffer();
 
 	this.textures.prepareOnGPU( srcTexture, _list[0].image.tiling, _list[0].image.isNPOT, srcTextureRegister );
