@@ -96,8 +96,8 @@ pbWebGlTextures.prototype.prepareOnGPU = function(_texture, _tiling, _npot, _tex
  */
 pbWebGlTextures.prototype.prepare = function( _imageData, _tiling, _npot, _textureNumber, _flipy )
 {
-	// exit immediately if this _imageData is already the selected texture
-	if (this.currentSrcTexture && this.currentSrcTexture.imageData === _imageData && !this.currentSrcTexture.imageData.isDirty)
+	// exit immediately if this _imageData is already the selected texture, unless it is marked dirty
+	if (!_imageData.isDirty && this.currentSrcTexture && this.currentSrcTexture.imageData === _imageData)
 	{
 		return false;
 	}

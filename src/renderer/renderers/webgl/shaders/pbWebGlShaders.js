@@ -622,10 +622,11 @@ pbWebGlShaders.prototype.createProgram = function( _source )
 
 
 /**
- * [setProgram description]
+ * set the shader program according to _programIndex, and enable its attributes and sampler uniform
  *
- * @param {[type]} _programIndex  [description]
- * @param {[type]} _textureNumber - the texture number offset from TEXTURE0 which will be set into this shader's samplerUniform as its data source
+ * @param { integer } _programIndex - the index of the desired program in the internal programList
+ * @param { integer } _textureNumber - the texture number offset from TEXTURE0 which will be set into this shader's samplerUniform as its data source
+ * @return { Boolean } true if the program has been changed, false if the program was already set
  */
 pbWebGlShaders.prototype.setProgram = function(_programIndex, _textureNumber)
 {
@@ -649,10 +650,10 @@ pbWebGlShaders.prototype.setProgram = function(_programIndex, _textureNumber)
 		if (program.samplerUniforms && program.samplerUniforms.uImageSampler)
 			gl.uniform1i( program.samplerUniforms.uImageSampler, _textureNumber );
 
-		return program;
+		return true;
 	}
 
-	return this.programList[ pbWebGlShaders.currentProgram ];
+	return false;
 };
 
 

@@ -576,9 +576,13 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 {
 	var surface = _list[0].image.surface;
 
-	this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, _textureNumber);
-
-	if (this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT ))
+	if (this.shaders.setProgram(this.shaders.rawBatchImageShaderProgram, _textureNumber))
+	{
+		this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT );
+		this.prepareBuffer();
+		this.shaders.prepare(_textureNumber);
+	}
+	else if (this.textures.prepare( surface.imageData, _list[0].image.tiling, surface.isNPOT ))
 	{
 		this.prepareBuffer();
 		this.shaders.prepare(_textureNumber);
