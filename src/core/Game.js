@@ -195,7 +195,7 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     /**
     * @property {Phaser.Stage} stage - Reference to the stage.
     */
-    //this.stage = null;
+    this.stage = null;
 
     /**
     * @property {Phaser.Time} time - Reference to the core game clock.
@@ -539,8 +539,7 @@ Phaser.Game.prototype = {
         this.math = Phaser.Math;
 
         this.scale = new Phaser.ScaleManager(this, this._width, this._height);
-//        this.stage = pbPhaserRender.rootLayer;
-//        this.stage = new Phaser.Stage(this);
+        this.stage = new Phaser.Stage(this);
 
         this.setUpRenderer();
 
