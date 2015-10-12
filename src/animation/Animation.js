@@ -456,8 +456,10 @@ Phaser.Animation.prototype = {
             return false;
         }
             
-        //  Previous index
-        var idx = this.currentFrame.index;
+        //  Previous index if the currentFrame exists
+        var idx = -1;
+        if (this.currentFrame)
+            idx = this.currentFrame.index;
 
         this.currentFrame = this._frameData.getFrame(this._frames[this._frameIndex]);
 
