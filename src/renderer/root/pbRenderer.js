@@ -108,7 +108,7 @@ pbRenderer.prototype.tryRenderer = function(_which)
 			pbPhaserRender.useRenderer = 'webgl';
 			layerClass = pbWebGlLayer;
 			imageClass = pbWebGlImage;
-			pbMatrix3.rotationDirection = 1;
+			pbMatrix3.rotationDirection = -1;
 			return true;
 		}
 		this.graphics.destroy();

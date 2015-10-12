@@ -264,6 +264,17 @@ Object.defineProperties(pbSprite.prototype, {
 		}
 	},
 
+	rotation: {
+		// backwards compatibility with Phaser.Sprite/Image/etc
+		// PJBNOTE: TODO: might be worth renaming angleInRadians to rotation throughout the whole renderer... beware of conflicts though!
+		get: function () {
+			return this.transform.angleInRadians;
+		},
+		set: function (value) {
+			this.transform.angleInRadians = value;
+		}
+	},
+
 	fullScreen: {
 		get: function() {
 			return this.image.fullScreen;
