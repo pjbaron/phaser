@@ -106,7 +106,7 @@ Phaser.Utils.Debug.prototype = {
         {
             this.bmd = this.game.make.bitmapData(this.game.width, this.game.height);
             this.sprite = this.game.make.image(0, 0, this.bmd);
-            this.game.stage.addChild(this.sprite);
+            this.game.world.addChild(this.sprite);
 
             this.canvas = pbCanvasPool.create(this, this.game.width, this.game.height);
             this.context = this.canvas.getContext('2d');
