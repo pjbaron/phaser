@@ -38,15 +38,17 @@ Phaser.Component.AutoCull.prototype = {
 
         get: function() {
 
-            if (!this.autoCull && !this.checkWorldBounds)
-            {
-                this._bounds.copyFrom(this.getBounds());
-                this._bounds.x += this.game.camera.view.x;
-                this._bounds.y += this.game.camera.view.y;
-            }
+            // if (!this.autoCull && !this.checkWorldBounds)
+            // {
+            //     this._bounds.copyFrom(this.getBounds());
+            //     this._bounds.x += this.game.camera.view.x;
+            //     this._bounds.y += this.game.camera.view.y;
+            // }
 
-            return this.game.world.camera.view.intersects(this._bounds);
+            // return this.game.world.camera.view.intersects(this._bounds);
 
+// PJBNOTE: deprecated this whole check, it's only ever used by Phaser.Debug for the spriteInfo visible debug text string (pbSprite doesn't have a getBounds at present: 10th Oct 2015)
+            return true;
         }
 
     }
