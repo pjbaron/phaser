@@ -390,8 +390,7 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     }
     else
     {
-// PJBNOTE: temporarily disabled during merge with new renderer... TODO: reactivate when 'key' supports Phaser.BitmapData again
-        this.config = { enableDebug: false };
+        this.config = { enableDebug: true };
 
         if (typeof width !== 'undefined')
         {
