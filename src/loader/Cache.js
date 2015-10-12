@@ -616,7 +616,15 @@ Phaser.Cache.prototype = {
     addTextureAtlas: function (key, url, data, atlasData, format) {
 
         var base = new pbSurface();
-        base.createAtlas(atlasData, data);
+        if (format == Phaser.Loader.TEXTURE_ATLAS_XML_STARLING)
+        {
+            base.createStarlingAtlas(atlasData, data);
+        }
+        else
+        {
+            base.createAtlas(atlasData, data);
+        }
+
 
         var obj = {
             key: key,

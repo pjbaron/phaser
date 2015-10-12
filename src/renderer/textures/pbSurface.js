@@ -266,6 +266,61 @@ pbSurface.prototype.createAtlas = function(data, _imageData)
 
 
 /**
+ * createStarlingAtlas - create a surface using Starling style atlas data, and specify the cell positions
+ * this function was created to work with (for e.g.) examples/assets/sprites/seacreatures.xml
+ *
+ * @param  {[type]} data               [description]
+ * @param  {[type]} _imageData          [description]
+ */
+pbSurface.prototype.createStarlingAtlas = function(data, _imageData)
+{
+	var d = data.documentElement;
+	var w = _imageData.width;
+	var h = _imageData.height;
+	this.isNPOT = !(this.isPowerOfTwo(w) && this.isPowerOfTwo(h));
+
+	console.log("pbSurface.createAtlas " + w + "x" + h + " frames = " + d.childElementCount + " isNPOT = " + (this.isNPOT ? "true" : "false"));
+
+	this.cells = d.childElementCount;
+	this.imageData = _imageData;
+	this.cellTextureBounds = [];
+	this.srcSize = [];
+	this.cellSourceSize = [];
+	this.cellOffsets = [];
+	for(var i = 0, l = this.cells; i < l; i++)
+	{
+		var f = d.children[i].attributes;
+
+		var xi = parseInt(f.x.value, 10);
+		var yi = parseInt(f.y.value, 10);
+		var wi = parseInt(f.width.value, 10);
+		var hi = parseInt(f.height.value, 10);
+
+		// if frameX etc exist, then the image has been trimmed from this original size
+		var fx = parseInt(f.frameX ? f.frameX.value : "0", 10);
+		var fy = parseInt(f.frameY ? f.frameY.value : "0", 10);
+		var fw = parseInt(f.frameWidth ?  f.frameWidth.value : f.width.value, 10);
+		var fh = parseInt(f.frameHeight ? f.frameHeight.value : f.height.value, 10);
+
+		// the size of an untrimmed cell of the animation
+		this.srcSize[i] = { wide: fw, high: fh };
+		// the size of a trimmed cell of the animation (size to draw)
+		this.cellSourceSize[i] = { wide: wi, high: hi };
+		// the percentage of the source texture occupied by each animation cell
+		this.cellTextureBounds[i] = new pbRectangle(xi / w, yi / h, wi / w, hi / h);
+		if (f.frameX || f.frameY)
+		{
+			this.cellOffsets[i] = { x: -fx, y: -fy };
+		}
+		else
+		{
+			this.cellOffsets[i] = { x: 0, y: 0 };
+		}
+	}
+};
+
+
+/**
  * createAtlasFromJSON - create a surface and specify the cell positions using a JSON data structure
  * I have tested this with the dragon_atlas.json file used in Phaser demos previously, which was
  * created with TexturePacker.
