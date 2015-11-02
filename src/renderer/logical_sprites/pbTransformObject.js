@@ -171,7 +171,7 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 				this.removeChildAt(c);
 			}
 		}
-		else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite))
+		else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite) || (child instanceof Phaser.TileSprite))
 		{
 			// call all three component Core.update functions
 			child.preUpdate();
