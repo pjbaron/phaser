@@ -16,6 +16,7 @@ function pbSprite()
     this.scale = null;
     this.children = null;
     this.contains = null;
+    this._position = null;
 }
 
 
@@ -74,6 +75,7 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	}
 
 	// create a transform object for the image
+	this._position = new Phaser.Point(_x, _y);
 	this.transform.create(this.image, _x, _y);
 
 	// create references so that classes that extend pbSprite can access properties of my member objects
@@ -101,6 +103,7 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 	this.image.onGPU = _texture;
 
 	// create a transform object for the image
+	this._position = new Phaser.Point(_x, _y);
 	this.transform.create(this.image, _x, _y);
 
 	// create references so that classes that extend pbSprite can access properties of my member objects
@@ -153,7 +156,8 @@ pbSprite.prototype.destroy = function()
 		this.image.destroy();
 	}
 	this.image = null;
-	
+
+	this._position = null;
 	if (this.transform)
 	{
 		this.transform.destroy();
@@ -300,6 +304,19 @@ Object.defineProperties(pbSprite.prototype, {
 		set: function(value) {
 			this.image.cellFrame = value;
 		}
+	},
+
+	position: {
+		get: function() {
+			return this._position;
+		},
+
+		set: function(_pos) {
+			this._position.x = this.transform.x = _pos.x;
+			this._position.y = this.transform.y = _pos.y;
+			this.transform.updateTransform();
+		}
+
 	}
 });
 

@@ -69,7 +69,7 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 		this.height = this.image.surface.cellSourceSize[this.image.cellFrame].high;
 	}
 
-	this.transform = pbMatrix3.makeTransform(_x, _y, _angleInRadians, _scaleX, _scaleY);
+	this.transform = pbMatrix3.makeTransform(this.x, this.y, this.angleInRadians, this.scale.x, this.scale.y);
 };
 
 
@@ -290,6 +290,14 @@ pbTransformObject.prototype.removeChildAt = function(_index)
 	if (this.children.length <= _index) return;
 	this.children[_index].parent = null;
 	this.children.splice(_index, 1);
+};
+
+
+// update the matrix transform using the current parameter values
+// this function should be called after directly adjusting any of x,y,angleInRadians or scale
+pbTransformObject.prototype.updateTransform = function()
+{
+	this.transform = pbMatrix3.makeTransform(this.x, this.y, this.angleInRadians, this.scale.x, this.scale.y);
 };
 
 
