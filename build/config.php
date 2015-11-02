@@ -23,6 +23,7 @@
             'box2d' => false,
             'creature' => false,
             'video' => true,
+            'tilesprite' => true
         );
     }
 
@@ -190,6 +191,17 @@ EOL;
 
 
 EOL;
+
+
+
+    if ($modules['tilesprite'])
+    {
+        echo <<<EOL
+    <script src="$path/src/gameobjects/TileSprite.js"></script>
+
+
+EOL;
+    }
 
     if ($modules['creature'])
     {
