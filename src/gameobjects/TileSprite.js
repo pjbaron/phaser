@@ -139,6 +139,9 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
 
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
+    // tell the pbImage that the surface is tiled and fullscreen
+    this.tiling = true;
+    this.fullScreen = true;
 };
 
 Phaser.TileSprite.prototype = Object.create(pbSprite.prototype);
