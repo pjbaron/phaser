@@ -85,17 +85,63 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
     */
     this._scroll = new Phaser.Point();
 
-    var def = game.cache.getImage('__default', true);
+    /**
+     * The scaling of the image that is being tiled
+     *
+     * @property tileScale
+     * @type Point
+     */
+    this.tileScale = new Phaser.Point(1, 1);
 
-    // PJBNOTE: class may be deprecated (see note at top), otherwise this should create a pbSurface with isTiled = true
+    /**
+     * A point that represents the scale of the texture object
+     *
+     * @property tileScaleOffset
+     * @type Point
+     */
+    this.tileScaleOffset = new Phaser.Point(1, 1);
+    
+    /**
+     * The tint applied to the sprite. This is a hex value
+     *
+     * @property tint
+     * @type Number
+     * @default 0xFFFFFF
+     */
+    this.tint = 0xFFFFFF;
+
+    /**
+     * If true the TilingSprite will run generateTexture on its **next** render pass.
+     * This is set by the likes of Phaser.LoadTexture.setFrame.
+     *
+     * @property refreshTexture
+     * @type Boolean
+     * @default true
+     */
+    this.refreshTexture = true;
+
+    /**
+     * The offset position of the image that is being tiled
+     *
+     * @property tilePosition
+     * @type Point
+     */
+    this.tilePosition = new Phaser.Point();
+
+    // PJBNOTE: I've grabbed essential bits from the PIXI TilingSprite class and pasted them here
+    // PJBNOTE: Phaser.TileSprite used to be a simple wrapper of the PIXI version and the new renderer doesn't have a native equivalent
+
+    //var def = game.cache.getImage('__default', true);
     //PIXI.TilingSprite.call(this, PIXI.TextureCache['__default'], width, height);
+
+    // call super constructor
+    pbSprite.call(this);
 
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
 };
 
-// PJBNOTE: CRITICAL CHANGE - remove class entirely?
-//Phaser.TileSprite.prototype = Object.create(PIXI.TilingSprite.prototype);
+Phaser.TileSprite.prototype = Object.create(pbSprite.prototype);
 Phaser.TileSprite.prototype.constructor = Phaser.TileSprite;
 
 Phaser.Component.Core.install.call(Phaser.TileSprite.prototype, [
