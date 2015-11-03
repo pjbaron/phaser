@@ -175,6 +175,26 @@ pbSprite.prototype.resize = function( _key )
 };
 
 
+
+function MyPoint(_pos, _transform)
+{
+	// keep reference to the position we're wrapping and the transform we want to update
+	this._position = _pos;
+	this._transform = _transform;
+}
+
+MyPoint.prototype = Object.create(MyPoint);
+MyPoint.prototype.constructor = MyPoint;
+
+MyPoint.prototype.set = function(_x, _y)
+{
+	// adjust the position we are wrapping
+	this._position.x = this._transform.x = _x;
+	this._position.y = this._transform.y = _y;
+	this._transform.updateTransform();
+};
+
+
 Object.defineProperties(pbSprite.prototype, {
 
 	x: {
@@ -278,11 +298,13 @@ Object.defineProperties(pbSprite.prototype, {
 	},
 
 	position: {
-		get: function() {
-			return this._position;
+		get: function()
+		{
+			return new MyPoint(this._position, this.transform);
 		},
 
-		set: function(_pos) {
+		set: function(_pos)
+		{
 			this._position.x = this.transform.x = _pos.x;
 			this._position.y = this.transform.y = _pos.y;
 			this.transform.updateTransform();
@@ -290,4 +312,6 @@ Object.defineProperties(pbSprite.prototype, {
 
 	}
 });
+
+
 
