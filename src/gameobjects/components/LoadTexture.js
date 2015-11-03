@@ -68,7 +68,7 @@ Phaser.Component.LoadTexture.prototype = {
 
 //          this.setTexture(key.texture);
             // create new renderer texture
-            this.createWithKey(this.game, this.x, this.y, this.key, this.layer);
+            this.createWithKey(this.game, this.x, this.y, this.key);
 
 
             if (cache.hasFrameData(key.key, Phaser.Cache.BITMAPDATA))
@@ -96,7 +96,7 @@ Phaser.Component.LoadTexture.prototype = {
         else if (key instanceof HTMLCanvasElement)
         {
             // handle keys which are 'canvas' objects
-            this.createWithKey(game, this.x, this.y, this.key, this.layer);
+            this.createWithKey(game, this.x, this.y, this.key);
         }
         else
         {
@@ -104,7 +104,7 @@ Phaser.Component.LoadTexture.prototype = {
 
             this.key = img.key;
             // create new renderer texture
-            this.createWithKey(game, this.x, this.y, this.key, this.layer);
+            this.createWithKey(game, this.x, this.y, this.key);
 
             setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }
