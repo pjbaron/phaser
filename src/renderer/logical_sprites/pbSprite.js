@@ -8,7 +8,6 @@
 
 function pbSprite()
 {
-	this.layer = null;
 	this.surface = null;
 	this.image = null;
     this.transform = new pbTransformObject();
@@ -25,7 +24,7 @@ pbSprite.prototype.constructor = pbSprite;
 
 pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 {
-	this.layer = _layer || null;
+	// this.layer = _layer || null;
 
 	// get the texture object from the textures dictionary using 'key'
 	if (_key instanceof String || typeof _key == "string")
@@ -85,16 +84,16 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key, _layer)
 	this.contains = this.transform.contains;
 
 	// if a layer is specified, add the new object as a child of it
-	if (this.layer !== null)
-	{
-		this.layer.addChild(this.transform);
-	}
+	// if (this.layer !== null)
+	// {
+	// 	this.layer.addChild(this.transform);
+	// }
 };
 
 
 pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 {
-	this.layer = _layer || null;
+	// this.layer = _layer || null;
 
 	// create an image holder and attach the surface
 	this.image = new imageClass();
@@ -113,10 +112,10 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 	this.contains = this.transform.contains;
 
 	// if a layer is specified, add the new object as a child of it
-	if (this.layer !== null)
-	{
-		this.layer.addChild(this.transform);
-	}
+	// if (this.layer !== null)
+	// {
+	// 	this.layer.addChild(this.transform);
+	// }
 };
 
 
@@ -143,11 +142,11 @@ pbSprite.prototype.createGPU = function(_x, _y, _texture, _layer)
 
 pbSprite.prototype.destroy = function()
 {
-	if (this.layer)
-	{
-		this.layer.removeChild(this.transform);
-	}
-	this.layer = null;
+	// if (this.layer)
+	// {
+	// 	this.layer.removeChild(this.transform);
+	// }
+	// this.layer = null;
 
 	this.surface = null;
 
