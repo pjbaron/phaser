@@ -130,7 +130,7 @@ var imageShaderSources = {
 		"  varying vec2 vTexCoord;" +
 		"  void main(void) {" +
 		"    gl_FragColor = texture2D(uImageSampler, vTexCoord);\n" +
-		"//    if (gl_FragColor.a < 0.80) discard;\n" +
+		"    if (gl_FragColor.a < 0.80) discard;\n" +
 		"  }",
 
 	vertex:
