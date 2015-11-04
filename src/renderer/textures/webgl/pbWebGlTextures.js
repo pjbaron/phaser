@@ -473,6 +473,9 @@ pbWebGlTextures.prototype.createTextureFromCanvas = function(_textureNumber, _ca
 	// create a buffer to transfer all the vertex position data through
 	this.positionBuffer = gl.createBuffer();
 	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+
+	this.currentSrcTexture = texture;
+	return texture;
 };
 
 
@@ -536,6 +539,7 @@ pbWebGlTextures.initTexture = function(_textureRegister, _width, _height)
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, texture.width, texture.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+	this.currentSrcTexture = texture;
 	return texture;
 };
 

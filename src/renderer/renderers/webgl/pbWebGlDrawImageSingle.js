@@ -403,6 +403,12 @@ pbWebGl.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transfor
 
 	// four vertices per quad, one quad
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+	// clean up after draw (if we wait for GC then sometimes webgl will throw "context lost" errors!)
+	if (this.textures.currentSrcTexture)
+	{
+		gl.deleteTexture(this.textures.currentSrcTexture);
+	}
 };
 
 
