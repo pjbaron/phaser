@@ -1387,9 +1387,12 @@ Phaser.Group.prototype.preUpdate = function () {
 };
 
 
+// if this function returns false, the group will be destroyed by pbWebGlLayer.update
+// This behaviour is universal for all layer objects in the new renderer, and Group
+// is now a layer.
 Phaser.Group.prototype.update = function()
 {
-
+    return true;
 };
 
 
