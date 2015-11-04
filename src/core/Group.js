@@ -1386,22 +1386,12 @@ Phaser.Group.prototype.preUpdate = function () {
 
 };
 
-/**
-* The core update - as called by World.
-* @method Phaser.Group#update
-* @protected
-*/
-// PJBNOTE: deprecated, the pbTransformObject update method does this directly
-// Phaser.Group.prototype.update = function () {
 
-//     var i = this.children.length;
+Phaser.Group.prototype.update = function()
+{
 
-//     while (i--)
-//     {
-//         this.children[i].update();
-//     }
+};
 
-// };
 
 /**
 * The core postUpdate - as called by World.
@@ -1424,6 +1414,14 @@ Phaser.Group.prototype.postUpdate = function () {
         this.children[i].postUpdate();
     }
 
+};
+
+
+Phaser.Group.prototype.render = function()
+{
+    // render all members of this Group and all child Groups
+    // when called on the World Group (as is usually the case) this redraws everything!
+    return layerClass.prototype.update.call(this);
 };
 
 
@@ -2216,13 +2214,6 @@ Phaser.Group.prototype.destroy = function (destroyChildren, soft) {
         this.exists = false;
     }
     
-};
-
-
-Phaser.Group.prototype.update = function()
-{
-    // PJBNOTE: redirect update calls from pbBaseLayer to the selected 'layerClass'
-    return layerClass.prototype.update.call(this);
 };
 
 

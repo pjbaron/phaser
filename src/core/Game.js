@@ -967,6 +967,7 @@ Phaser.Game.prototype = {
         this.state.preRender(elapsedTime);
         this.renderer.preRender(this.world);
 
+        this.world.render(elapsedTime);
         this.plugins.render(elapsedTime);
         this.state.render(elapsedTime);
 
