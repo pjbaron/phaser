@@ -310,6 +310,18 @@ Object.defineProperties(pbSprite.prototype, {
 			this.transform.updateTransform();
 		}
 
+	},
+
+	visible: {
+		get: function()
+		{
+			return this.transform.visible;
+		},
+
+		set: function(_visible)
+		{
+			this.transform.visible = _visible;
+		}
 	}
 });
 
