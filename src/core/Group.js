@@ -1424,7 +1424,7 @@ Phaser.Group.prototype.render = function()
 {
     // render all members of this Group and all child Groups
     // when called on the World Group (as is usually the case) this redraws everything!
-    return layerClass.prototype.update.call(this);
+    return layerClass.prototype.render.call(this);
 };
 
 

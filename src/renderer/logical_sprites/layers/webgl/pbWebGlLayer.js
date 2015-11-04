@@ -56,7 +56,7 @@ pbWebGlLayer.prototype.destroy = function()
 };
 
 
-pbWebGlLayer.prototype.update = function(_dictionary)
+pbWebGlLayer.prototype.render = function(_dictionary)
 {
 	// TODO: check this dictionary implementation works correctly with nested layers, nested sprites, and combinations of both
 	// prepare the dictionary
@@ -83,14 +83,14 @@ pbWebGlLayer.prototype.update = function(_dictionary)
 	// draw the queued objects in the callback
 	this.drawDictionary.iterateKeys(this.draw, this);
 
-	// call update for all members of this layer
+	// call render for all members of this layer
 	// (pbImage adds drawing data to the drawDictionary)
 	var i = this.list.length;
 	while(i--)
 	{
 		var member = this.list[i];
 
-		if (!member.update(this.drawDictionary))
+		if (!member.render(this.drawDictionary))
 		{
 			member.destroy();
 			this.list.splice(i, 1);

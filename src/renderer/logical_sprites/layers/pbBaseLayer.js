@@ -67,11 +67,11 @@ pbBaseLayer.prototype.destroy = function()
 };
 
 
-pbBaseLayer.prototype.update = function(_drawList)
+pbBaseLayer.prototype.render = function(_drawList)
 {
 	// console.log("pbBaseLayer.update");
 	// call the pbTransformObject update for this pbBaseLayer to access the child hierarchy
-	this.superCall(pbBaseLayer, 'update', _drawList);
+	this.superCall(pbBaseLayer, 'render', _drawList);
 };
 
 
