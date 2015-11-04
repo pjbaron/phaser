@@ -983,22 +983,22 @@ Phaser.Physics.Arcade.prototype = {
     */
     intersects: function (body1, body2) {
 
-        if (body1.right <= body2.position.x)
+        if (body1.right <= body2.x)
         {
             return false;
         }
 
-        if (body1.bottom <= body2.position.y)
+        if (body1.bottom <= body2.y)
         {
             return false;
         }
 
-        if (body1.position.x >= body2.right)
+        if (body1.x >= body2.right)
         {
             return false;
         }
 
-        if (body1.position.y >= body2.bottom)
+        if (body1.y >= body2.bottom)
         {
             return false;
         }
