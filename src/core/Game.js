@@ -916,6 +916,7 @@ Phaser.Game.prototype = {
             this.plugins.preUpdate(timeStep);
 // PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.preUpdate();
+            this.world.preUpdate();
 
             this.state.update();
 // PJBNOTE: stage is now rootLayer and is processed via the new renderer
@@ -930,6 +931,7 @@ Phaser.Game.prototype = {
 
 // PJBNOTE: stage is now rootLayer and is processed via the new renderer
             // this.stage.postUpdate();
+            this.world.postUpdate();
             this.plugins.postUpdate();
         }
         else

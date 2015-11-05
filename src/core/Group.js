@@ -1369,7 +1369,10 @@ Phaser.Group.prototype.preUpdate = function () {
         return false;
     }
 
-    if (!this.exists || !this.parent || !this.parent.exists)
+    // PJBNOTE: removed parent checks here, even the World (which doesn't have a parent) needs to preUpdate its children
+    //if (!this.exists || !this.parent || !this.parent.exists)
+    // PJBNOTE: TODO: watch out for undesirable side-effects from this change!
+    if (!this.exists)
     {
         this.renderOrderID = -1;
         return false;
@@ -1392,6 +1395,16 @@ Phaser.Group.prototype.preUpdate = function () {
 // is now a layer.
 Phaser.Group.prototype.update = function()
 {
+
+    // PJBNOTE: I've moved this 'logicUpdate' from the renderUpdate cycle (pbTransformObject)
+    var i = this.children.length;
+
+    while (i--)
+    {
+        // will call the Components.Core.update for most children
+        // but will call itself for the new object, if it's another Group
+        this.children[i].update();
+    }
     return true;
 };
 
