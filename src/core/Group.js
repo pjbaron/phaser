@@ -55,14 +55,12 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
     */
     this.z = 0;
 
-// PJBNOTE: CRITICAL CHANGE... this will need to be updated before any Phaser demos will run with the new renderer
-//    PIXI.DisplayObjectContainer.call(this);
     layerClass.call(this);
     // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
     layerClass.prototype.create.call(this, null, 0, 0, 0, 0, 1, 1);
     
 
-
+    // PJBNOTE: is this redundant? if parent is undefined this group is added to world, do we need a second system to do the same thing?
     if (addToStage)
     {
         this.game.world.addChild(this);
@@ -1385,6 +1383,18 @@ Phaser.Group.prototype.preUpdate = function () {
         this.children[i].preUpdate();
     }
 
+    if (this.list)
+    {
+        i = this.list.length;
+        while(i--)
+        {
+            if (this.list[i].preUpdate)
+            {
+                this.list[i].preUpdate();
+            }
+        }
+    }
+
     return true;
 
 };
@@ -1401,10 +1411,26 @@ Phaser.Group.prototype.update = function()
 
     while (i--)
     {
-        // will call the Components.Core.update for most children
-        // but will call itself for the new object, if it's another Group
-        this.children[i].update();
+        if (this.children[i].update)
+        {
+            // will call the Components.Core.update for most children
+            // but will call itself for the new object, if it's another Group
+            this.children[i].update();
+        }
     }
+
+    if (this.list)
+    {
+        i = this.list.length;
+        while(i--)
+        {
+            if (this.list[i].update)
+            {
+                this.list[i].update();
+            }
+        }
+    }
+
     return true;
 };
 
@@ -1427,7 +1453,22 @@ Phaser.Group.prototype.postUpdate = function () {
 
     while (i--)
     {
-        this.children[i].postUpdate();
+        if (this.children[i].postUpdate)
+        {
+            this.children[i].postUpdate();
+        }
+    }
+
+    if (this.list)
+    {
+        i = this.list.length;
+        while(i--)
+        {
+            if (this.list[i].postUpdate)
+            {
+                this.list[i].postUpdate();
+            }
+        }
     }
 
 };
@@ -1795,6 +1836,34 @@ Phaser.Group.prototype.iterate = function (key, value, returnType, callback, cal
             if (returnType === Phaser.Group.RETURN_CHILD)
             {
                 return this.children[i];
+            }
+        }
+    }
+
+    // if this Group has a flat list
+    if (this.list)
+    {
+        // recurse this function to expand the list members too
+        for(var i = 0; i < this.list.length; i++)
+        {
+            if (returnType === Phaser.Group.RETURN_TOTAL)
+            {
+                // the return type is a total for the list member, accumulate it with the value from children
+                total += this.list[i].iterate(key, value, returnType, callback, callbackContext, args);
+            }
+            else if (returnType === Phaser.Group.RETURN_CHILD)
+            {
+                // the return type is the first matching child, if we've found a match in the list member then return it
+                var child = this.list[i].iterate(key, value, returnType, callback, callbackContext, args);
+                if (child)
+                {
+                    return child;
+                }
+            }
+            else
+            {
+                // the return type must be RETURN_NULL, no action is needed
+                this.list[i].iterate(key, value, returnType, callback, callbackContext, args);
             }
         }
     }
