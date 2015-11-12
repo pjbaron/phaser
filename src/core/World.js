@@ -100,7 +100,7 @@ Phaser.World.prototype.stateChange = function () {
 
 Phaser.World.prototype.addChild = function(child) {
 
-    if (child instanceof Phaser.Sprite)
+    if (child instanceof Phaser.Sprite || child instanceof Phaser.Image)
     {
         // if the internal _childLayer has not been created yet
         if (!this._childLayer)
