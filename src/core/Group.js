@@ -232,6 +232,14 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
     this.hash = [];
 
     /**
+     * @property {Number} fixDepth - attempt to keep this layer at the specified location in its parent layer list
+     *
+     * If the parent doesn't have enough elements in the list, this will become the last one.
+     * If multiple Groups have the same value in the same list, the order is undefined (processing order will dictate it, do not rely on it remaining constant).
+     */
+    this.fixDepth = -1;
+
+    /**
     * The property on which children are sorted.
     * @property {string} _sortProperty
     * @private
@@ -1374,6 +1382,12 @@ Phaser.Group.prototype.preUpdate = function () {
     {
         this.renderOrderID = -1;
         return false;
+    }
+
+    if (this.fixDepth != -1 && this.parent)
+    {
+        // set the depth of this layer in the parents layer list
+        this.parent.setListDepth(this, this.fixDepth);
     }
 
     var i = this.children.length;
