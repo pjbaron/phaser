@@ -161,7 +161,7 @@ pbBaseLayer.prototype.addChild = function( _child )
 	if (_child === undefined || _child === null)
 		alert("ERROR: pbBaseLayer.addChild received an invalid _child", _child);
 
-	if ((_child instanceof pbBaseLayer) || (_child instanceof pbCanvasLayer) || (_child instanceof pbWebGlLayer) || (_child instanceof pbSimpleLayer))
+	if ((_child instanceof Phaser.Group) || (_child instanceof pbBaseLayer) || (_child instanceof pbCanvasLayer) || (_child instanceof pbWebGlLayer) || (_child instanceof pbSimpleLayer))
 	{
 		this.list.push( _child );
 		_child.parent = this;
