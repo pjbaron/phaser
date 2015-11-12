@@ -50,6 +50,11 @@ Phaser.World = function (game) {
     */
     this._height = game.height;
 
+    /**
+     * @property {object} _childLayer - The layer held by World into which children are added, this preserves the priority of mixed Sprite and Group additions to World
+     */
+    this._childLayer = null;
+
     this.game.state.onStateChange.add(this.stateChange, this);
 
 };
@@ -72,10 +77,6 @@ Phaser.World.prototype.boot = function () {
     this.camera.scale = this.scale;
 
     this.game.camera = this.camera;
-
-    // PJBNOTE: Stage is now using pbPhaserRender.rootLayer but I believe addChild will still function (pbBaseLayer extends pbTransformObject)
-    //this.game.stage.addChild(this);
-
 };
 
 /**
@@ -95,6 +96,30 @@ Phaser.World.prototype.stateChange = function () {
     this.camera.reset();
 
 };
+
+
+Phaser.World.prototype.addChild = function(child) {
+
+    if (child instanceof Phaser.Sprite)
+    {
+        // if the internal _childLayer has not been created yet
+        if (!this._childLayer)
+        {
+            // create a layer and add it to this World Group
+            this._childLayer = this.game.add.group();
+        }
+
+        // add the child to the internal _childLayer
+        this._childLayer.addChild(child);
+    }
+    else
+    {
+        pbBaseLayer.prototype.addChild.call(this, child);
+    }
+};
+// PJBNOTE: TODO: probably need to do the same for addChildAt
+// PJBNOTE: TODO: add clean up code when the World is destroyed
+
 
 /**
 * Updates the size of this world and sets World.x/y to the given values
@@ -361,3 +386,5 @@ Object.defineProperty(Phaser.World.prototype, "randomY", {
     }
 
 });
+
+
