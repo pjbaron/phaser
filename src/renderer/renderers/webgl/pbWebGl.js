@@ -79,15 +79,15 @@ pbWebGl.prototype.create = function( _canvas )
 		this.shaders.create();
 
 		// enable the depth buffer so we can order our sprites
-		gl.enable(gl.DEPTH_TEST);
-		gl.depthFunc(gl.LEQUAL);
+		//gl.enable(gl.DEPTH_TEST);
+		//gl.depthFunc(gl.LEQUAL);
 
 		// set blending mode
 		gl.blendFunc( gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA );
 		gl.enable( gl.BLEND );
 
 		// set the parameters to clear the render area
-		gl.clearColor( 0.0, 0.0, 0.0, 0.0 );
+		gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
 		gl.clearDepth( 1.0 );
 
 		// precalculate the drawing buffer's half-width and height values
