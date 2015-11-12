@@ -85,18 +85,11 @@ pbWebGlLayer.prototype.render = function(_dictionary)
 
 	// call render for all members of this layer
 	// (pbImage adds drawing data to the drawDictionary)
-	var i = this.list.length;
-	while(i--)
+	for(var i = 0, l = this.list.length; i < l; i++)
 	{
-		var member = this.list[i];
-
-		if (!member.render(this.drawDictionary))
-		{
-			member.destroy();
-			this.list.splice(i, 1);
-		}
+		this.list[i].render(this.drawDictionary);
 	}
-
+	
 	return true;
 };
 
