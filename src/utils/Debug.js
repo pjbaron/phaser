@@ -22,6 +22,9 @@ Phaser.Utils.Debug = function (game) {
     */
     this.game = game;
 
+    // if debugging in webgl we need this.
+    this.group = null;
+
     /**
     * @property {Phaser.Image} sprite - If debugging in WebGL mode we need this.
     */
@@ -104,10 +107,17 @@ Phaser.Utils.Debug.prototype = {
         }
         else
         {
+            // make a layer for debug information and sprites in webgl
+            this.group = this.game.add.group();
+            this.game.world.addChild(this.group);
+
+            // make a sprite for debug information and add it to the new layer
             this.bmd = this.game.make.bitmapData(this.game.width, this.game.height);
             this.sprite = this.game.make.image(0, 0, this.bmd);
             this.sprite.z = 0;
-            this.game.world.addChild(this.sprite);
+            this.group.addChild(this.sprite);
+            // ensure the debug layer draws over anything else in the world group by forcing it to the end of the list
+            this.group.fixDepth = Number.MAX_SAFE_INTEGER;
 
             this.canvas = pbCanvasPool.create(this, this.game.width, this.game.height);
             this.context = this.canvas.getContext('2d');
