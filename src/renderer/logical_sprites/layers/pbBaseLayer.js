@@ -180,13 +180,8 @@ pbBaseLayer.prototype.removeChild = function( _child )
 
 	if ((_child instanceof pbBaseLayer) || (_child instanceof pbCanvasLayer) || (_child instanceof pbWebGlLayer) || (_child instanceof pbSimpleLayer))
 	{
-		if (!this.list) return;
-		var index = this.list.indexOf(_child);
-		if (index != -1 && index < this.list.length)
-		{
-			this.list[index].parent = null;
-			this.list.splice(index, 1);
-		}
+		var index = this.findListIndex(_child);
+		this.removeFromListAt(index);
 	}
 	else
 	{
@@ -195,3 +190,49 @@ pbBaseLayer.prototype.removeChild = function( _child )
 	}
 };
 
+
+pbBaseLayer.prototype.findListIndex = function(child)
+{
+    for(var i = 0, l = this.list.length; i < l; i++)
+    {
+        if (this.list[i] == child)
+        {
+            return i;
+        }
+    }
+    return -1;
+};
+
+
+pbBaseLayer.prototype.removeFromListAt = function(index)
+{
+    if (index >= 0 && index < this.list.length)
+    {
+        this.list.splice(index, 1);
+    }
+};
+
+
+pbBaseLayer.prototype.addToListAt = function(child, index)
+{
+    if (index >= 0)
+    {
+        if (index > this.list.length)
+        {
+            index = this.list.length;
+        }
+
+        this.list.splice(index, 0, child);
+    }
+};
+
+
+pbBaseLayer.prototype.setListDepth = function(child, depth)
+{
+    var i = this.findListIndex(child);
+    if (i != -1 && i != depth)
+    {
+        this.removeFromListAt(i);
+        this.addToListAt(child, depth);
+    }
+};
