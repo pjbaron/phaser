@@ -79,6 +79,14 @@ Phaser.World.prototype.boot = function () {
     this.game.camera = this.camera;
 };
 
+
+
+Phaser.World.prototype.update = function() {
+    this.camera.update();
+    Phaser.Group.prototype.update.call(this);
+};
+
+
 /**
 * Called whenever the State changes or resets.
 * 

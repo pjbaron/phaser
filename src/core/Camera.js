@@ -82,12 +82,6 @@ Phaser.Camera = function (game, id, x, y, width, height) {
     this.target = null;
 
     /**
-    * @property {PIXI.DisplayObject} displayObject - The display object to which all game objects are added. Set by World.boot
-    */
-// PJBNOTE: this is probably equivalent to the new renderer pbPhaserRender.rootLayer, however I believe this whole camera approach is obsolete due to new layers.
-    this.displayObject = null;
-
-    /**
     * @property {Phaser.Point} scale - The scale of the display object to which all game objects are added. Set by World.boot
     */
     this.scale = null;
@@ -259,9 +253,9 @@ Phaser.Camera.prototype = {
             this.view.floor();
         }
 
-        this.displayObject.position.x = -this.view.x;
-        this.displayObject.position.y = -this.view.y;
-
+        this.game.world.x = -this.view.x;
+        this.game.world.y = -this.view.y;
+        this.game.world.updateTransform();
     },
 
     /**
@@ -273,12 +267,12 @@ Phaser.Camera.prototype = {
 
         this._targetPosition.copyFrom(this.target);
 
-        if (this.target.parent)
-        {
+        //if (this.target.parent)
+        //{
             // PJBNOTE: worldTransform is a PIXI property... are .a and .d equivalent to transform.x and .y??
             //this._targetPosition.multiply(this.target.parent.worldTransform.a, this.target.parent.worldTransform.d);
-            this._targetPosition.multiply(this.target.parent.transform.x, this.target.parent.transform.y);
-        }
+            //this._targetPosition.multiply(this.target.parent.x, this.target.parent.y);
+        //}
 
         if (this.deadzone)
         {
