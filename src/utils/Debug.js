@@ -109,7 +109,6 @@ Phaser.Utils.Debug.prototype = {
         {
             // make a layer for debug information and sprites in webgl
             this.group = this.game.add.group();
-            this.game.world.addChild(this.group);
 
             // make a sprite for debug information and add it to the new layer
             this.bmd = this.game.make.bitmapData(this.game.width, this.game.height);
