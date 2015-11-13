@@ -136,7 +136,7 @@ pbDictionary.prototype.iterateAll = function(_func, _context)
 
 pbDictionary.prototype.iterateKeys = function(_func, _context)
 {
-	for(var i = 0, l = this.keys.length; i < l; i++)
+	for(var i = this.keys.length - 1; i >= 0; --i)
 		_func.call(_context, this.values[i]);
 };
 
