@@ -56,8 +56,8 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
     this.z = 0;
 
     layerClass.call(this);
-    // _image, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
-    layerClass.prototype.create.call(this, null, 0, 0, 0, 0, 1, 1);
+    // _image, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
+    layerClass.prototype.create.call(this, null, pbPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
     
 
     // PJBNOTE: is this redundant? if parent is undefined this group is added to world, do we need a second system to do the same thing?
