@@ -232,6 +232,15 @@ Object.defineProperties(pbSprite.prototype, {
 		}
 	},
 
+	parent: {
+		get: function() {
+			return this.transform.parent;
+		},
+		set: function(value) {
+			this.transform.parent = value;
+		}
+	},
+
 	width: {
 		get: function() {
 			return this.transform.width;
