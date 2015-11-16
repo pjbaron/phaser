@@ -175,6 +175,11 @@ pbSprite.prototype.resize = function( _key )
 };
 
 
+pbSprite.prototype.getBounds = function()
+{
+	return this.transform.bounds;
+};
+
 
 function MyPoint(_pos, _transform)
 {

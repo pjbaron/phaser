@@ -23,6 +23,7 @@ function pbTransformObject()
 	this.transform = null;
 	this.width = 0;
 	this.height = 0;
+	this.bounds = null;
 }
 
 
@@ -70,6 +71,7 @@ pbTransformObject.prototype.create = function(_image, _x, _y, _z, _angleInRadian
 	}
 
 	this.transform = pbMatrix3.makeTransform(this.x, this.y, this.angleInRadians, this.scale.x, this.scale.y);
+	this.bounds = null;
 };
 
 
@@ -97,6 +99,7 @@ pbTransformObject.prototype.create3D = function(_image, _x, _y, _z, _rx, _ry, _r
 	this.scaleZ = _scaleZ;
 
 	this.transform = pbMatrix4.makeTransform(_x, _y, _z, _rx, _ry, _rz, _scaleX, _scaleY, _scaleZ);
+	this.bounds = null;
 };
 
 
@@ -152,6 +155,9 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	if (this.parent && this.parent.transform)
 		pbMatrix3.setFastMultiply(this.transform, this.parent.transform);
 	
+	// calculate the bounding rectangle for this object as it is drawn on screen
+	this.calculateBounds();
+
 	// draw if this transform object has an image
 	if (this.image && this.visible)
 		this.image.draw(_drawDictionary, this.transform, this.z);
@@ -209,6 +215,9 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 			pbMatrix4.setFastMultiply(this.transform, this.parent.transform);
 	}
 	
+	// calculate the bounding rectangle for this object as it is drawn on screen
+	this.calculateBounds();
+
 	// draw if this transform object has an image
 	if (this.image)
 		this.image.draw(_drawDictionary, this.transform, this.z);
@@ -239,6 +248,69 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 	}
 
 	return true;
+};
+
+
+pbTransformObject.prototype._enclosingAABB = function(points, rect)
+{
+	var minx = Number.MAX_VALUE, miny = Number.MAX_VALUE;
+	var maxx = Number.MIN_VALUE, maxy = Number.MIN_VALUE;
+
+	for(var i = 0, l = points.length; i < l; i++)
+	{
+		if (points[i].x < minx)
+		{
+			minx = points[i].x;	
+		}
+		if (points[i].x > maxx)
+		{
+			maxx = points[i].x;
+		}
+		if (points[i].y < miny)
+		{
+			miny = points[i].y;
+		}
+		if (points[i].y > maxy)
+		{
+			maxy = points[i].y;
+		}
+	}
+
+	rect.x = minx;
+	rect.y = miny;
+	rect.width = maxx - minx;
+	rect.height = maxy - miny;
+};
+
+
+pbTransformObject.prototype.calculateBounds = function()
+{
+	if (!this.bounds)
+	{
+		// if the object doesn't have an image, it still has a location with zero dimensions
+		this.bounds = new Phaser.Rectangle(this.x, this.y, 0, 0);
+	}
+
+	if (this.image)
+	{
+		// get size of image
+		var size = this.image.getSize();
+		// calculate extents using the image anchor point
+		var lft = -size.wide * this.image.anchor.x;
+		var top = -size.high * this.image.anchor.y;
+		var rgt = lft + size.wide;
+		var bot = top + size.high;
+
+		// transform the corners using the matrix
+		var p = [];
+		p.push( pbMatrix3.transformPoint(lft, top, this.transform) );
+		p.push( pbMatrix3.transformPoint(rgt, top, this.transform) );
+		p.push( pbMatrix3.transformPoint(rgt, bot, this.transform) );
+		p.push( pbMatrix3.transformPoint(lft, bot, this.transform) );
+
+		// calculate AABB to enclose these four corners
+		this._enclosingAABB(p, this.bounds);
+	}
 };
 
 
