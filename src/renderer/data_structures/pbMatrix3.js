@@ -267,3 +267,12 @@ pbMatrix3.setFastMultiply = function( a, b )
 };
 
 
+// transform the x,y point using the matrix m
+pbMatrix3.transformPoint = function( x, y, m )
+{
+	var v = m[        0] * x + m[        1] * y;	// + m[        2];  this is always zero
+	var w = m[    3 + 0] * x + m[    3 + 1] * y;	// + m[    3 + 2];
+	var d = m[2 * 3 + 0] * x + m[2 * 3 + 1] * y + 1.0;	// m[2 * 3 + 2]; this is always one
+	return { x: v / d, y: w / d };
+};
+
