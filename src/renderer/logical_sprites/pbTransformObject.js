@@ -256,8 +256,8 @@ pbTransformObject.prototype.update3D = function(_drawDictionary)
 
 pbTransformObject.prototype._enclosingAABB = function(points, rect)
 {
-	var minx = Number.MAX_VALUE, miny = Number.MAX_VALUE;
-	var maxx = Number.MIN_VALUE, maxy = Number.MIN_VALUE;
+	var minx = Number.POSITIVE_INFINITY, miny = Number.POSITIVE_INFINITY;
+	var maxx = Number.NEGATIVE_INFINITY, maxy = Number.NEGATIVE_INFINITY;
 
 	for(var i = 0, l = points.length; i < l; i++)
 	{
@@ -279,10 +279,7 @@ pbTransformObject.prototype._enclosingAABB = function(points, rect)
 		}
 	}
 
-	rect.x = minx;
-	rect.y = miny;
-	rect.width = maxx - minx;
-	rect.height = maxy - miny;
+	rect.setTo(minx, miny, maxx - minx, maxy - miny);
 };
 
 
