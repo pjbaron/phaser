@@ -168,27 +168,30 @@ pbTransformObject.prototype.update2D = function(_drawDictionary)
 	{
 		var child = this.children[c];
 
-		// update this child
-		if (child instanceof pbTransformObject)
+		if (child.visible)
 		{
-			if (!child.update(_drawDictionary))
+			// update this child
+			if (child instanceof pbTransformObject)
 			{
-				child.destroy();
-				this.removeChildAt(c);
+				if (!child.update(_drawDictionary))
+				{
+					child.destroy();
+					this.removeChildAt(c);
+				}
 			}
-		}
-		else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite) || (child instanceof Phaser.TileSprite))
-		{
-			// call all three component Core.update functions
-			//child.preUpdate();
-			// recurse the display hierarchy
-			if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
+			else if ((child instanceof Phaser.Image) || (child instanceof Phaser.Sprite) || (child instanceof Phaser.TileSprite))
 			{
-				pbTransformObject.prototype.destroy.call(child.transform);
-				pbTransformObject.prototype.removeChildAt.call(child);
+				// call all three component Core.update functions
+				//child.preUpdate();
+				// recurse the display hierarchy
+				if (!pbTransformObject.prototype.update.call(child.transform, _drawDictionary))
+				{
+					pbTransformObject.prototype.destroy.call(child.transform);
+					pbTransformObject.prototype.removeChildAt.call(child);
+				}
+				//child.update();
+				//child.postUpdate();
 			}
-			//child.update();
-			//child.postUpdate();
 		}
 	}
 
