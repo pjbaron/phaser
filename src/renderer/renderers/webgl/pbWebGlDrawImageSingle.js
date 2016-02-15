@@ -23,84 +23,89 @@ pbWebGl.prototype.drawImageWithTransform = function( _srcTextureRegister, _image
 
 	// set up the animation frame
 	var cell = Math.floor(_image.cellFrame);
-	var rect = surface.cellTextureBounds[cell];
 
-	var wide, high, oWide, oHigh;
-	if (_image.fullScreen)
+	// protect against invalid cellFrame values
+	if ( cell >= 0 && cell < surface.cellTextureBounds.length )
 	{
-		rect.width = gl.drawingBufferWidth / surface.cellSourceSize[cell].wide;
-		rect.height = gl.drawingBufferHeight / surface.cellSourceSize[cell].high;
-		oWide = wide = gl.drawingBufferWidth;
-		oHigh = high = gl.drawingBufferHeight;
+		var rect = surface.cellTextureBounds[cell];
+
+		var wide, high, oWide, oHigh;
+		if (_image.fullScreen)
+		{
+			rect.width = gl.drawingBufferWidth / surface.cellSourceSize[cell].wide;
+			rect.height = gl.drawingBufferHeight / surface.cellSourceSize[cell].high;
+			oWide = wide = gl.drawingBufferWidth;
+			oHigh = high = gl.drawingBufferHeight;
+		}
+		else
+		{
+			// width, height (of source frame in source texture)
+			wide = surface.cellSourceSize[cell].wide;
+			high = surface.cellSourceSize[cell].high;
+			oWide = surface.srcSize[cell].wide;
+			oHigh = surface.srcSize[cell].high;
+		}
+
+		var off = { x:0, y:0 };
+		if (surface.cellOffsets)
+		{
+			off = surface.cellOffsets[cell];
+		}
+
+		// screen destination position
+		// l, b,		0,1
+		// l, t,		4,5
+		// r, b,		8,9
+		// r, t,		12,13
+		var l = -oWide * _image.anchor.x + off.x;
+		var r = wide + l;
+		var t = -oHigh * _image.anchor.y + off.y;
+		var b = high + t;
+		if (_image.corners)
+		{
+			var cnr = _image.corners;
+			// object has corner offets (skewing/perspective etc)
+			buffer[ 0 ] = cnr.lbx * l; buffer[ 1 ] = cnr.lby * b;
+			buffer[ 4 ] = cnr.ltx * l; buffer[ 5 ] = cnr.lty * t;
+			buffer[ 8 ] = cnr.rbx * r; buffer[ 9 ] = cnr.rby * b;
+			buffer[ 12] = cnr.rtx * r; buffer[ 13] = cnr.rty * t;
+		}
+		else
+		{
+			buffer[ 0 ] = buffer[ 4 ] = l;
+			buffer[ 1 ] = buffer[ 9 ] = b;
+			buffer[ 8 ] = buffer[ 12] = r;
+			buffer[ 5 ] = buffer[ 13] = t;
+		}
+
+		// texture source position
+		// x, b,		2,3
+		// x, y,		6,7
+		// r, b,		10,11
+		// r, y,		14,15
+		buffer[ 2 ] = buffer[ 6 ] = rect.x;
+		buffer[ 3 ] = buffer[ 11] = rect.y + rect.height;
+		buffer[ 10] = buffer[ 14] = rect.x + rect.width;
+		buffer[ 7 ] = buffer[ 15] = rect.y;
+
+		// bind the source buffer
+		gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
+		gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
+
+		// bind the source texture
+		gl.activeTexture(gl.TEXTURE0 + _srcTextureRegister);
+		gl.bindTexture(gl.TEXTURE_2D, this.textures.currentSrcTexture);
+
+		// send the transform matrix to the vector shader
+		gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );
+		// set the depth value
+		gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
+		// point the position attribute at the last bound buffer
+		gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
+		gl.enableVertexAttribArray(this.shaders.getAttribute( "aPosition" ));
+		// draw the buffer: four vertices per quad, one quad
+		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 	}
-	else
-	{
-		// width, height (of source frame in source texture)
-		wide = surface.cellSourceSize[cell].wide;
-		high = surface.cellSourceSize[cell].high;
-		oWide = surface.srcSize[cell].wide;
-		oHigh = surface.srcSize[cell].high;
-	}
-
-	var off = { x:0, y:0 };
-	if (surface.cellOffsets)
-	{
-		off = surface.cellOffsets[cell];
-	}
-
-	// screen destination position
-	// l, b,		0,1
-	// l, t,		4,5
-	// r, b,		8,9
-	// r, t,		12,13
-	var l = -oWide * _image.anchor.x + off.x;
-	var r = wide + l;
-	var t = -oHigh * _image.anchor.y + off.y;
-	var b = high + t;
-	if (_image.corners)
-	{
-		var cnr = _image.corners;
-		// object has corner offets (skewing/perspective etc)
-		buffer[ 0 ] = cnr.lbx * l; buffer[ 1 ] = cnr.lby * b;
-		buffer[ 4 ] = cnr.ltx * l; buffer[ 5 ] = cnr.lty * t;
-		buffer[ 8 ] = cnr.rbx * r; buffer[ 9 ] = cnr.rby * b;
-		buffer[ 12] = cnr.rtx * r; buffer[ 13] = cnr.rty * t;
-	}
-	else
-	{
-		buffer[ 0 ] = buffer[ 4 ] = l;
-		buffer[ 1 ] = buffer[ 9 ] = b;
-		buffer[ 8 ] = buffer[ 12] = r;
-		buffer[ 5 ] = buffer[ 13] = t;
-	}
-
-	// texture source position
-	// x, b,		2,3
-	// x, y,		6,7
-	// r, b,		10,11
-	// r, y,		14,15
-	buffer[ 2 ] = buffer[ 6 ] = rect.x;
-	buffer[ 3 ] = buffer[ 11] = rect.y + rect.height;
-	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
-	buffer[ 7 ] = buffer[ 15] = rect.y;
-
-	// bind the source buffer
-	gl.bindBuffer( gl.ARRAY_BUFFER, this.positionBuffer );
-	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
-
-	// bind the source texture
-	gl.activeTexture(gl.TEXTURE0 + _srcTextureRegister);
-	gl.bindTexture(gl.TEXTURE_2D, this.textures.currentSrcTexture);
-
-	// send the transform matrix to the vector shader
-	gl.uniformMatrix3fv( this.shaders.getUniform( "uModelMatrix" ), false, _transform );
-	// set the depth value
-	gl.uniform1f( this.shaders.getUniform( "uZ" ), _z );
-	// point the position attribute at the last bound buffer
-	gl.vertexAttribPointer( this.shaders.getAttribute( "aPosition" ), 4, gl.FLOAT, false, 0, 0 );
-	gl.enableVertexAttribArray(this.shaders.getAttribute( "aPosition" ));
-	// draw the buffer: four vertices per quad, one quad
-	gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 };
 
 

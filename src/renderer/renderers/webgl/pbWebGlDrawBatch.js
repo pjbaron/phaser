@@ -591,116 +591,130 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 	// store local reference to avoid extra scope resolution (http://www.slideshare.net/nzakas/java-script-variable-performance-presentation)
 	var buffer = this.drawingArray.subarray(0, len * (44 + 22) - 22);
 
-	// weird loop speed-up (http://www.paulirish.com/i/d9f0.png) gained 2fps on my rig!
-	for ( var i = -1, c = 0; ++i < len; c += 44 )
+	// j counts the number of sprites actually added to the buffer
+	var j = 0;
+	// c is used as a buffer index
+	var c = 0;
+	for ( var i = 0; i < len; i++ )
 	{
 		var obj = _list[i];
 		var img = obj.image;
 
 		// set up texture reference coordinates based on the image frame number
 		var cell = Math.floor(img.cellFrame);
-		// half width, half height (of source frame)
-		var wide = surface.cellSourceSize[cell].wide;
-		var high = surface.cellSourceSize[cell].high;
-		var oWide = surface.srcSize[cell].wide;
-		var oHigh = surface.srcSize[cell].high;
-		var off = { x:0, y:0 };
-		if (surface.cellOffsets)
-		{
-			off = surface.cellOffsets[cell];
-		}
-		var rect = surface.cellTextureBounds[cell];
-		if (!rect)
-			console.log("ERROR: invalid cellFrame", cell);
-		var tex_x = rect.x;
-		var tex_y = rect.y;
-		var tex_r = rect.x + rect.width;
-		var tex_b = rect.y + rect.height;
 
-		if ( i > 0)
+		// protect against invalid cellFrame values
+		if ( cell >= 0 && cell < surface.cellSourceSize.length )
 		{
-			// degenerate triangle: repeat the last vertex and the next vertex
-			// 
+			// half width, half height (of source frame)
+			var wide = surface.cellSourceSize[cell].wide;
+			var high = surface.cellSourceSize[cell].high;
+			var oWide = surface.srcSize[cell].wide;
+			var oHigh = surface.srcSize[cell].high;
+			var off = { x:0, y:0 };
+			if (surface.cellOffsets)
+			{
+				off = surface.cellOffsets[cell];
+			}
+			var rect = surface.cellTextureBounds[cell];
+			if (!rect)
+			{
+				console.log("ERROR: invalid cellFrame", cell);
+			}
+
+			var tex_x = rect.x;
+			var tex_y = rect.y;
+			var tex_r = rect.x + rect.width;
+			var tex_b = rect.y + rect.height;
+
+			if ( j > 0)
+			{
+				// degenerate triangle: repeat the last vertex and the next vertex
+				// 
+				// screen destination position
+				buffer[ c     ] = buffer[ c - 44 + 33 ];
+				buffer[ c + 1 ] = buffer[ c - 44 + 34 ];
+
+				// last transform matrix
+				buffer[ c + 4 ] = buffer[ c + 4  - 44 ];
+				buffer[ c + 5 ] = buffer[ c + 5  - 44 ];
+				buffer[ c + 6 ] = buffer[ c + 6  - 44 ];
+				buffer[ c + 7 ] = buffer[ c + 7  - 44 ];
+				buffer[ c + 8 ] = buffer[ c + 8  - 44 ];
+				buffer[ c + 9 ] = buffer[ c + 9  - 44 ];
+				buffer[ c + 10] = buffer[ c + 10 - 44 ];
+
+				c += 22;
+			}
+
 			// screen destination position
-			buffer[ c     ] = buffer[ c - 44 + 33 ];
-			buffer[ c + 1 ] = buffer[ c - 44 + 34 ];
+			// l, b,		0,1
+			// l, t,		11,12
+			// r, b,		22,23
+			// r, t,		33,34
+			var l = -oWide * img.anchor.x + off.x;
+			var r = wide + l;
+			var t = -oHigh * img.anchor.y + off.y;
+			var b = high + t;
+			if (img.corners)
+			{
+				var cnr = img.corners;
+				// object has corner offets (skewing/perspective etc)
+				buffer[ c     ] = cnr.lbx * l; buffer[ c + 1 ] = cnr.lby * b;
+				buffer[ c + 11] = cnr.ltx * l; buffer[ c + 12] = cnr.lty * t;
+				buffer[ c + 22] = cnr.rbx * r; buffer[ c + 23] = cnr.rby * b;
+				buffer[ c + 33] = cnr.rtx * r; buffer[ c + 34] = cnr.rty * t;
+			}
+			else
+			{
+				buffer[ c     ] = l; buffer[ c + 1 ] = b;
+				buffer[ c + 11] = l; buffer[ c + 12] = t;
+				buffer[ c + 22] = r; buffer[ c + 23] = b;
+				buffer[ c + 33] = r; buffer[ c + 34] = t;
+			}
 
-			// last transform matrix
-			buffer[ c + 4 ] = buffer[ c + 4  - 44 ];
-			buffer[ c + 5 ] = buffer[ c + 5  - 44 ];
-			buffer[ c + 6 ] = buffer[ c + 6  - 44 ];
-			buffer[ c + 7 ] = buffer[ c + 7  - 44 ];
-			buffer[ c + 8 ] = buffer[ c + 8  - 44 ];
-			buffer[ c + 9 ] = buffer[ c + 9  - 44 ];
-			buffer[ c + 10] = buffer[ c + 10 - 44 ];
-
-			c += 22;
-		}
-
-		// screen destination position
-		// l, b,		0,1
-		// l, t,		11,12
-		// r, b,		22,23
-		// r, t,		33,34
-		var l = -oWide * img.anchor.x + off.x;
-		var r = wide + l;
-		var t = -oHigh * img.anchor.y + off.y;
-		var b = high + t;
-		if (img.corners)
-		{
-			var cnr = img.corners;
-			// object has corner offets (skewing/perspective etc)
-			buffer[ c     ] = cnr.lbx * l; buffer[ c + 1 ] = cnr.lby * b;
-			buffer[ c + 11] = cnr.ltx * l; buffer[ c + 12] = cnr.lty * t;
-			buffer[ c + 22] = cnr.rbx * r; buffer[ c + 23] = cnr.rby * b;
-			buffer[ c + 33] = cnr.rtx * r; buffer[ c + 34] = cnr.rty * t;
-		}
-		else
-		{
-			buffer[ c     ] = l; buffer[ c + 1 ] = b;
-			buffer[ c + 11] = l; buffer[ c + 12] = t;
-			buffer[ c + 22] = r; buffer[ c + 23] = b;
-			buffer[ c + 33] = r; buffer[ c + 34] = t;
-		}
-
-		// texture source position
-		// l, b,		2,3
-		// l, t,		13,14
-		// r, b,		24,25
-		// r, t,		35,36
-		buffer[ c + 2 ] = buffer[ c + 13] = tex_x;		// l
-		buffer[ c + 3 ] = buffer[ c + 25] = tex_b;		// b
-		buffer[ c + 24] = buffer[ c + 35] = tex_r;		// r
-		buffer[ c + 14] = buffer[ c + 36] = tex_y;		// t
+			// texture source position
+			// l, b,		2,3
+			// l, t,		13,14
+			// r, b,		24,25
+			// r, t,		35,36
+			buffer[ c + 2 ] = buffer[ c + 13] = tex_x;		// l
+			buffer[ c + 3 ] = buffer[ c + 25] = tex_b;		// b
+			buffer[ c + 24] = buffer[ c + 35] = tex_r;		// r
+			buffer[ c + 14] = buffer[ c + 36] = tex_y;		// t
 
 
-		if ( i > 0 )
-		{
-			// next transform matrix for degenerate triangle preceding this entry
+			if ( j > 0 )
+			{
+				// next transform matrix for degenerate triangle preceding this entry
 
-			// destination corner (left, bottom)
-			buffer[ c - 22 + 11] = buffer[ c     ];
-			buffer[ c - 22 + 12] = buffer[ c + 1 ];
+				// destination corner (left, bottom)
+				buffer[ c - 22 + 11] = buffer[ c     ];
+				buffer[ c - 22 + 12] = buffer[ c + 1 ];
 
-			// model matrix and z_order
-			buffer[ c - 22 + 15 ] = buffer[ c + 4 ] = buffer[ c + 15] = buffer[ c + 26] = buffer[ c + 37] = obj.transform[0];
-			buffer[ c - 22 + 16 ] = buffer[ c + 5 ] = buffer[ c + 16] = buffer[ c + 27] = buffer[ c + 38] = obj.transform[1];
-			buffer[ c - 22 + 17 ] = buffer[ c + 6 ] = buffer[ c + 17] = buffer[ c + 28] = buffer[ c + 39] = obj.transform[3];
-			buffer[ c - 22 + 18 ] = buffer[ c + 7 ] = buffer[ c + 18] = buffer[ c + 29] = buffer[ c + 40] = obj.transform[4];
-			buffer[ c - 22 + 19 ] = buffer[ c + 8 ] = buffer[ c + 19] = buffer[ c + 30] = buffer[ c + 41] = obj.transform[6];
-			buffer[ c - 22 + 20 ] = buffer[ c + 9 ] = buffer[ c + 20] = buffer[ c + 31] = buffer[ c + 42] = obj.transform[7];
-			buffer[ c - 22 + 21 ] = buffer[ c + 10] = buffer[ c + 21] = buffer[ c + 32] = buffer[ c + 43] = obj.z_order;
-		}
-		else
-		{
-			// model matrix and z_order (no degenerate triangle preceeds the first triangle in the strip)
-			buffer[ c + 4 ] = buffer[ c + 15] = buffer[ c + 26] = buffer[ c + 37] = obj.transform[0];
-			buffer[ c + 5 ] = buffer[ c + 16] = buffer[ c + 27] = buffer[ c + 38] = obj.transform[1];
-			buffer[ c + 6 ] = buffer[ c + 17] = buffer[ c + 28] = buffer[ c + 39] = obj.transform[3];
-			buffer[ c + 7 ] = buffer[ c + 18] = buffer[ c + 29] = buffer[ c + 40] = obj.transform[4];
-			buffer[ c + 8 ] = buffer[ c + 19] = buffer[ c + 30] = buffer[ c + 41] = obj.transform[6];
-			buffer[ c + 9 ] = buffer[ c + 20] = buffer[ c + 31] = buffer[ c + 42] = obj.transform[7];
-			buffer[ c + 10] = buffer[ c + 21] = buffer[ c + 32] = buffer[ c + 43] = obj.z_order;
+				// model matrix and z_order
+				buffer[ c - 22 + 15 ] = buffer[ c + 4 ] = buffer[ c + 15] = buffer[ c + 26] = buffer[ c + 37] = obj.transform[0];
+				buffer[ c - 22 + 16 ] = buffer[ c + 5 ] = buffer[ c + 16] = buffer[ c + 27] = buffer[ c + 38] = obj.transform[1];
+				buffer[ c - 22 + 17 ] = buffer[ c + 6 ] = buffer[ c + 17] = buffer[ c + 28] = buffer[ c + 39] = obj.transform[3];
+				buffer[ c - 22 + 18 ] = buffer[ c + 7 ] = buffer[ c + 18] = buffer[ c + 29] = buffer[ c + 40] = obj.transform[4];
+				buffer[ c - 22 + 19 ] = buffer[ c + 8 ] = buffer[ c + 19] = buffer[ c + 30] = buffer[ c + 41] = obj.transform[6];
+				buffer[ c - 22 + 20 ] = buffer[ c + 9 ] = buffer[ c + 20] = buffer[ c + 31] = buffer[ c + 42] = obj.transform[7];
+				buffer[ c - 22 + 21 ] = buffer[ c + 10] = buffer[ c + 21] = buffer[ c + 32] = buffer[ c + 43] = obj.z_order;
+			}
+			else
+			{
+				// model matrix and z_order (no degenerate triangle preceeds the first triangle in the strip)
+				buffer[ c + 4 ] = buffer[ c + 15] = buffer[ c + 26] = buffer[ c + 37] = obj.transform[0];
+				buffer[ c + 5 ] = buffer[ c + 16] = buffer[ c + 27] = buffer[ c + 38] = obj.transform[1];
+				buffer[ c + 6 ] = buffer[ c + 17] = buffer[ c + 28] = buffer[ c + 39] = obj.transform[3];
+				buffer[ c + 7 ] = buffer[ c + 18] = buffer[ c + 29] = buffer[ c + 40] = obj.transform[4];
+				buffer[ c + 8 ] = buffer[ c + 19] = buffer[ c + 30] = buffer[ c + 41] = obj.transform[6];
+				buffer[ c + 9 ] = buffer[ c + 20] = buffer[ c + 31] = buffer[ c + 42] = obj.transform[7];
+				buffer[ c + 10] = buffer[ c + 21] = buffer[ c + 32] = buffer[ c + 43] = obj.z_order;
+			}
+
+			c += 44;
+			j++;
 		}
 	}
 
@@ -711,7 +725,7 @@ pbWebGl.prototype.rawBatchDrawImages = function( _textureNumber, _list )
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix1" ), 2, gl.FLOAT, false, 11 * 4,  6 * 4 );
 	gl.vertexAttribPointer( this.shaders.getAttribute( "aModelMatrix2" ), 3, gl.FLOAT, false, 11 * 4,  8 * 4 );
 
-	gl.drawArrays(gl.TRIANGLE_STRIP, 0, len * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
+	gl.drawArrays(gl.TRIANGLE_STRIP, 0, j * 6 - 2);		// four vertices per sprite plus two degenerate points, except for the last one
 };
 
 
