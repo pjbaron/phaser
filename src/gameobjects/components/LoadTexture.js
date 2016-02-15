@@ -93,6 +93,10 @@ Phaser.Component.LoadTexture.prototype = {
         // {
         //     this.setTexture(key);
         // }
+        else if (key instanceof pbSurface)
+        {
+            this.createWithKey(this.game, this.x, this.y, this.key);
+        }
         else if (key instanceof HTMLCanvasElement)
         {
             // handle keys which are 'canvas' objects
