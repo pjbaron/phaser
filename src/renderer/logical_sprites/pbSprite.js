@@ -55,7 +55,16 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key)
 		this.image.create(this.surface);
 		this.image.fromCanvas = _key.canvas;
 	}
-	else
+	else if (_key instanceof pbSurface)
+	{
+		this.surface = _key;
+
+		// create an image holder and attach the surface
+		this.image = new imageClass();
+		this.image.create(this.surface);
+//		this.image.fromCanvas = _key.canvas;
+	}
+	else if (_key)
 	{
 		// _key is a new canvas, create a surface the same size
 // TODO: need to wrap the canvas with a pbSurface so it's accessible to everything else... try adding the canvas contents to the Cache so that LoadTexture (from Core.init) can see it
@@ -69,6 +78,10 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key)
 		this.image = new imageClass();
 		this.image.create(this.surface);
 		this.image.fromCanvas = _key;
+	}
+	else
+	{
+		console.log("ERROR: null key provided to pbSprite.createWithKey...");
 	}
 
 	// create a transform object for the image
