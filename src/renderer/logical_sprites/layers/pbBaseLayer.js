@@ -178,7 +178,7 @@ pbBaseLayer.prototype.removeChild = function( _child )
 {
 	// console.log("pbBaseLayer.removeChild", this.list.length);
 
-	if ((_child instanceof pbBaseLayer) || (_child instanceof pbCanvasLayer) || (_child instanceof pbWebGlLayer) || (_child instanceof pbSimpleLayer))
+	if ((_child instanceof Phaser.Group) || (_child instanceof pbBaseLayer) || (_child instanceof pbCanvasLayer) || (_child instanceof pbWebGlLayer) || (_child instanceof pbSimpleLayer))
 	{
 		var index = this.findListIndex(_child);
 		this.removeFromListAt(index);
