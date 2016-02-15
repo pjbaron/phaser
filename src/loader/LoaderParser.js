@@ -55,6 +55,17 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
         {
             var charCode = parseInt(letters[i].getAttribute('id'), 10);
 
+            var textureRect = new Phaser.Rectangle(
+                parseInt(letters[i].getAttribute('x'), 10),
+                parseInt(letters[i].getAttribute('y'), 10),
+                parseInt(letters[i].getAttribute('width'), 10),
+                parseInt(letters[i].getAttribute('height'), 10)
+            );
+
+            var texture = new pbSurface();
+            texture.create( textureRect.width, textureRect.height );
+            // PJB TODO: copy data from the baseTexture to this single character pbSurface texture
+
             data.chars[charCode] = {
                 x: parseInt(letters[i].getAttribute('x'), 10),
                 y: parseInt(letters[i].getAttribute('y'), 10),
@@ -63,9 +74,8 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
                 xOffset: parseInt(letters[i].getAttribute('xoffset'), 10),
                 yOffset: parseInt(letters[i].getAttribute('yoffset'), 10),
                 xAdvance: parseInt(letters[i].getAttribute('xadvance'), 10) + xSpacing,
-                kerning: {}
-// PJBNOTE: pbText replaces prior bitmap-font handling, probably want a reference to its pbSurface here
-//                texture: PIXI.TextureCache[cacheKey] = new PIXI.Texture(PIXI.BaseTextureCache[cacheKey], textureRect)
+                kerning: {},
+                texture: texture
             };
         }
 
@@ -147,25 +157,23 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
     *
     * @method Phaser.LoaderParser.finalizeBitmapFont
     * @private
-PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
-    * @param {PIXI.BaseTexture} baseTexture - The BaseTexture this font uses.
+    * @param {pbSurface} baseTexture - The BaseTexture this font uses.
     * @param {object} bitmapFontData - Pre-parsed bitmap font data.
     * @return {object} The parsed Bitmap Font data.
     */
     finalizeBitmapFont: function (baseTexture, bitmapFontData) {
 
-        Object.keys(bitmapFontData.chars).forEach(
+        // Object.keys(bitmapFontData.chars).forEach(
 
-            function addTexture(charCode) {
+        //     function addTexture(charCode) {
 
-                var letter = bitmapFontData.chars[charCode];
+        //         var letter = bitmapFontData.chars[charCode];
 
-// PJBNOTE: critical fix, need to use a new renderer texture
-//              letter.texture = new PIXI.Texture(baseTexture, new Phaser.Rectangle(letter.x, letter.y, letter.width, letter.height));
+        //         letter.texture = new pbSurface();
+        //         letter.texture.createFrom(baseTexture, letter.x, letter.y, letter.width, letter.height);
+        //     }
 
-            }
-
-        );
+        // );
 
         return bitmapFontData;
 
