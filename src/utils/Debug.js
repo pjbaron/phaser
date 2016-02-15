@@ -512,7 +512,8 @@ Phaser.Utils.Debug.prototype = {
         }
 
         this.line('x:', sprite.x.toFixed(2), 'y:', sprite.y.toFixed(2));
-        this.line('pos x:', sprite.position.x.toFixed(2), 'pos y:', sprite.position.y.toFixed(2));
+        // PJBNOTE: removal of PIXI eliminates the second set of coordinates
+        //this.line('pos x:', sprite.position.x.toFixed(2), 'pos y:', sprite.position.y.toFixed(2));
         this.line('world x:', sprite.world.x.toFixed(2), 'world y:', sprite.world.y.toFixed(2));
 
         this.stop();
