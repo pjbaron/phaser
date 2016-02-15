@@ -79,6 +79,7 @@
     <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawImageSingle.js"></script>
     <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawTextureSingle.js"></script>
     <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawBatch.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/pbWebGlGraphics.js"></script>
     <script src="$path/src/renderer/renderers/webgl/shaders/pbWebGlShaders.js"></script>
     
     <script src="$path/src/renderer/file_handling/pbLoader.js"></script>

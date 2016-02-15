@@ -136,6 +136,7 @@
     "src/renderer/renderers/webgl/pbWebGlDrawImageSingle.js",
     "src/renderer/renderers/webgl/pbWebGlDrawTextureSingle.js",
     "src/renderer/renderers/webgl/pbWebGlDrawBatch.js",
+    "src/renderer/renderers/webgl/pbWebGlGraphics.js",
     "src/renderer/renderers/webgl/shaders/pbWebGlShaders.js",
     
     "src/renderer/file_handling/pbLoader.js",
