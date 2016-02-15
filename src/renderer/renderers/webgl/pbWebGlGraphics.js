@@ -11,14 +11,12 @@
 
 pbWebGl.prototype.fillStyle = function(_fillColor, _lineColor)
 {
+	// TODO: colours are unused so far
 	this.fillColorRGBA = _fillColor;
-	this.lineColorValue = _lineColor;
 	this.fillColorString = "#000";			// fill color as a css format color string, # prefixed, rgb(), rgba() or hsl()
-	this.fillColorValue = 0;				// fill color as a Number
-	this.fillColorRGBA = { r: 0, g: 0, b: 0, a: 0 };
+
+	this.lineColorRGBA = _lineColor;
 	this.lineColorString = "#000";			// line color as a css format color string, # prefixed, rgb(), rgba() or hsl()
-	this.lineColorValue = 0;				// line color as a Number
-	this.lineColorRGBA = { r: 0, g: 0, b: 0, a: 0 };
 };
 
 
@@ -26,6 +24,7 @@ pbWebGl.prototype.fillStyle = function(_fillColor, _lineColor)
 pbWebGl.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )
 {
 	// console.log( "pbWebGl.fillRect" );
+	if (color === undefined) color = this.fillColorRGBA;
 	if (targetWidth === undefined) targetWidth = pbPhaserRender.width;
 	if (targetHeight === undefined) targetHeight = pbPhaserRender.height;
 
@@ -80,6 +79,7 @@ pbWebGl.prototype.fillRect = function( x, y, wide, high, color, targetWidth, tar
 pbWebGl.prototype.drawRect = function( x, y, wide, high, color, targetWidth, targetHeight )
 {
 	// console.log( "pbWebGl.drawRect" );
+	if (color === undefined) color = this.lineColorRGBA;
 	if (targetWidth === undefined) targetWidth = pbPhaserRender.width;
 	if (targetHeight === undefined) targetHeight = pbPhaserRender.height;
 

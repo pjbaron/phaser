@@ -31,6 +31,12 @@ Phaser.Graphics = function (game, x, y) {
     if (y === undefined) { y = 0; }
 
     /**
+    * @property {object} position - Pixel offset for the top left corner of this object.
+    * @default
+    */
+    this.position = { x: x, y: y };
+
+    /**
     * @property {number} type - The const type of this object.
     * @default
     */
@@ -49,10 +55,8 @@ Phaser.Graphics = function (game, x, y) {
 
 };
 
-// PJBNOTE: basic drawing functions.  Should this be in the renderer itself?
-// PJBNOTE: CRITICAL CHANGE... need to decide what exactly to do here
-//Phaser.Graphics.prototype = Object.create(PIXI.Graphics.prototype);
-Phaser.Graphics.prototype.constructor = Phaser.Graphics;
+//Phaser.Graphics.prototype = Object.create(pbWebGl.prototype);
+//Phaser.Graphics.prototype.constructor = Phaser.Graphics;
 
 Phaser.Component.Core.install.call(Phaser.Graphics.prototype, [
     'Angle',
@@ -210,3 +214,26 @@ Phaser.Graphics.prototype.drawTriangles = function(vertices, indices, cull) {
         }
     }
 };
+
+
+Phaser.Graphics.prototype.beginFill = function(_fillColor)
+{
+    if (typeof _fillColor == "number")
+    {
+        // convert _fillColor from a Number into an RGBA object as used by pbWebGlGraphics
+        var rgba = { r: (_fillColor >> 16) & 255, g: (_fillColor >> 8) & 255, b: _fillColor & 255, a: 255 };
+        _fillColor = rgba;
+    }
+    // TODO: convert string format e.g. "#ff00ff"
+
+    pbPhaserRender.renderer.graphics.fillStyle( _fillColor, _fillColor );
+};
+
+
+Phaser.Graphics.prototype.drawRect = function(_x, _y, _width, _height)
+{
+    // TODO: if we're going to emulate PIXI behaviour (i.e. beginFill) instead of Canvas, need to emulate the rest of it too (e.g. this should drawRect instead of fillRect sometimes)
+    pbPhaserRender.renderer.graphics.fillRect(_x, _y, _width, _height);
+};
+
+
