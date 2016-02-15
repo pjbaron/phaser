@@ -89,7 +89,14 @@ pbSprite.prototype.createWithKey = function(game, _x, _y, _key)
 	this.transform.create(this.image, _x, _y);
 
 	// create references so that classes that extend pbSprite can access properties of my member objects
-	this.anchor = this.image.anchor;
+	if ( this.image )
+	{
+		this.anchor = this.image.anchor;
+	}
+	else
+	{
+		this.anchor = new Phaser.Point(0.5, 0.5);
+	}
 	this.scale = this.transform.scale;
 	this.children = this.transform.children;
 	this.contains = this.transform.contains;
