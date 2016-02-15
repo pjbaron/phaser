@@ -2631,14 +2631,19 @@ Phaser.Loader.prototype = {
                     //  Load the XML before carrying on with the next file
                     loadNext = false;
                     this.xhrLoad(file, this.transformUrl(file.atlasURL, file), 'text', function (file, xhr) {
+
                         var json;
 
-                        try
+                        // check for explicit xml file (99% of the time this will work, avoiding the need to throw an exception in the JSON.parse)
+                        if (xhr.responseText.substr(0, 14) != "<?xml version=")
                         {
-                            // Try to parse as JSON, if it fails, then it's hopefully XML
-                            json = JSON.parse(xhr.responseText);
+                            try
+                            {
+                                // Try to parse as JSON, if it fails, then it's hopefully XML
+                                json = JSON.parse(xhr.responseText);
+                            }
+                            catch (e) {}
                         }
-                        catch (e) {}
 
                         if (!!json)
                         {
