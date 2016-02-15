@@ -195,10 +195,18 @@ Phaser.Physics.Arcade.prototype = {
         }
         else
         {
+            if (object instanceof Phaser.World)
+            {
+                //  If it's the main World Group then we do it on the children in _childLayer regardless
+                this.enable(object._childLayer.children, children);
+            }
+
             if (object instanceof Phaser.Group)
             {
                 //  If it's a Group then we do it on the children regardless
                 this.enable(object.children, children);
+                //  Recurse through the Group heirarchy
+                this.enable(object.list, children);
             }
             else
             {
