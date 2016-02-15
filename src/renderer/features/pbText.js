@@ -21,20 +21,22 @@ function pbText()
 
 pbText.prototype.create = function(_key, _layer, _firstAscii, _offset)
 {
-	// TODO: use Phaser.Cache!
-	// this.textureObject = textures.getFirst(_key);
-	if (this.textureObject)
+	var textureObject = game.cache.getImage(_key, true);
+	if (textureObject.base instanceof pbSurface)
 	{
-		this.surface = this.textureObject.surface;
-		this.layer = _layer;
-		this.firstAscii = _firstAscii;
-		if (_offset) this.offset = _offset;
-		this.lines = [];
+		this.surface = textureObject.base;
 	}
 	else
 	{
-		alert("ERROR: (pbText) no texture is available for " + _key);
+		this.surface = new pbSurface();
+		this.surface.createGrid(0, 0, 1, 1, textureObject.data);
 	}
+
+	this.surface = this.textureObject.surface;
+	this.layer = _layer;
+	this.firstAscii = _firstAscii;
+	if (_offset) this.offset = _offset;
+	this.lines = [];
 };
 
 
