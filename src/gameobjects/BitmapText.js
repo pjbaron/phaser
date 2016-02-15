@@ -61,8 +61,7 @@ Phaser.BitmapText = function (game, x, y, font, text, size, align) {
     size = size || 32;
     align = align || 'left';
 
-// PJBNOTE: call new super class constructor for BitmapText
-    // PIXI.DisplayObjectContainer.call(this);
+    //this.position = new Phaser.Point();
 
     /**
     * @property {number} type - The const type of this object.
@@ -147,6 +146,16 @@ Phaser.BitmapText = function (game, x, y, font, text, size, align) {
     */
     this._tint = 0xFFFFFF;
 
+    /**
+     * @property {object} _layer - The display layer that all letters will be added to.
+     * @private
+     */
+    this._layer = game.world;
+
+    this._glyphsGroup = game.add.group();
+    this._glyphsGroup.x = x;
+    this._glyphsGroup.y = y;
+
     this.updateText();
 
     /**
@@ -154,12 +163,15 @@ Phaser.BitmapText = function (game, x, y, font, text, size, align) {
     */
     this.dirty = false;
 
+    // call super constructor
+    Phaser.Image.call(this);
+
+    // Initializes the mixin components
     Phaser.Component.Core.init.call(this, game, x, y, '', null);
 
 };
 
-// PJBNOTE: CRITICAL CHANGE - switch to pbTransformObject or pbBaseImage?
-//Phaser.BitmapText.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+Phaser.BitmapText.prototype = Object.create(Phaser.Image.prototype);
 Phaser.BitmapText.prototype.constructor = Phaser.BitmapText;
 
 Phaser.Component.Core.install.call(Phaser.BitmapText.prototype, [
@@ -381,23 +393,21 @@ Phaser.BitmapText.prototype.updateText = function () {
             }
             else
             {
-                //  We need a new sprite as the pool is empty or exhausted
-// PJBNOTE: create new pbSprite here
-//                g = new PIXI.Sprite(charData.texture);
-                g.name = line.text[c];
+                g = this._glyphsGroup.create(0, 0, charData.texture, 0);
                 this._glyphs.push(g);
             }
 
-            g.position.x = (line.chars[c] + align) - ax;
-            g.position.y = (line.y + (charData.yOffset * scale)) - ay;
+            g.x = (line.chars[c] + align) - ax;
+            g.y = (line.y + (charData.yOffset * scale)) - ay;
 
             g.scale.set(scale);
-            g.tint = this.tint;
-            g.texture.requiresReTint = true;
+            // PJBNOTE: TODO: tint is not supported yet
+            //g.tint = this.tint;
+            //g.texture.requiresReTint = true;
 
             if (!g.parent)
             {
-                this.addChild(g);
+                this._layer.addChild(g);
             }
 
             t++;
@@ -408,7 +418,7 @@ Phaser.BitmapText.prototype.updateText = function () {
     //  This moves them from the display list (children array) but retains them in the _glyphs pool
     for (i = t; i < this._glyphs.length; i++)
     {
-        this.removeChild(this._glyphs[i]);
+        this._layer.removeChild(this._glyphs[i]);
     }
 
 };
