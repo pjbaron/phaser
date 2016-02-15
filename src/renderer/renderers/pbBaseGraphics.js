@@ -140,9 +140,14 @@ pbBaseGraphics.prototype.drawRect = function( x, y, wide, high, color )
 	alert("ERROR: the selected graphic mode does not extend drawRect from pbBaseGraphics!");
 };
 
+pbBaseGraphics.prototype.beginFill = function(_fillColor)
+{
+	alert("ERROR: the selected graphic mode does not extend beginFill from pbBaseGraphics!");
+};
+
 pbBaseGraphics.prototype.fillStyle = function(_fillColor, _lineColor)
 {
-	alert("ERROR: the selected graphic mode does not fillStyle scissor from pbBaseGraphics!");
+	alert("ERROR: the selected graphic mode does not extend fillStyle from pbBaseGraphics!");
 };
 
 pbBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )
