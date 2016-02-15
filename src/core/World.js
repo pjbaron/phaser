@@ -51,7 +51,7 @@ Phaser.World = function (game) {
     this._height = game.height;
 
     /**
-     * @property {object} _childLayer - The layer held by World into which children are added, this preserves the priority of mixed Sprite and Group additions to World
+     * @property {object} _childLayer - The layer held by World into which image children are added directly, this preserves the priority of mixed Sprite and Group additions to World
      */
     this._childLayer = null;
 
@@ -106,6 +106,7 @@ Phaser.World.prototype.stateChange = function () {
 
 Phaser.World.prototype.addChild = function(child) {
 
+    // handle adding a graphic type directly to the World (maintain drawing order by using _childLayer)
     if (child instanceof Phaser.Sprite || child instanceof Phaser.Image)
     {
         // if the internal _childLayer has not been created yet
