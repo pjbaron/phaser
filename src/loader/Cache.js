@@ -446,7 +446,7 @@ Phaser.Cache.prototype = {
     * @method Phaser.Cache#addBitmapFont
     * @param {string} key - The key that this asset will be stored in the cache under. This should be unique within this cache.
     * @param {string} url - The URL the asset was loaded from. If the asset was not loaded externally set to `null`.
-    * @param {object} data - Extra font data.
+    * @param {object} data - Extra font data - the source 'img'
     * @param {object} atlasData - Texture atlas frames data.
     * @param {number} [xSpacing=0] - If you'd like to add additional horizontal spacing between the characters then set the pixel value here.
     * @param {number} [ySpacing=0] - If you'd like to add additional vertical spacing between the lines then set the pixel value here.
@@ -454,10 +454,7 @@ Phaser.Cache.prototype = {
     addBitmapFont: function (key, url, data, atlasData, atlasType, xSpacing, ySpacing) {
 
         var base = new pbSurface();
-        // PJBNOTE: TODO: what size is the bitmap font texture?
-//        base.create(frameWidth, frameHeight);
-        // PJBNOTE: TODO: look at PIXI source and find out what the extra 'data' object can contain, for now I'll just stick it in here so it isn't lost!
-        base.data = data;
+        base.createSingle( data );
 
         var obj = {
             url: url,
