@@ -71,3 +71,14 @@ pbWebGlImage.prototype.simpleDraw = function(_drawDictionary, _x, _y)
 	_drawDictionary.add( this.surface, { image: this, x: _x, y: _y });
 };
 
+
+pbWebGlImage.prototype.getSize = function()
+{
+	var cell = Math.floor(this.cellFrame);
+	if (!this.surface || !this.surface.srcSize || this.surface.srcSize[cell] === undefined)
+	{
+		return { wide: 0, high: 0 };
+	}
+	return this.surface.srcSize[cell];
+};
+
