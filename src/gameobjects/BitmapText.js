@@ -393,7 +393,7 @@ Phaser.BitmapText.prototype.updateText = function () {
             }
             else
             {
-                g = this._glyphsGroup.create(0, 0, charData.texture, 0);
+                g = this._glyphsGroup.create(0, 0, charData.texture, charData.cellFrame);
                 this._glyphs.push(g);
             }
 

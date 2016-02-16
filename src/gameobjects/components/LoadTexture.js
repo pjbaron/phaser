@@ -96,6 +96,7 @@ Phaser.Component.LoadTexture.prototype = {
         else if (key instanceof pbSurface)
         {
             this.createWithKey(this.game, this.x, this.y, this.key);
+            this.setFrame( frame );
         }
         else if (key instanceof HTMLCanvasElement)
         {
@@ -180,7 +181,14 @@ Phaser.Component.LoadTexture.prototype = {
             this.updateCrop();
         }
 
-        this.image.cellFrame = frame.index;
+        if ( typeof frame == "number")
+        {
+            this.image.cellFrame = frame;
+        }
+        else
+        {
+            this.image.cellFrame = frame.index;
+        }
 
         // PJBNOTE: TODO: pbSurface does not yet support tint
         // this.texture.requiresReTint = true;

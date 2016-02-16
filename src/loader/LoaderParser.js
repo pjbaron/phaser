@@ -55,18 +55,17 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
         {
             var charCode = parseInt(letters[i].getAttribute('id'), 10);
 
-            var textureRect = new Phaser.Rectangle(
-                parseInt(letters[i].getAttribute('x'), 10),
-                parseInt(letters[i].getAttribute('y'), 10),
-                parseInt(letters[i].getAttribute('width'), 10),
-                parseInt(letters[i].getAttribute('height'), 10)
-            );
+            // var textureRect = new Phaser.Rectangle(
+            //     parseInt(letters[i].getAttribute('x'), 10),
+            //     parseInt(letters[i].getAttribute('y'), 10),
+            //     parseInt(letters[i].getAttribute('width'), 10),
+            //     parseInt(letters[i].getAttribute('height'), 10)
+            // );
 
-            var texture = new pbSurface();
-            texture.create( textureRect.width, textureRect.height );
-            // PJB TODO: copy data from the baseTexture to this single character pbSurface texture
+            //var texture = new pbSurface();
+            //texture.create( textureRect.width, textureRect.height );
 
-            data.chars[charCode] = {
+            var c = data.chars[charCode] = {
                 x: parseInt(letters[i].getAttribute('x'), 10),
                 y: parseInt(letters[i].getAttribute('y'), 10),
                 width: parseInt(letters[i].getAttribute('width'), 10),
@@ -74,9 +73,13 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
                 xOffset: parseInt(letters[i].getAttribute('xoffset'), 10),
                 yOffset: parseInt(letters[i].getAttribute('yoffset'), 10),
                 xAdvance: parseInt(letters[i].getAttribute('xadvance'), 10) + xSpacing,
+                cellFrame: i,
                 kerning: {},
-                texture: texture
+                texture: baseTexture
             };
+
+            // set the cellFrame data to access this letter in the baseTexture
+            baseTexture.setCellFrame( i, c.x, c.y, c.width, c.height );
         }
 
         var kernings = xml.getElementsByTagName('kerning');

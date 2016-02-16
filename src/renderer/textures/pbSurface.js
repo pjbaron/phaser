@@ -253,16 +253,35 @@ pbSurface.prototype.createAtlas = function(data, _imageData)
 		this.cellSourceSize[i] = { wide: f.spriteSourceSize.w, high: f.spriteSourceSize.h };
 		// the percentage of the source texture occupied by each animation cell
 		this.cellTextureBounds[i] = new pbRectangle(f.frame.x / w, f.frame.y / h, f.frame.w / w, f.frame.h / h);
-		if (f.trimmed)
-		{
-			if (!this.cellOffsets)
-			{
-				this.cellOffsets = [];
-			}
-			this.cellOffsets[i] = { x: f.spriteSourceSize.x, y: f.spriteSourceSize.y };
-		}
+		// if (f.trimmed)
+		// {
+		// 	if (!this.cellOffsets)
+		// 	{
+		// 		this.cellOffsets = [];
+		// 	}
+		// 	this.cellOffsets[i] = { x: f.spriteSourceSize.x, y: f.spriteSourceSize.y };
+		// }
 	}
 };
+
+
+pbSurface.prototype.setCellFrame = function( _cellFrame, _x, _y, _width, _height )
+{
+	this.srcSize[ _cellFrame ] = this.cellSourceSize[ _cellFrame ] = { wide: _width, high: _height };
+	// if (!this.cellOffsets)
+	// {
+	// 	this.cellOffsets = [];
+	// }
+	// this.cellOffsets[ _cellFrame ] = { x: _x, y: _y };
+	var w = this.imageData.width;
+	var h = this.imageData.height;
+	this.cellTextureBounds[ _cellFrame ] = new pbRectangle(_x / w, _y / h, _width / w, _height / h);
+	if ( _cellFrame >= this.cells )
+	{
+		this.cells = _cellFrame + 1;
+	}
+};
+
 
 
 /**
