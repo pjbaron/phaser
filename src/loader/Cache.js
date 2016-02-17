@@ -247,7 +247,7 @@ Phaser.Cache.prototype = {
         }
 
         // create a surface to hold the ImageData
-        var base = new pbSurface();
+        var base = new BeamSurface();
         base.createSingle(data);
 
         // PJBNOTE: TODO: look at PIXI source and find out what the extra 'data' object can contain, for now I'll just stick it in here so it isn't lost!
@@ -453,7 +453,7 @@ Phaser.Cache.prototype = {
     */
     addBitmapFont: function (key, url, data, atlasData, atlasType, xSpacing, ySpacing) {
 
-        var base = new pbSurface();
+        var base = new BeamSurface();
         base.createSingle( data );
 
         var obj = {
@@ -575,8 +575,8 @@ Phaser.Cache.prototype = {
         if (margin === undefined) { margin = 0; }
         if (spacing === undefined) { spacing = 0; }
 
-        var base = new pbSurface();
-        //pbSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _imageData, _rttTexture, _rttTextureRegister, _trimmedFrom, _offsets)
+        var base = new BeamSurface();
+        //BeamSurface.prototype.createGrid = function(_wide, _high, _numWide, _numHigh, _imageData, _rttTexture, _rttTextureRegister, _trimmedFrom, _offsets)
         base.createGrid(frameWidth, frameHeight, Math.floor(data.width / frameWidth), Math.floor(data.height / frameHeight), data);
 
         // PJBNOTE: TODO: data appears to be the actual img object, is this still needed here?
@@ -612,7 +612,7 @@ Phaser.Cache.prototype = {
     */
     addTextureAtlas: function (key, url, data, atlasData, format) {
 
-        var base = new pbSurface();
+        var base = new BeamSurface();
         if (format == Phaser.Loader.TEXTURE_ATLAS_XML_STARLING)
         {
             base.createStarlingAtlas(atlasData, data);

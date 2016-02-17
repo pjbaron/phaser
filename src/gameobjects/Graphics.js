@@ -55,7 +55,7 @@ Phaser.Graphics = function (game, x, y) {
 
 };
 
-//Phaser.Graphics.prototype = Object.create(pbWebGl.prototype);
+//Phaser.Graphics.prototype = Object.create(BeamWebGl.prototype);
 //Phaser.Graphics.prototype.constructor = Phaser.Graphics;
 
 Phaser.Component.Core.install.call(Phaser.Graphics.prototype, [
@@ -226,14 +226,14 @@ Phaser.Graphics.prototype.beginFill = function(_fillColor)
     }
     // TODO: convert string format e.g. "#ff00ff"
 
-    pbPhaserRender.renderer.graphics.fillStyle( _fillColor, _fillColor );
+    BeamPhaserRender.renderer.graphics.fillStyle( _fillColor, _fillColor );
 };
 
 
 Phaser.Graphics.prototype.drawRect = function(_x, _y, _width, _height)
 {
     // TODO: if we're going to emulate PIXI behaviour (i.e. beginFill) instead of Canvas, need to emulate the rest of it too (e.g. this should drawRect instead of fillRect sometimes)
-    pbPhaserRender.renderer.graphics.fillRect(_x, _y, _width, _height);
+    BeamPhaserRender.renderer.graphics.fillRect(_x, _y, _width, _height);
 };
 
 

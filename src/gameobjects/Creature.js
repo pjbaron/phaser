@@ -94,9 +94,9 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
     */
     this.texture = texture;
 
-    // PJBNOTE: is pbTransformObject the correct base class now?
+    // PJBNOTE: is BeamTransformObject the correct base class now?
     // PIXI.DisplayObjectContainer.call(this);
-    pbTransformObject.call(this);
+    BeamTransformObject.call(this);
 
     this.dirty = true;
     // PJBNOTE: blendMode replacement needed
@@ -159,8 +159,8 @@ Phaser.Creature = function (game, x, y, key, mesh, animation) {
 };
 
 // Phaser.Creature.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
-// PJBNOTE: is pbTransformObject the correct class for this?
-Phaser.Creature.prototype = Object.create(pbTransformObject.prototype);
+// PJBNOTE: is BeamTransformObject the correct class for this?
+Phaser.Creature.prototype = Object.create(BeamTransformObject.prototype);
 Phaser.Creature.prototype.constructor = Phaser.Creature;
 
 Phaser.Component.Core.install.call(Phaser.Creature.prototype, [

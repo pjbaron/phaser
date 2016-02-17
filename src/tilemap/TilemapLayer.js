@@ -59,7 +59,7 @@ Phaser.TilemapLayer = function (game, tilemap, index, width, height) {
     * @property {HTMLCanvasElement} canvas
     * @protected
     */
-    this.canvas = pbCanvasPool.create(this, width, height);
+    this.canvas = BeamCanvasPool.create(this, width, height);
 
     /**
     * The 2d context of the canvas.
@@ -312,7 +312,7 @@ Phaser.TilemapLayer.prototype.postUpdate = function () {
 */
 Phaser.TilemapLayer.prototype.destroy = function() {
 
-    pbCanvasPool.remove(this);
+    BeamCanvasPool.remove(this);
 
     Phaser.Component.Destroy.prototype.destroy.call(this);
 

@@ -57,7 +57,7 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
     layerClass.call(this);
     // _image, _renderer, _x, _y, _z, _angleInRadians, _scaleX, _scaleY)    
-    layerClass.prototype.create.call(this, null, pbPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
+    layerClass.prototype.create.call(this, null, BeamPhaserRender.renderer, 0, 0, 0, 0, 1, 1);
     
 
     // PJBNOTE: is this redundant? if parent is undefined this group is added to world, do we need a second system to do the same thing?
@@ -248,7 +248,7 @@ Phaser.Group = function (game, parent, name, addToStage, enableBody, physicsBody
 
 };
 
-Phaser.Group.prototype = Object.create(pbBaseLayer.prototype);
+Phaser.Group.prototype = Object.create(BeamBaseLayer.prototype);
 Phaser.Group.prototype.constructor = Phaser.Group;
 
 /**
@@ -1414,13 +1414,13 @@ Phaser.Group.prototype.preUpdate = function () {
 };
 
 
-// if this function returns false, the group will be destroyed by pbWebGlLayer.update
+// if this function returns false, the group will be destroyed by BeamWebGlLayer.update
 // This behaviour is universal for all layer objects in the new renderer, and Group
 // is now a layer.
 Phaser.Group.prototype.update = function()
 {
 
-    // PJBNOTE: I've moved this 'logicUpdate' from the renderUpdate cycle (pbTransformObject)
+    // PJBNOTE: I've moved this 'logicUpdate' from the renderUpdate cycle (BeamTransformObject)
     var i = this.children.length;
 
     while (i--)

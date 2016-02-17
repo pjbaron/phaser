@@ -527,7 +527,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
 
         if (this.currentFrame)
         {
-            // PJBNOTE: the new renderer uses an integer index to access cells on the pbSurface, store it in a private variable on this class
+            // PJBNOTE: the new renderer uses an integer index to access cells on the BeamSurface, store it in a private variable on this class
             return this._frameIndex;
 //            return this.currentFrame.index;
         }
@@ -543,7 +543,7 @@ Object.defineProperty(Phaser.AnimationManager.prototype, 'frame', {
             if (this.currentFrame)
             {
                 this._frameIndex = value;
-                // PJBNOTE: pbBaseImage uses 'cellFrame' (integer) to access the pbSurface cell, the cell bounds are stored in pbSurface
+                // PJBNOTE: BeamBaseImage uses 'cellFrame' (integer) to access the BeamSurface cell, the cell bounds are stored in BeamSurface
                 this.sprite.cellFrame = this._frameIndex;
 //                this.sprite.setFrame(this.currentFrame);
             }

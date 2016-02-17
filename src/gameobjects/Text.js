@@ -82,7 +82,7 @@ Phaser.Text = function (game, x, y, text, style) {
     /**
      * @property {HTMLCanvasElement} canvas - The canvas element to which the text is rendered.
      */
-    this.canvas = pbCanvasPool.create(this);
+    this.canvas = BeamCanvasPool.create(this);
 
     /**
      * @property {HTMLCanvasElement} context - The context of the canvas element that the text is rendered to.
@@ -221,7 +221,7 @@ Phaser.Text.prototype.destroy = function (destroyChildren) {
 
     this.texture.destroy(true);
 
-    pbCanvasPool.remove(this);
+    BeamCanvasPool.remove(this);
 
     // if (this.canvas && this.canvas.parentNode)
     // {
@@ -1117,7 +1117,7 @@ Phaser.Text.prototype.updateTexture = function () {
 
     //var base = this.texture.imageData;
     var base = this.surface.imageData;
-    // PJBNOTE: TODO: pbSurface doesn't support crop yet
+    // PJBNOTE: TODO: BeamSurface doesn't support crop yet
     // var crop = this.texture.crop;
     // var frame = this.texture.frame;
 
@@ -1129,11 +1129,11 @@ Phaser.Text.prototype.updateTexture = function () {
     // base.height = h;
     this.resize( this.canvas );
 
-    // PJBNOTE: TODO: pbSurface doesn't support crop yet
+    // PJBNOTE: TODO: BeamSurface doesn't support crop yet
     // crop.width = w;
     // crop.height = h;
 
-    // PJBNOTE: new renderer is not using Frame class currently, the frame is simply stored in pbBaseImage.cellFrame as an integer
+    // PJBNOTE: new renderer is not using Frame class currently, the frame is simply stored in BeamBaseImage.cellFrame as an integer
     // frame.width = w;
     // frame.height = h;
 
@@ -1962,5 +1962,5 @@ Object.defineProperty(Phaser.Text.prototype, 'height', {
 
 Phaser.Text.fontPropertiesCache = {};
 
-Phaser.Text.fontPropertiesCanvas = pbCanvasPool.create(Phaser.Text.fontPropertiesCanvas);
+Phaser.Text.fontPropertiesCanvas = BeamCanvasPool.create(Phaser.Text.fontPropertiesCanvas);
 Phaser.Text.fontPropertiesContext = Phaser.Text.fontPropertiesCanvas.getContext('2d');

@@ -5,7 +5,7 @@
 */
 
 // PJBNOTE: find out how similar the SpriteBatch class is to the new renderer's built in batching (via layers)... this whole class may be obsolete
-// PJBNOTE: this may be more similar to the 'direct pipeline' of the pbSimpleLayer which is optimised for even faster sprite batching
+// PJBNOTE: this may be more similar to the 'direct pipeline' of the BeamSimpleLayer which is optimised for even faster sprite batching
 
 /**
 * The SpriteBatch class is a really fast version of the DisplayObjectContainer built purely for speed, so use when you need a lot of sprites or particles.

@@ -4,8 +4,8 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: should be possible to merge with pbSprite... process underway
-// PJBNOTE: pbSprite uses pbTransformObject to store a transform, pbImage for currentCell, and pbSurface (indirectly through image) for the texture
+// PJBNOTE: should be possible to merge with BeamSprite... process underway
+// PJBNOTE: BeamSprite uses BeamTransformObject to store a transform, pbImage for currentCell, and BeamSurface (indirectly through image) for the texture
 
 /**
 * Sprites are the lifeblood of your game, used for nearly everything visual.
@@ -64,14 +64,14 @@ Phaser.Sprite = function (game, x, y, key, frame) {
     this.physicsType = Phaser.SPRITE;
 
     // call super constructor
-    pbSprite.call(this);
+    BeamSprite.call(this);
 
-    // Core.init calls pbSprite.createWithKey from LoadTexture.loadTexture
+    // Core.init calls BeamSprite.createWithKey from LoadTexture.loadTexture
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
 };
 
-Phaser.Sprite.prototype = Object.create(pbSprite.prototype);
+Phaser.Sprite.prototype = Object.create(BeamSprite.prototype);
 Phaser.Sprite.prototype.constructor = Phaser.Sprite;
 
 Phaser.Component.Core.install.call(Phaser.Sprite.prototype, [

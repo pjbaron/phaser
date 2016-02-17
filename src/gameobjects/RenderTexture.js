@@ -6,7 +6,7 @@
 
 // PJBNOTE: this seems to be directly equivalent to something I've been calling RTT (render-to-texture) in the new renderer
 // PJBNOTE: unless it adds some new features, the entire class should be deprecated.  Otherwise it may need to extend pbImage and redirect the draw methods
-// PJBNOTE: to the special purpose rtt functions in pbWebGl.js
+// PJBNOTE: to the special purpose rtt functions in BeamWebGl.js
 
 /**
 * A RenderTexture is a special texture that allows any displayObject to be rendered to it. It allows you to take many complex objects and

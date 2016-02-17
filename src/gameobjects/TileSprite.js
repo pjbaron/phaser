@@ -4,7 +4,7 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: the new renderer supports this via the pbSurface.isTiled flag, not sure that it needs a separate class any more?
+// PJBNOTE: the new renderer supports this via the BeamSurface.isTiled flag, not sure that it needs a separate class any more?
 
 /**
 * A TileSprite is a Sprite that has a repeating texture. The texture can be scrolled and scaled independently of the TileSprite itself.
@@ -135,7 +135,7 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
     //PIXI.TilingSprite.call(this, PIXI.TextureCache['__default'], width, height);
 
     // call super constructor
-    pbSprite.call(this);
+    BeamSprite.call(this);
 
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
@@ -144,7 +144,7 @@ Phaser.TileSprite = function (game, x, y, width, height, key, frame) {
     this.fullScreen = true;
 };
 
-Phaser.TileSprite.prototype = Object.create(pbSprite.prototype);
+Phaser.TileSprite.prototype = Object.create(BeamSprite.prototype);
 Phaser.TileSprite.prototype.constructor = Phaser.TileSprite;
 
 Phaser.Component.Core.install.call(Phaser.TileSprite.prototype, [

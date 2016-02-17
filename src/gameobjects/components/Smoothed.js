@@ -26,7 +26,7 @@ Phaser.Component.Smoothed.prototype = {
 
         get: function () {
 
-            // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+            // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in BeamSurface
             return 0;
             //return !this.texture.baseTexture.scaleMode;
 
@@ -38,7 +38,7 @@ Phaser.Component.Smoothed.prototype = {
             {
                 if (this.texture)
                 {
-                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in BeamSurface
                     // this.texture.baseTexture.scaleMode = 0;
                 }
             }
@@ -46,7 +46,7 @@ Phaser.Component.Smoothed.prototype = {
             {
                 if (this.texture)
                 {
-                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in pbSurface
+                    // PJBNOTE: new renderer does not support smoothing yet, and does not possess the baseTexture member in BeamSurface
                     // this.texture.baseTexture.scaleMode = 1;
                 }
             }

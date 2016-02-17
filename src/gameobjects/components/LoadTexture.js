@@ -85,7 +85,7 @@ Phaser.Component.LoadTexture.prototype = {
             this.setTexture(key.texture);
             this.setFrame(key.texture.frame.clone());
             key.onChangeSource.add(this.resizeFrame, this);
-            // PJBNOTE: pbSurface doesn't have a 'valid' boolean, is it needed?
+            // PJBNOTE: BeamSurface doesn't have a 'valid' boolean, is it needed?
             //this.texture.valid = valid;
         }
         // PJBNOTE: new renderer texture check
@@ -93,7 +93,7 @@ Phaser.Component.LoadTexture.prototype = {
         // {
         //     this.setTexture(key);
         // }
-        else if (key instanceof pbSurface)
+        else if (key instanceof BeamSurface)
         {
             this.createWithKey(this.game, this.x, this.y, this.key);
             this.setFrame( frame );
@@ -140,7 +140,7 @@ Phaser.Component.LoadTexture.prototype = {
 
         // this._frame = frame;
 
-        // PJBNOTE: pbSurface.create variants should already have set all it's internals
+        // PJBNOTE: BeamSurface.create variants should already have set all it's internals
         // this.texture.frame.x = frame.x;
         // this.texture.frame.y = frame.y;
         // this.texture.frame.width = frame.width;
@@ -151,7 +151,7 @@ Phaser.Component.LoadTexture.prototype = {
         // this.texture.crop.width = frame.width;
         // this.texture.crop.height = frame.height;
 
-        // PJBNOTE: TODO: pbSurface does not yet support 'trimmed'
+        // PJBNOTE: TODO: BeamSurface does not yet support 'trimmed'
         // if (frame.trimmed)
         // {
         //     if (this.texture.trim)
@@ -190,10 +190,10 @@ Phaser.Component.LoadTexture.prototype = {
             this.image.cellFrame = frame.index;
         }
 
-        // PJBNOTE: TODO: pbSurface does not yet support tint
+        // PJBNOTE: TODO: BeamSurface does not yet support tint
         // this.texture.requiresReTint = true;
         
-        // PJBNOTE: pbSurface should already have correct UV values
+        // PJBNOTE: BeamSurface should already have correct UV values
         // this.texture._updateUvs();
 
         // if (this.tilingTexture)

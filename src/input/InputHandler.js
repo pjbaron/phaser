@@ -1510,7 +1510,7 @@ Phaser.InputHandler.prototype = {
                 this.sprite.y = this.boundsRect.bottom - this.sprite.height;
             }
 /* Phaser 2.4.4 for reference
-// PJBNOTE: I'll need to incorporate left/right/top/bottom/offsetX and offsetY into pbSprite
+// PJBNOTE: I'll need to incorporate left/right/top/bottom/offsetX and offsetY into BeamSprite
             if (this.sprite.left < this.boundsRect.left)
             {
                 this.sprite.x = this.boundsRect.x + this.sprite.offsetX;
@@ -1562,7 +1562,7 @@ Phaser.InputHandler.prototype = {
         else
         {
 /* Phaser 2.4.4 for reference
-// PJBNOTE: I'll need to incorporate left/right/top/bottom/offsetX and offsetY into pbSprite
+// PJBNOTE: I'll need to incorporate left/right/top/bottom/offsetX and offsetY into BeamSprite
             if (this.sprite.left < this.boundsSprite.left)
             {
                 this.sprite.x = this.boundsSprite.left + this.sprite.offsetX;

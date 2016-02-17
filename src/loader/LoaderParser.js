@@ -62,7 +62,7 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
             //     parseInt(letters[i].getAttribute('height'), 10)
             // );
 
-            //var texture = new pbSurface();
+            //var texture = new BeamSurface();
             //texture.create( textureRect.width, textureRect.height );
 
             var c = data.chars[charCode] = {
@@ -160,7 +160,7 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
     *
     * @method Phaser.LoaderParser.finalizeBitmapFont
     * @private
-    * @param {pbSurface} baseTexture - The BaseTexture this font uses.
+    * @param {BeamSurface} baseTexture - The BaseTexture this font uses.
     * @param {object} bitmapFontData - Pre-parsed bitmap font data.
     * @return {object} The parsed Bitmap Font data.
     */
@@ -172,7 +172,7 @@ PJBNOTE: this PIXI reference needs to be changed to the new renderer or Phaser
 
         //         var letter = bitmapFontData.chars[charCode];
 
-        //         letter.texture = new pbSurface();
+        //         letter.texture = new BeamSurface();
         //         letter.texture.createFrom(baseTexture, letter.x, letter.y, letter.width, letter.height);
         //     }
 

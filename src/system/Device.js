@@ -1130,7 +1130,7 @@ Phaser.Device._initialize = function () {
             return false;
         }
 
-        var elem = pbCanvasPool.create(this, 1, 1);
+        var elem = BeamCanvasPool.create(this, 1, 1);
         var ctx = elem.getContext('2d');
 
         if (!ctx)
@@ -1140,7 +1140,7 @@ Phaser.Device._initialize = function () {
 
         var image = ctx.createImageData(1, 1);
 
-        pbCanvasPool.remove(this);
+        BeamCanvasPool.remove(this);
 
         return image.data instanceof Uint8ClampedArray;
 

@@ -113,7 +113,7 @@ Phaser.Game = function (width, height, renderer, parent, state, transparent, ant
     this.preserveDrawingBuffer = false;
 
     /**
-     * @property {pbRenderer} phaserRender - The renderer which draws content to Canvas, WebGL, etc
+     * @property {BeamRenderer} phaserRender - The renderer which draws content to Canvas, WebGL, etc
      * @protected
      */
     this.renderer = null;
@@ -705,7 +705,7 @@ Phaser.Game.prototype = {
             }
         }
 
-        this.renderer = new pbPhaserRender( this.canvas );
+        this.renderer = new BeamPhaserRender( this.canvas );
         this.renderer.create( 'webgl' );
         this.renderType = Phaser.WEBGL;
 

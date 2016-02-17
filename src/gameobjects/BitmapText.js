@@ -31,7 +31,7 @@
 *
 * @class Phaser.BitmapText
 * @constructor
-* // PJBNOTE: change this to extend pbText and check all parameters and methods accessed from the super class
+* // PJBNOTE: change this to extend BeamText and check all parameters and methods accessed from the super class
 * @extends PIXI.DisplayObjectContainer
 * @extends Phaser.Component.Core
 * @extends Phaser.Component.Angle

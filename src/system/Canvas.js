@@ -21,7 +21,7 @@ Phaser.Canvas = {
     * @param {number} [width=256] - The width of the canvas element.
     * @param {number} [height=256] - The height of the canvas element..
     * @param {string} [id=(none)] - If specified, and not the empty string, this will be set as the ID of the canvas element. Otherwise no ID will be set.
-    * @param {boolean} [skipPool=false] - If `true` the canvas will not be placed in the pbCanvasPool global.
+    * @param {boolean} [skipPool=false] - If `true` the canvas will not be placed in the BeamCanvasPool global.
     * @return {HTMLCanvasElement} The newly created canvas element.
     */
     create: function (parent, width, height, id, skipPool) {
@@ -31,7 +31,7 @@ Phaser.Canvas = {
 
         if (skipPool === undefined)
         {
-            var canvas = pbCanvasPool.create(parent, width, height);
+            var canvas = BeamCanvasPool.create(parent, width, height);
         }
         else
         {

@@ -121,7 +121,7 @@ Phaser.World.prototype.addChild = function(child) {
     }
     else
     {
-        pbBaseLayer.prototype.addChild.call(this, child);
+        BeamBaseLayer.prototype.addChild.call(this, child);
     }
 };
 // PJBNOTE: TODO: probably need to do the same for addChildAt

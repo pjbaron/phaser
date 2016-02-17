@@ -4,8 +4,8 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: I think this can be replaced by using texture offsets in pbSurface (see pbInvaders demo which used this for it's starfield for a while)
-// PJBNOTE: Further for webGl purposes, setting the pbSurface.isTiled flag will enable gl.WRAP in both directions
+// PJBNOTE: I think this can be replaced by using texture offsets in BeamSurface (see pbInvaders demo which used this for it's starfield for a while)
+// PJBNOTE: Further for webGl purposes, setting the BeamSurface.isTiled flag will enable gl.WRAP in both directions
 // PJBNOTE: I suspect this whole class can be deprecated unless it does something more than described in the comments below
 
 /**

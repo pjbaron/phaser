@@ -118,7 +118,7 @@ Phaser.Utils.Debug.prototype = {
             // ensure the debug layer draws over anything else in the world group by forcing it to the end of the list
             this.group.fixDepth = Number.MAX_SAFE_INTEGER;
 
-            this.canvas = pbCanvasPool.create(this, this.game.width, this.game.height);
+            this.canvas = BeamCanvasPool.create(this, this.game.width, this.game.height);
             this.context = this.canvas.getContext('2d');
         }
 
@@ -830,7 +830,7 @@ Phaser.Utils.Debug.prototype = {
     */
     destroy: function () {
   
-        pbCanvasPool.remove(this);
+        BeamCanvasPool.remove(this);
 
     }
 

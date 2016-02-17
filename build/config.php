@@ -49,50 +49,47 @@
     <script src="$path/src/renderer/lib/stats.js"></script>
     <script src="$path/src/renderer/lib/jszip.js"></script>
 
-    <script src="$path/src/renderer/data_structures/pbMatrix3.js"></script>
-    <script src="$path/src/renderer/data_structures/pbMatrix4.js"></script>
-    <script src="$path/src/renderer/data_structures/pbRectangle.js"></script>
-    <script src="$path/src/renderer/data_structures/pbDictionary.js"></script>
+    <script src="$path/src/renderer/data_structures/BeamMatrix3.js"></script>
+    <script src="$path/src/renderer/data_structures/BeamMatrix4.js"></script>
+    <script src="$path/src/renderer/data_structures/BeamRectangle.js"></script>
+    <script src="$path/src/renderer/data_structures/BeamDictionary.js"></script>
 
-    <script src="$path/src/renderer/root/pbPhaserRender.js"></script>
-    <script src="$path/src/renderer/root/pbRenderer.js"></script>
-    <script src="$path/src/renderer/root/pbRootTimer.js"></script>
+    <script src="$path/src/renderer/root/BeamPhaserRender.js"></script>
+    <script src="$path/src/renderer/root/BeamRenderer.js"></script>
+    <script src="$path/src/renderer/root/BeamRootTimer.js"></script>
 
-    <script src="$path/src/renderer/textures/pbCanvasPool.js"></script>
-    <script src="$path/src/renderer/textures/pbSurface.js"></script>
-    <script src="$path/src/renderer/textures/pbTextures.js"></script>
-    <script src="$path/src/renderer/textures/webgl/pbWebGlTextures.js"></script>
+    <script src="$path/src/renderer/textures/BeamCanvasPool.js"></script>
+    <script src="$path/src/renderer/textures/BeamSurface.js"></script>
+    <script src="$path/src/renderer/textures/webgl/BeamWebGlTextures.js"></script>
 
-    <script src="$path/src/renderer/logical_sprites/pbSprite.js"></script>
-    <script src="$path/src/renderer/logical_sprites/pbTransformObject.js"></script>
-    <script src="$path/src/renderer/logical_sprites/layers/pbBaseLayer.js"></script>
-    <script src="$path/src/renderer/logical_sprites/layers/pbSimpleLayer.js"></script>
-    <script src="$path/src/renderer/logical_sprites/layers/canvas/pbCanvasLayer.js"></script>
-    <script src="$path/src/renderer/logical_sprites/layers/webgl/pbWebGlLayer.js"></script>
-    <script src="$path/src/renderer/logical_sprites/images/pbBaseImage.js"></script>
-    <script src="$path/src/renderer/logical_sprites/images/canvas/pbCanvasImage.js"></script>
-    <script src="$path/src/renderer/logical_sprites/images/webgl/pbWebGlImage.js"></script>
+    <script src="$path/src/renderer/logical_sprites/BeamSprite.js"></script>
+    <script src="$path/src/renderer/logical_sprites/BeamTransformObject.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/BeamBaseLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/BeamSimpleLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/canvas/BeamCanvasLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/layers/webgl/BeamWebGlLayer.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/BeamBaseImage.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/canvas/BeamCanvasImage.js"></script>
+    <script src="$path/src/renderer/logical_sprites/images/webgl/BeamWebGlImage.js"></script>
 
-    <script src="$path/src/renderer/renderers/pbBaseGraphics.js"></script>
-    <script src="$path/src/renderer/renderers/canvas/pbCanvas.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/pbWebGl.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawImageSingle.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawTextureSingle.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/pbWebGlDrawBatch.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/pbWebGlGraphics.js"></script>
-    <script src="$path/src/renderer/renderers/webgl/shaders/pbWebGlShaders.js"></script>
+    <script src="$path/src/renderer/renderers/BeamBaseGraphics.js"></script>
+    <script src="$path/src/renderer/renderers/canvas/BeamCanvas.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/BeamWebGl.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/BeamWebGlDrawImageSingle.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/BeamWebGlDrawTextureSingle.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/BeamWebGlDrawBatch.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/BeamWebGlGraphics.js"></script>
+    <script src="$path/src/renderer/renderers/webgl/shaders/BeamWebGlShaders.js"></script>
     
-    <script src="$path/src/renderer/file_handling/pbLoader.js"></script>
-
-    <script src="$path/src/renderer/features/pbText.js"></script>
-    <script src="$path/src/renderer/features/pbTiles.js"></script>
-    <script src="$path/src/renderer/features/pbButtons.js"></script>
+    <script src="$path/src/renderer/features/BeamText.js"></script>
+    <script src="$path/src/renderer/features/BeamTiles.js"></script>
+    <script src="$path/src/renderer/features/BeamButtons.js"></script>
 
     <script src="$path/src/renderer/creature/gl-matrix-min.js"></script>
     <script src="$path/src/renderer/creature/CreatureMeshBone.js"></script>
     <script src="$path/src/renderer/creature/CreaturePhaser3JSRenderer.js"></script>
-    <script src="$path/src/renderer/creature/pbCreatureHandler.js"></script>
-    <script src="$path/src/renderer/creature/pbCreatureAssist.js"></script>
+    <script src="$path/src/renderer/creature/BeamCreatureHandler.js"></script>
+    <script src="$path/src/renderer/creature/BeamCreatureAssist.js"></script>
 
 
 

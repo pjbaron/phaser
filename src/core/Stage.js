@@ -7,7 +7,7 @@
 /**
 * The Stage object holds various properties and controls elements to do with the game stage.
 * It also handles browser visibility handling and the pausing due to loss of focus.
-* In the new renderer, the "stage" is just another pbBaseLayer object, however for game makers
+* In the new renderer, the "stage" is just another BeamBaseLayer object, however for game makers
 * it is convenient to be able to refer to properties such as backgroundColor.
 *
 * @class Phaser.Stage

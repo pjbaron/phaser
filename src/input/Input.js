@@ -453,7 +453,7 @@ Phaser.Input.prototype = {
 
         this.moveCallbacks = [];
 
-        pbCanvasPool.remove(this);
+        BeamCanvasPool.remove(this);
         this.game.canvas.removeEventListener('click', this._onClickTrampoline);
 
     },
@@ -855,7 +855,7 @@ Phaser.Input.prototype = {
 
         if (output === undefined) { output = new Phaser.Point(); }
 
-// PJBNOTE: PIXI properties.. what are .a, .b, .c and .d in pbTransformObject terms?  Bits of the transform matrix I suspect...
+// PJBNOTE: PIXI properties.. what are .a, .b, .c and .d in BeamTransformObject terms?  Bits of the transform matrix I suspect...
         // var wt = displayObject.worldTransform;
         // var id = 1 / (wt.a * wt.d + wt.c * -wt.b);
 
@@ -908,7 +908,7 @@ Phaser.Input.prototype = {
         //         }
         //     }
         // }
-        else if (displayObject instanceof pbSprite)
+        else if (displayObject instanceof BeamSprite)
         {
             // PJBNOTE: TODO: pointer doesn't take into account world scroll offset (camera) yet
             if (displayObject.contains(pointer))
