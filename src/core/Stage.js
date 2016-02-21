@@ -314,6 +314,7 @@ Phaser.Stage.prototype.setBackgroundColor = function(backgroundColor)
     this.backgroundColorSplit = [ rgb.r / 255, rgb.g / 255, rgb.b / 255 ];
     this.backgroundColorString = Phaser.Color.RGBtoString(rgb.r, rgb.g, rgb.b, 255, '#');
 
+    game.renderer.updateBackgroundColor( this );
 };
 
 /**

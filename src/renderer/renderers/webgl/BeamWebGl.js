@@ -87,7 +87,15 @@ BeamWebGl.prototype.create = function( _canvas )
 		gl.enable( gl.BLEND );
 
 		// set the parameters to clear the render area
-		gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+		var rgb = game.stage.backgroundColorSplit;
+		if ( rgb === undefined )
+		{
+			gl.clearColor( 0, 0, 0, 1.0 );
+		}
+		else
+		{
+			gl.clearColor( rgb.r, rgb.g, rgb.b, 1.0 );
+		}
 		gl.clearDepth( 1.0 );
 
 		// precalculate the drawing buffer's half-width and height values
@@ -154,6 +162,14 @@ BeamWebGl.prototype.reset = function()
 	this.textures.currentSrcTexture = null;
 };
 
+
+BeamWebGl.prototype.setBackgroundColor = function( _colorRGB )
+{
+	if ( _colorRGB !== undefined )
+	{
+		gl.clearColor( _colorRGB[0], _colorRGB[1], _colorRGB[2], 1.0 );
+	}
+};
 
 
 BeamWebGl.prototype.scissor = function(_x, _y, _width, _height)

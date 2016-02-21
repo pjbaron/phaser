@@ -185,3 +185,14 @@ BeamPhaserRender.prototype.resize = function( _width, _height )
 	BeamPhaserRender.canvas.height = BeamPhaserRender.height;
 };
 
+
+/*
+ * updateBackgroundColor - get the stage.backgroundColor and set it for the current renderer
+ *
+ * @param { Phaser.Stage } _stage - the game's Phaser.Stage object (which contains the backgroundColor values)
+ */
+BeamPhaserRender.prototype.updateBackgroundColor = function( _stage )
+{
+	BeamPhaserRender.renderer.graphics.setBackgroundColor( _stage.backgroundColorSplit );
+};
+

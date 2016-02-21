@@ -130,6 +130,11 @@ BeamBaseGraphics.prototype.reset = function()
 	alert("ERROR: the selected graphic mode does not extend reset from BeamBaseGraphics!");
 };
 
+BeamBaseGraphics.prototype.setBackgroundColor = function(color)
+{
+	alert("ERROR: the selected graphic mode does not extend setBackgroundColor from BeamBaseGraphics!");
+};
+
 BeamBaseGraphics.prototype.scissor = function(_x, _y, _width, _height)
 {
 	alert("ERROR: the selected graphic mode does not extend scissor from BeamBaseGraphics!");
