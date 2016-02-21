@@ -272,7 +272,7 @@ Object.defineProperties(BeamSprite.prototype, {
 			return this.transform.width * this.transform.scale.x;
 		},
 		set: function(value) {
-			this.transform.width = value;
+			this.transform.scale.x = value / this.transform.width;
 		}
 	},
 
@@ -281,7 +281,7 @@ Object.defineProperties(BeamSprite.prototype, {
 			return this.transform.height * this.transform.scale.y;
 		},
 		set: function(value) {
-			this.transform.height = value;
+			this.transform.scale.y = value / this.transform.height;
 		}
 	},
 
