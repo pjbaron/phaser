@@ -392,13 +392,15 @@ BeamTransformObject.prototype.contains = function(_point)
 		var py = _point.y - this.y;
 
 		var size = this.image.getSize();
-		var x1 = -size.wide * this.image.anchor.x;
+		var wide = size.wide * this.scale.x;
+		var x1 = -wide * this.image.anchor.x;
 
-		if (px >= x1 && px < x1 + size.wide)
+		if (px >= x1 && px < x1 + wide)
 		{
-		    var y1 = -size.high * this.image.anchor.y;
+			var high = size.high * this.scale.y;
+		    var y1 = -high * this.image.anchor.y;
 
-		    if (py >= y1 && py < y1 + size.high)
+		    if (py >= y1 && py < y1 + high)
 		    {
 		        return true;
 		    }
