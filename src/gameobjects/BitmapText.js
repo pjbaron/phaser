@@ -31,7 +31,6 @@
 *
 * @class Phaser.BitmapText
 * @constructor
-* // PJBNOTE: change this to extend BeamText and check all parameters and methods accessed from the super class
 * @extends PIXI.DisplayObjectContainer
 * @extends Phaser.Component.Core
 * @extends Phaser.Component.Angle
@@ -659,3 +658,27 @@ Object.defineProperty(Phaser.BitmapText.prototype, 'smoothed', {
     }
 
 });
+
+
+Object.defineProperties(Phaser.BitmapText.prototype, {
+
+    x: {
+        get: function () {
+            return this._glyphsGroup.x;
+        },
+        set: function (value) {
+            this._glyphsGroup.x = value;
+        }
+    },
+
+    y: {
+        get: function () {
+            return this._glyphsGroup.y;
+        },
+        set: function (value) {
+            this._glyphsGroup.y = value;
+        }
+    }
+
+});
+
