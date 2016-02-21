@@ -11,6 +11,7 @@ function BeamSprite()
 	this.surface = null;
 	this.image = null;
     this.transform = new BeamTransformObject();
+    this.transform.create();
     this.anchor = null;
     this.scale = null;
     this.children = null;
@@ -241,7 +242,7 @@ Object.defineProperties(BeamSprite.prototype, {
 		},
 		set: function (value) {
 			this.transform.y = value;
-	        if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
+			if (this.body && this.body.type === Phaser.Physics.ARCADE && this.body.phase === 2)
 	        {
 	            this.body._reset = 1;
 	        }
@@ -268,7 +269,7 @@ Object.defineProperties(BeamSprite.prototype, {
 
 	width: {
 		get: function() {
-			return this.transform.width;
+			return this.transform.width * this.transform.scale.x;
 		},
 		set: function(value) {
 			this.transform.width = value;
@@ -277,7 +278,7 @@ Object.defineProperties(BeamSprite.prototype, {
 
 	height: {
 		get: function() {
-			return this.transform.height;
+			return this.transform.height * this.transform.scale.y;
 		},
 		set: function(value) {
 			this.transform.height = value;
