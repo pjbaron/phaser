@@ -1,7 +1,7 @@
 /**
  *
  * BeamRenderer - initialise the rendering system, create the surfaces, and provide the main rendering functions
- * 
+ *
  */
 
 
@@ -11,7 +11,7 @@ var imageClass;
 
 function BeamRenderer( _parent )
 {
-	console.log("BeamRenderer c'tor");
+	console.log( "BeamRenderer c'tor" );
 
 	// parameters
 	this.parent = _parent;
@@ -28,12 +28,14 @@ function BeamRenderer( _parent )
 }
 
 
-BeamRenderer.prototype.destroy = function( )
+BeamRenderer.prototype.destroy = function()
 {
-	console.log("BeamRenderer.destroy");
+	console.log( "BeamRenderer.destroy" );
 
-	if (this.graphics)
+	if ( this.graphics )
+	{
 		this.graphics.destroy();
+	}
 	this.graphics = null;
 
 	this.preUpdateCallback = null;
@@ -51,11 +53,11 @@ BeamRenderer.prototype.destroy = function( )
  */
 BeamRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameContext )
 {
-	console.log("BeamRenderer.create");
+	console.log( "BeamRenderer.create" );
 
 	this.canvas = _canvas;
 	this.gameContext = _gameContext;
-	
+
 	// reset the canvas (erase its contents and set all properties to defaults)
 	this.canvas.width = this.canvas.width;
 
@@ -63,29 +65,29 @@ BeamRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameCont
 	BeamPhaserRender.width = this.canvas.width;
 	BeamPhaserRender.height = this.canvas.height;
 	this.graphics = null;
-	
+
 	this.drawDictionary = new BeamDictionary();
 	this.drawDictionary.create();
 
 	//
 	// try to get the renderer set up
 	// all drawing modes should be tried in a predetermined order with optional preference respected
-	// order is: 'webgl', 'canvas'
 	//
+	// order is: 'webgl', 'canvas'
 	var rendererTypes = [ 'webgl', 'canvas' ];
 
 	BeamPhaserRender.useRenderer = 'none';
 	// try the preferred renderer if there is one
-	if (!_preferredRenderer || !this.tryRenderer(_preferredRenderer))
+	if ( !_preferredRenderer || !this.tryRenderer( _preferredRenderer ) )
 	{
 		// it failed, try all the other renderers
-		for(var i = 0, l = rendererTypes; i < l; i++)
+		for ( var i = 0, l = rendererTypes.length; i < l; i++ )
 		{
 			// (don't try the failed preferred choice again)
-			if (rendererTypes[i] != _preferredRenderer)
+			if ( rendererTypes[ i ] != _preferredRenderer )
 			{
 				// how about this one?
-				if (this.tryRenderer(rendererTypes[i]))
+				if ( this.tryRenderer( rendererTypes[ i ] ) )
 				{
 					// yay! success
 					break;
@@ -96,13 +98,13 @@ BeamRenderer.prototype.create = function( _preferredRenderer, _canvas, _gameCont
 };
 
 
-BeamRenderer.prototype.tryRenderer = function(_which)
+BeamRenderer.prototype.tryRenderer = function( _which )
 {
-	if (_which == 'webgl')
+	if ( _which == 'webgl' )
 	{
 		// try to get a webGL context
 		this.graphics = new BeamWebGl();
-		if (this.graphics.create(this.canvas))
+		if ( this.graphics.create( this.canvas ) )
 		{
 			// got one, now set up the support
 			BeamPhaserRender.useRenderer = 'webgl';
@@ -116,11 +118,11 @@ BeamRenderer.prototype.tryRenderer = function(_which)
 		return false;
 	}
 
-	if (_which == 'canvas')
+	if ( _which == 'canvas' )
 	{
 		// final case fallback, try canvas '2d'
 		this.graphics = new BeamCanvas();
-		if (this.graphics.create(this.canvas))
+		if ( this.graphics.create( this.canvas ) )
 		{
 			// got one, now set up the support
 			BeamPhaserRender.useRenderer = 'canvas';
@@ -145,13 +147,15 @@ BeamRenderer.prototype.preUpdate = function()
 
 	this.drawDictionary.clear();
 	// update all object transforms and build the draw dictionary
-	if (game && game.world)
-		game.world.update(this.drawDictionary);
+	if ( game && game.world )
+	{
+		game.world.update( this.drawDictionary );
+	}
 
 	// anything else specific to the current task that should happen before the screen update
 	if ( this.preUpdateCallback )
 	{
-		this.preUpdateCallback.call(this.gameContext);
+		this.preUpdateCallback.call( this.gameContext );
 	}
 };
 
@@ -165,13 +169,7 @@ BeamRenderer.prototype.update = function( game, _updateCallback, _context )
 	}
 
 	// draw *everything* in the drawDictionary
-	this.drawDictionary.iterateKeys(BeamBaseLayer.prototype.draw, this);
-	
-	// if ( BeamPhaserRender.rootLayer )
-	// {
-	// 	// the BeamPhaserRender.rootLayer update will iterate the entire display list
-	// 	BeamPhaserRender.rootLayer.update();
-	// }
+	this.drawDictionary.iterateKeys( BeamBaseLayer.prototype.draw, this );
 };
 
 
@@ -180,8 +178,6 @@ BeamRenderer.prototype.postUpdate = function()
 	// postUpdate if required
 	if ( this.postUpdateCallback )
 	{
-		this.postUpdateCallback.call(this.gameContext);
+		this.postUpdateCallback.call( this.gameContext );
 	}
 };
-
-
