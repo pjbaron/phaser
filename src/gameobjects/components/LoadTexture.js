@@ -60,7 +60,7 @@ Phaser.Component.LoadTexture.prototype = {
         if (Phaser.RenderTexture && key instanceof Phaser.RenderTexture)
         {
             this.key = key.key;
-            this.setTexture(key);
+            //this.setTexture(key);
         }
         else if (Phaser.BitmapData && key instanceof Phaser.BitmapData)
         {
@@ -82,7 +82,7 @@ Phaser.Component.LoadTexture.prototype = {
 
             //  This works from a reference, which probably isn't what we need here
             var valid = key.texture.valid;
-            this.setTexture(key.texture);
+            //this.setTexture(key.texture);
             this.setFrame(key.texture.frame.clone());
             key.onChangeSource.add(this.resizeFrame, this);
             // PJBNOTE: BeamSurface doesn't have a 'valid' boolean, is it needed?
