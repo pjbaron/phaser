@@ -43,6 +43,14 @@ BeamSprite.prototype.createWithKey = function(game, _x, _y, _key)
 		this.image = new imageClass();
 		this.image.create(this.surface);
 	}
+	else if (_key instanceof Phaser.RenderTexture)
+	{
+		this.surface = _key.rttSurface;
+
+		// create an image holder and attach the surface
+		this.image = new imageClass();
+		this.image.create(this.surface);
+	}
 	else if (_key instanceof Phaser.BitmapData)
 	{
 		var ctx = _key.context;

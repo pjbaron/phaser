@@ -474,7 +474,6 @@ Phaser.GameObjectFactory.prototype = {
         }
 
         return texture;
-
     },
 
     /**

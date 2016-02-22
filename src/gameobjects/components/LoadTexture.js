@@ -53,14 +53,16 @@ Phaser.Component.LoadTexture.prototype = {
         this.customRender = false;
         var cache = this.game.cache;
 
-        var setFrame = true;
+        // var setFrame = true;
         // PJBNOTE: smoothing not supported in the new renderer yet
         //var smoothed = !this.texture.baseTexture.scaleMode;
 
         if (Phaser.RenderTexture && key instanceof Phaser.RenderTexture)
         {
-            this.key = key.key;
+            //this.key = key.key;
             //this.setTexture(key);
+
+            this.createWithKey(this.game, this.x, this.y, this.key);
         }
         else if (Phaser.BitmapData && key instanceof Phaser.BitmapData)
         {
@@ -71,17 +73,17 @@ Phaser.Component.LoadTexture.prototype = {
             this.createWithKey(this.game, this.x, this.y, this.key);
 
 
-            if (cache.hasFrameData(key.key, Phaser.Cache.BITMAPDATA))
-            {
-                setFrame = !this.animations.loadFrameData(cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA), frame);
-            }
+            // if (cache.hasFrameData(key.key, Phaser.Cache.BITMAPDATA))
+            // {
+            //     setFrame = !this.animations.loadFrameData(cache.getFrameData(key.key, Phaser.Cache.BITMAPDATA), frame);
+            // }
         }
         else if (Phaser.Video && key instanceof Phaser.Video)
         {
             this.customRender = true;
 
             //  This works from a reference, which probably isn't what we need here
-            var valid = key.texture.valid;
+            // var valid = key.texture.valid;
             //this.setTexture(key.texture);
             this.setFrame(key.texture.frame.clone());
             key.onChangeSource.add(this.resizeFrame, this);
@@ -101,7 +103,7 @@ Phaser.Component.LoadTexture.prototype = {
         else if (key instanceof HTMLCanvasElement)
         {
             // handle keys which are 'canvas' objects
-            this.createWithKey(game, this.x, this.y, this.key);
+            this.createWithKey(this.game, this.x, this.y, this.key);
         }
         else
         {
@@ -109,9 +111,9 @@ Phaser.Component.LoadTexture.prototype = {
 
             this.key = img.key;
             // create new renderer texture
-            this.createWithKey(game, this.x, this.y, this.key);
+            this.createWithKey(this.game, this.x, this.y, this.key);
 
-            setFrame = !this.animations.loadFrameData(img.frameData, frame);
+            //setFrame = !this.animations.loadFrameData(img.frameData, frame);
         }
         
         // PJBNOTE: can't see the need for a local cache of the texture boundary
