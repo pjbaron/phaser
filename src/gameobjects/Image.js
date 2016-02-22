@@ -9,8 +9,7 @@
 * It can still rotate, scale, crop and receive input events. This makes it perfect for logos, backgrounds, simple buttons and other non-Sprite graphics.
 *
 * @class Phaser.Image
-// PJBNOTE: I expect this will change to wrap the new renderer BeamSprite, but maybe it's closer to the pbImage or BeamTransformObject?
-* @extends PIXI.Sprite
+* @extends BeamSprite
 * @extends Phaser.Component.Core
 * @extends Phaser.Component.Angle
 * @extends Phaser.Component.Animation
@@ -49,9 +48,6 @@ Phaser.Image = function (game, x, y, key, frame) {
     // call super constructor
     BeamSprite.call(this);
     
-// PJBNOTE: new Core.init function probably supercedes this.createWithKey
-    this.createWithKey(game, x, y, key);
-
     Phaser.Component.Core.init.call(this, game, x, y, key, frame);
 
 };
