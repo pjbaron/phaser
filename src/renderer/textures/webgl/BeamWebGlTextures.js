@@ -517,6 +517,38 @@ BeamWebGlTextures.prototype.drawSurfaceToTexture = function(_surface, _textureWi
 };
 
 
+/**
+ * drawSurfaceToExistingTexture - draw the provided surface on a GPU texture (centred and scaled)
+ *
+ * @param  {[type]} _surface            [description]
+ * @param  {[type]} _textureWide        [description]
+ * @param  {[type]} _textureHigh        [description]
+ * @param  {[type]} _dstTextureRegister [description]
+ *
+ * @return {[type]}                     [description]
+ */
+BeamWebGlTextures.prototype.drawSurfaceToExistingTexture = function(_rttTexture, _rttRenderBuffer, _surface, _textureWide, _textureHigh, _dstTextureRegister)
+{
+	// use GPU texture register 0 to hold the source image for this draw
+	var srcTextureRegister = 0;
+
+	// create the render-to-texture
+	// var rttTexture = BeamWebGlTextures.initTexture(_dstTextureRegister, _textureWide, _textureHigh);
+	// var rttRenderbuffer = BeamWebGlTextures.initDepth(rttTexture);
+	var rttFramebuffer = BeamWebGlTextures.initFramebuffer(_rttTexture, _rttRenderBuffer);
+
+	// draw the loaded image into the render-to-texture
+	gl.bindFramebuffer(gl.FRAMEBUFFER, rttFramebuffer);
+	gl.bindRenderbuffer(gl.RENDERBUFFER, _rttRenderBuffer);
+	// TODO: setting the viewport to the texture size means everything has to be scaled up to compensate... try to find another way
+	gl.viewport(0, 0, _textureWide, _textureHigh);
+	// offset to the middle of the texture and scale it up
+	var transform = BeamMatrix3.makeTransform(BeamPhaserRender.width/2 , BeamPhaserRender.height/2, 0, BeamPhaserRender.width/_textureWide, BeamPhaserRender.height/_textureHigh);
+	//BeamPhaserRender.renderer.graphics.drawImageWithTransform( srcTextureRegister, img, transform, 1.0 );
+	BeamPhaserRender.renderer.graphics.drawTextureWithTransform( _rttTexture, transform, 1.0, null );
+	BeamWebGlTextures.cancelFramebuffer();
+};
+
 
 
 /**
