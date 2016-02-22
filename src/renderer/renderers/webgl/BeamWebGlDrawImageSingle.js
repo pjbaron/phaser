@@ -12,11 +12,15 @@ BeamWebGl.prototype.drawImageWithTransform = function( _srcTextureRegister, _ima
 	this.shaders.setProgram(this.shaders.imageShaderProgram, _srcTextureRegister);
 
 	if (!this.positionBuffer)
+	{
 		this.prepareBuffer();
+	}
 
 	var surface = _image.surface;
 	if (this.textures.prepare( surface.imageData, _image.tiling, surface.isNPOT, _srcTextureRegister ))
+	{
 		this.shaders.prepare(_srcTextureRegister);
+	}
 
 	// split off a small part of the big buffer, for a single display object
 	var buffer = this.drawingArray.subarray(0, 16);
@@ -281,10 +285,6 @@ BeamWebGl.prototype.drawImage = function( _textureNumber, _x, _y, _z, _surface, 
 	var wide = _surface.cellSourceSize[cell].wide * 0.5;
 	var high = _surface.cellSourceSize[cell].high * 0.5;
 	var rect = _surface.cellTextureBounds[cell];
-	var tex_x = rect.x;
-	var tex_y = rect.y;
-	var tex_r = rect.x + rect.width;
-	var tex_b = rect.y + rect.height;
 
 	// screen destination position
 	// l, b,		0,1
@@ -301,10 +301,10 @@ BeamWebGl.prototype.drawImage = function( _textureNumber, _x, _y, _z, _surface, 
 	// 0, 1,		6,7
 	// 1, 0,		10,11
 	// 1, 1,		14,15
-	buffer[ 2 ] = buffer[ 6 ] = tex_x;
-	buffer[ 3 ] = buffer[ 11] = tex_b;
-	buffer[ 10] = buffer[ 14] = tex_r;
-	buffer[ 7 ] = buffer[ 15] = tex_y;
+	buffer[ 2 ] = buffer[ 6 ] = rect.x;
+	buffer[ 3 ] = buffer[ 11] = rect.y + rect.height;
+	buffer[ 10] = buffer[ 14] = rect.x + rect.width;
+	buffer[ 7 ] = buffer[ 15] = rect.y;
 
 	gl.bufferData( gl.ARRAY_BUFFER, buffer, gl.STATIC_DRAW );
 
