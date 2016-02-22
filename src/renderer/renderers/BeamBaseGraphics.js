@@ -33,7 +33,7 @@ function BeamBaseGraphics()
 
 BeamBaseGraphics.prototype.create = function( _canvas )
 {
-	alert( "ERROR: the selected graphic mode does not extend create from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload create from BeamBaseGraphics!" );
 };
 
 
@@ -117,95 +117,100 @@ BeamBaseGraphics.prototype.colorStringToRGBA = function( hex )
 
 BeamBaseGraphics.prototype.preRender = function()
 {
-	alert( "ERROR: the selected graphic mode does not extend preRender from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload preRender from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.drawImage = function( _x, _y, _z, _surface, _cellFrame, _angle, _scale )
 {
-	alert( "ERROR: the selected graphic mode does not extend drawImage from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload drawImage from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.drawImageWithTransform = function( _textureNumber, _image, _transform, _z_order )
 {
-	alert( "ERROR: the selected graphic mode does not extend drawImageWithTransform from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload drawImageWithTransform from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitDrawImages = function( _list, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitDrawImages from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitDrawImages from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.batchDrawImages = function( _list, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend batchDrawImages from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload batchDrawImages from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.rawBatchDrawImages = function( _list )
 {
-	alert( "ERROR: the selected graphic mode does not extend rawBatchDrawImages from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload rawBatchDrawImages from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.reset = function()
 {
-	alert( "ERROR: the selected graphic mode does not extend reset from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload reset from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.setBackgroundColor = function( color )
 {
-	alert( "ERROR: the selected graphic mode does not extend setBackgroundColor from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload setBackgroundColor from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.scissor = function( _x, _y, _width, _height )
 {
-	alert( "ERROR: the selected graphic mode does not extend scissor from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload scissor from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.drawRect = function( x, y, wide, high, color )
 {
-	alert( "ERROR: the selected graphic mode does not extend drawRect from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload drawRect from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.beginFill = function( _fillColor )
 {
-	alert( "ERROR: the selected graphic mode does not extend beginFill from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload beginFill from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.fillStyle = function( _fillColor, _lineColor )
 {
-	alert( "ERROR: the selected graphic mode does not extend fillStyle from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload fillStyle from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.fillRect = function( x, y, wide, high, color, targetWidth, targetHeight )
 {
-	alert( "ERROR: the selected graphic mode does not extend fillRect from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload fillRect from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitSimpleDrawImages = function( _list, _listLength, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitSimpleDrawImages from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitSimpleDrawImages from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitSimpleDrawAnimImages = function( _list, _listLength, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitSimpleDrawAnimImages from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitSimpleDrawAnimImages from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitListDirect = function( _list, _listLength, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitListDirect from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitListDirect from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitDrawImagesPoint = function( _list, _listLength, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitDrawImagesPoint from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitDrawImagesPoint from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.blitDrawImagesPointAnim = function( _list, _listLength, _surface )
 {
-	alert( "ERROR: the selected graphic mode does not extend blitDrawImagesPointAnim from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload blitDrawImagesPointAnim from BeamBaseGraphics!" );
 };
 
 BeamBaseGraphics.prototype.drawCanvasWithTransform = function( _canvas, _dirty, _transform, _z )
 {
-	alert( "ERROR: the selected graphic mode does not extend drawCanvasWithTransform from BeamBaseGraphics!" );
+	alert( "ERROR: the selected graphic mode does not overload drawCanvasWithTransform from BeamBaseGraphics!" );
+};
+
+BeamBaseGraphics.prototype.drawSurfaceToTexture = function(_surface, _textureWide, _textureHigh, _dstTextureRegister)
+{
+	alert( "ERROR: the selected graphic mode does not overload drawSurfaceToTexture from BeamBaseGraphics!" );
 };
