@@ -4,9 +4,6 @@
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
-// PJBNOTE: this seems to be directly equivalent to something I've been calling RTT (render-to-texture) in the new renderer
-// PJBNOTE: unless it adds some new features, the entire class should be deprecated.  Otherwise it may need to extend pbImage and redirect the draw methods
-// PJBNOTE: to the special purpose rtt functions in BeamWebGl.js
 
 /**
 * A RenderTexture is a special texture that allows any displayObject to be rendered to it. It allows you to take many complex objects and
@@ -44,26 +41,15 @@ Phaser.RenderTexture = function (game, width, height, key, scaleMode, resolution
     */
     this.type = Phaser.RENDERTEXTURE;
 
-    /**
-    * @property {PIXI.Matrix} matrix - The matrix that is applied when display objects are rendered to this RenderTexture.
-    */
-// PJBNOTE: see if PIXI.Matrix is 2d or 3d (3 or 4 column homogenous) and use the appropriate version of pbMatrix... check all parameters and method calls
-//    this.matrix = new PIXI.Matrix();
-
     // create a Render-to-Texture of the correct size
-    this.rttTextureRegister = 3;
-    this.rttTexture = BeamWebGlTextures.initTexture( this.rttTextureRegister, width, height);
-    // create a render buffer to match the rtt
-    this.rttRenderbuffer = BeamWebGlTextures.initDepth( this.rttTexture );
-    // create a framebuffer to reference the texture and render buffer
-    this.rttFramebuffer = BeamWebGlTextures.initFramebuffer( this.rttTexture, this.rttRenderbuffer );
-    // create a surface to hold the rtt and allow it to be used by this Phaser.Image
+    this.rtt = BeamPhaserRender.renderer.graphics.createRenderTarget(3, width, height);
+
+    // create a surface to hold the rtt, it is used by the Phaser.Image constructor
     this.rttSurface = new BeamSurface();
-    this.rttSurface.createSingle( null, this.rttTexture, this.rttTextureRegister );
+    this.rttSurface.createSingle( null, this.rtt.texture, this.rtt.index );
 
     // game, x, y, key, frame
     Phaser.Image.call( this, this.game, 0, 0, this );
-    //this.render = Phaser.RenderTexture.prototype.render;
 
 };
 
@@ -120,25 +106,16 @@ Phaser.RenderTexture.prototype.renderXY = function (displayObject, x, y, clear) 
 Phaser.RenderTexture.prototype.renderRawXY = function (displayObject, x, y, clear) {
 
     var srcImage = displayObject.image;
-    var transform = BeamMatrix3.makeTransform( x, y, 0, 1, 1);  //this.rttTexture.width/displayObject.width, BeamPhaserRender.height/displayObject.height);
+    var transform = BeamMatrix3.makeTransform( x, y, 0, 1, 1);
 
-    // TODO: draw the displayObject into the rttTexture at the given offset
-    // _surface, _textureWide, _textureHigh, _dstTextureRegister
-    //BeamPhaserRender.renderer.graphics.textures.drawSurfaceToExistingTexture(this.rttTexture, this.rttRenderbuffer, displayObject.surface, this.rttTexture.width, this.rttTexture.height, this.rttTextureRegister);
+    // set the render target to draw to the rtt texture instead of the screen display
+    BeamPhaserRender.renderer.graphics.setRenderTarget( this.rtt );
 
-// PJBNOTE: TODO: webgl specific stuff here needs to redirect through 'BeamPhaserRender.renderer.graphics' so it will work with canvas too
-    // draw the loaded image into the render-to-texture
-    gl.bindFramebuffer(gl.FRAMEBUFFER, this.rttFramebuffer);
-    gl.bindRenderbuffer(gl.RENDERBUFFER, this.rttRenderbuffer);
-
-    // TODO: setting the viewport to the texture size means everything has to be scaled up to compensate... try to find another way
-    //gl.viewport(0, 0, this.rttTexture.width, this.rttTexture.height);
-
-    //BeamPhaserRender.renderer.graphics.drawTextureWithTransform( srcTexture, transform, 1.0, null );
+    // draw the display object into the rtt texture
     BeamPhaserRender.renderer.graphics.drawImageWithTransform( 2, srcImage, transform, 1.0 );
 
     // cancel the framebuffer so that the rest of the drawing goes to the display
-    BeamWebGlTextures.cancelFramebuffer();
+    BeamPhaserRender.renderer.graphics.resetRenderTarget();
 };
 
 /**
@@ -184,14 +161,7 @@ Phaser.RenderTexture.prototype.render = function (displayObject, matrix, clear) 
 
 Phaser.RenderTexture.prototype.clear = function()
 {
-// PJBNOTE: TODO: webgl specific stuff here needs to redirect through 'BeamPhaserRender.renderer.graphics' so it will work with canvas too
-    // draw the loaded image into the render-to-texture
-    gl.bindFramebuffer(gl.FRAMEBUFFER, this.rttFramebuffer);
-    gl.bindRenderbuffer(gl.RENDERBUFFER, this.rttRenderbuffer);
-
-    gl.disable( gl.SCISSOR_TEST );
-    gl.viewport( 0, 0, this.rttTexture.width, this.rttTexture.height);
-    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+     BeamPhaserRender.renderer.graphics.clearRenderTexture( this.rtt );
 };
 
 
@@ -201,9 +171,6 @@ Phaser.RenderTexture.prototype.clear = function()
  */
 Phaser.RenderTexture.prototype.postUpdate = function()
 {
-    // don't render to texture any more, render to the display instead
-    BeamWebGlTextures.cancelFramebuffer();
-
     // draw the rtttexture to the display
     // _texture, _transform, _z
     BeamPhaserRender.renderer.graphics.drawTextureWithTransform( this.rttTexture, this.transform, 1.0 );

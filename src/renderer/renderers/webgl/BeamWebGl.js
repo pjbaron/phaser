@@ -187,6 +187,44 @@ BeamWebGl.prototype.scissor = function(_x, _y, _width, _height)
 };
 
 
+BeamWebGl.prototype.createRenderTarget = function( _textureIndex, _width, _height )
+{
+	// create a texture of the correct size using the _textureIndex register
+    var rttTexture = BeamWebGlTextures.initTexture( _textureIndex, _width, _height);
+    // create a render buffer to match the rtt
+    var rttRenderbuffer = BeamWebGlTextures.initDepth( rttTexture );
+    // create a framebuffer to reference the texture and render buffer
+    var rttFramebuffer = BeamWebGlTextures.initFramebuffer( rttTexture, rttRenderbuffer );
+    // return an object with all the important bits in it
+    return { index: _textureIndex, texture: rttTexture, renderBuffer: rttRenderbuffer, frameBuffer: rttFramebuffer };
+};
+
+
+BeamWebGl.prototype.setRenderTarget = function( _rttObject )
+{
+    // set the _rttObject (see createRenderTarget return value) as the current rendering target instead of the display screen
+    gl.bindFramebuffer(gl.FRAMEBUFFER, _rttObject.frameBuffer);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, _rttObject.renderBuffer);
+};
+
+
+BeamWebGl.prototype.resetRenderTarget = function()
+{
+	// reset the render target so future drawing goes to the display screen
+    BeamWebGlTextures.cancelFramebuffer();
+};
+
+
+BeamWebGl.prototype.clearRenderTexture = function( _rttObject )
+{
+	// change the render target and clear the texture, the reset the render target
+	this.setRenderTarget( _rttObject );
+    gl.disable( gl.SCISSOR_TEST );
+    gl.viewport( 0, 0, _rttObject.texture.width, _rttObject.texture.height);
+    gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT );
+    this.resetRenderTarget();
+};
+
 
 // check if value is a power of two 
 function isPowerOfTwo(x)
