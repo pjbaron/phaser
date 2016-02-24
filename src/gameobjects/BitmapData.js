@@ -1220,6 +1220,10 @@ Phaser.BitmapData.prototype = {
             this._rotate = source.angleInRadians;
             this._alpha.current = source.alpha;
             this._image = source.surface.imageData;   //texture.baseTexture.source;
+            if (source instanceof Phaser.Text)
+            {
+                this._image = source.canvas;
+            }
 
             if (tx === undefined || tx === null) { tx = source.x; }
             if (ty === undefined || ty === null) { ty = source.y; }

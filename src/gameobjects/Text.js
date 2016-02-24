@@ -1924,12 +1924,13 @@ Object.defineProperty(Phaser.Text.prototype, 'width', {
             this.dirty = false;
         }
 
-        return this.scale.x * this.texture.frame.width;
+        return this._width;
+        //return this.scale.x * this.surface.cellSourceSize[0].wide;
     },
 
     set: function (value) {
 
-        this.scale.x = value / this.texture.frame.width;
+        //this.scale.x = value / this.texture.frame.width;
         this._width = value;
     }
 
@@ -1949,12 +1950,13 @@ Object.defineProperty(Phaser.Text.prototype, 'height', {
             this.dirty = false;
         }
 
-        return this.scale.y * this.texture.frame.height;
+        //return this.scale.y * this.texture.frame.height;
+        return this._height;
     },
 
     set: function(value) {
 
-        this.scale.y = value / this.texture.frame.height;
+        //this.scale.y = value / this.texture.frame.height;
         this._height = value;
     }
 
