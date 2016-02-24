@@ -87,12 +87,11 @@ BeamBaseLayer.prototype.draw = function(_list)
 	{
 		if (obj.image.onGPU)
 		{
-			BeamPhaserRender.renderer.graphics.drawTextureWithTransform( obj.image.onGPU, obj.transform, obj.z_order, { x:obj.image.anchorX, y:obj.image.anchorY } );
+			BeamPhaserRender.renderer.graphics.drawTextureWithTransform( obj.image.onGPU, obj.transform, obj.z_order, obj.image.anchor );
 		}
 		else if (srf.rttTexture)
 		{
-			// TODO: fix hard-wired anchorX, anchorY
-			BeamPhaserRender.renderer.graphics.drawTextureWithTransform( srf.rttTexture, obj.transform, obj.z_order, { x:0.5, y:1.0 } );
+			BeamPhaserRender.renderer.graphics.drawTextureWithTransform( srf.rttTexture, obj.transform, obj.z_order, { x:obj.image.anchor.x, y:1.0 - obj.image.anchor.y } );
 		}
 		else if (obj.image.isModeZ)
 		{
@@ -131,7 +130,7 @@ BeamBaseLayer.prototype.draw = function(_list)
 			for(var i = 0, l = _list.length; i < l; i++)
 			{
 				obj = _list[i];
-				BeamPhaserRender.renderer.graphics.drawTextureWithTransform( obj.image.onGPU, obj.transform, obj.z_order, { x:obj.image.anchorX, y:obj.image.anchorY } );
+				BeamPhaserRender.renderer.graphics.drawTextureWithTransform( obj.image.onGPU, obj.transform, obj.z_order, obj.image.anchor );
 			}
 		}
 		else if (srf.rttTexture)

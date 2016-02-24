@@ -7,7 +7,7 @@
 
 /**
 * A RenderTexture is a special texture that allows any displayObject to be rendered to it. It allows you to take many complex objects and
-* render them down into a single quad (on WebGL) which can then be used to texture other display objects with. A way of generating textures at run-time.
+* render them down into a single surface which can then be used to texture other display objects with. A way of generating textures at run-time.
 * 
 * @class Phaser.RenderTexture
 * @constructor
@@ -50,7 +50,6 @@ Phaser.RenderTexture = function (game, width, height, key, scaleMode, resolution
 
     // game, x, y, key, frame
     Phaser.Image.call( this, this.game, 0, 0, this );
-
 };
 
 Phaser.RenderTexture.prototype = Object.create(Phaser.Image.prototype);
