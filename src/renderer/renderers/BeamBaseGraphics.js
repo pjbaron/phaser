@@ -214,3 +214,26 @@ BeamBaseGraphics.prototype.drawSurfaceToTexture = function(_surface, _textureWid
 {
 	alert( "ERROR: the selected graphic mode does not overload drawSurfaceToTexture from BeamBaseGraphics!" );
 };
+
+BeamBaseGraphics.prototype.createRenderTarget = function( _textureIndex, _width, _height )
+{
+	alert( "ERROR: the selected graphic mode does not overload createRenderTarget from BeamBaseGraphics!" );
+};
+
+
+BeamBaseGraphics.prototype.setRenderTarget = function( _rttObject )
+{
+	alert( "ERROR: the selected graphic mode does not overload setRenderTarget from BeamBaseGraphics!" );
+};
+
+
+BeamBaseGraphics.prototype.resetRenderTarget = function()
+{
+	alert( "ERROR: the selected graphic mode does not overload resetRenderTarget from BeamBaseGraphics!" );
+};
+
+
+BeamBaseGraphics.prototype.clearRenderTexture = function( _rttObject )
+{
+	alert( "ERROR: the selected graphic mode does not overload clearRenderTexture from BeamBaseGraphics!" );
+};
